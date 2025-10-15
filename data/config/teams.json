@@ -1,0 +1,155 @@
+[
+  {
+    "id": "apps-dev",
+    "name": "Apps & Dev",
+    "members": [
+      {
+        "name": "Jane Smith",
+        "role": "Lead Developer",
+        "email": "jane.smith@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "Michael Chen",
+        "role": "Senior Developer",
+        "email": "michael.chen@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "Sarah Wilson",
+        "role": "Full Stack Developer",
+        "email": "sarah.wilson@lakemac.nsw.gov.au"
+      }
+    ]
+  },
+  {
+    "id": "infrastructure",
+    "name": "Infrastructure",
+    "members": [
+      {
+        "name": "David Brown",
+        "role": "Infrastructure Manager",
+        "email": "david.brown@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "Lisa Garcia",
+        "role": "Systems Administrator",
+        "email": "lisa.garcia@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "Robert Taylor",
+        "role": "Network Engineer",
+        "email": "robert.taylor@lakemac.nsw.gov.au"
+      }
+    ]
+  },
+  {
+    "id": "cyber",
+    "name": "Cyber Security",
+    "members": [
+      {
+        "name": "Amanda Johnson",
+        "role": "Security Manager",
+        "email": "amanda.johnson@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "Kevin Lee",
+        "role": "Security Analyst",
+        "email": "kevin.lee@lakemac.nsw.gov.au"
+      }
+    ]
+  },
+  {
+    "id": "data-team",
+    "name": "Data Team",
+    "members": [
+      {
+        "name": "Emma Davis",
+        "role": "Data Manager",
+        "email": "emma.davis@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "James Miller",
+        "role": "Data Analyst",
+        "email": "james.miller@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "Rachel Thompson",
+        "role": "Business Intelligence Specialist",
+        "email": "rachel.thompson@lakemac.nsw.gov.au"
+      }
+    ]
+  },
+  {
+    "id": "web-development",
+    "name": "Web Development",
+    "members": [
+      {
+        "name": "Alex Rodriguez",
+        "role": "Web Developer",
+        "email": "alex.rodriguez@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "Jessica White",
+        "role": "Frontend Developer",
+        "email": "jessica.white@lakemac.nsw.gov.au"
+      }
+    ]
+  },
+  {
+    "id": "gis-team",
+    "name": "GIS Team",
+    "members": [
+      {
+        "name": "Mark Anderson",
+        "role": "GIS Manager",
+        "email": "mark.anderson@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "Nicole Clark",
+        "role": "GIS Analyst",
+        "email": "nicole.clark@lakemac.nsw.gov.au"
+      }
+    ]
+  },
+  {
+    "id": "it-support",
+    "name": "IT Support",
+    "members": [
+      {
+        "name": "Chris Martinez",
+        "role": "IT Support Manager",
+        "email": "chris.martinez@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "Stephanie Adams",
+        "role": "Senior Support Technician",
+        "email": "stephanie.adams@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "Daniel Kim",
+        "role": "Support Technician",
+        "email": "daniel.kim@lakemac.nsw.gov.au"
+      }
+    ]
+  },
+  {
+    "id": "digital-solutions",
+    "name": "Digital Solutions",
+    "members": [
+      {
+        "name": "Jennifer Thompson",
+        "role": "Digital Solutions Coordinator",
+        "email": "jennifer.thompson@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "Ryan Mitchell",
+        "role": "Business Analyst",
+        "email": "ryan.mitchell@lakemac.nsw.gov.au"
+      },
+      {
+        "name": "Michelle Roberts",
+        "role": "Project Manager",
+        "email": "michelle.roberts@lakemac.nsw.gov.au"
+      }
+    ]
+  }
+]

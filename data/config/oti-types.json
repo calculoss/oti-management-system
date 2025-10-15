@@ -1,0 +1,358 @@
+[
+  {
+    "id": "software-purchase",
+    "name": "Software Purchase & Setup",
+    "leadTeam": "Apps & Dev",
+    "supportingTeams": ["Cyber", "Apps & Dev", "IT Support"],
+    "standardTasks": [
+      {
+        "name": "Requirements validation",
+        "team": "Apps & Dev",
+        "sequence": 1,
+        "estimatedDays": 2
+      },
+      {
+        "name": "Cyber security assessment",
+        "team": "Cyber",
+        "sequence": 2,
+        "estimatedDays": 3
+      },
+      {
+        "name": "Installation",
+        "team": "Apps & Dev",
+        "sequence": 3,
+        "estimatedDays": 5
+      },
+      {
+        "name": "User setup",
+        "team": "IT Support",
+        "sequence": 4,
+        "estimatedDays": 2
+      }
+    ],
+    "targetDays": {
+      "urgent": 5,
+      "high": 20,
+      "medium": 30,
+      "low": 60
+    }
+  },
+  {
+    "id": "system-enhancement",
+    "name": "System Enhancement",
+    "leadTeam": "Apps & Dev",
+    "supportingTeams": ["Apps & Dev", "SME", "IT Support"],
+    "standardTasks": [
+      {
+        "name": "Requirements gathering",
+        "team": "Apps & Dev",
+        "sequence": 1,
+        "estimatedDays": 3
+      },
+      {
+        "name": "Development",
+        "team": "Apps & Dev",
+        "sequence": 2,
+        "estimatedDays": 10
+      },
+      {
+        "name": "Testing",
+        "team": "SME",
+        "sequence": 3,
+        "estimatedDays": 5
+      },
+      {
+        "name": "Deployment",
+        "team": "IT Support",
+        "sequence": 4,
+        "estimatedDays": 2
+      }
+    ],
+    "targetDays": {
+      "urgent": 5,
+      "high": 20,
+      "medium": 30,
+      "low": 60
+    }
+  },
+  {
+    "id": "data-reporting",
+    "name": "Data & Reporting Solutions",
+    "leadTeam": "Data Team",
+    "supportingTeams": ["Data Team", "Apps & Dev"],
+    "standardTasks": [
+      {
+        "name": "Data analysis",
+        "team": "Data Team",
+        "sequence": 1,
+        "estimatedDays": 5
+      },
+      {
+        "name": "Report design",
+        "team": "Data Team",
+        "sequence": 2,
+        "estimatedDays": 3
+      },
+      {
+        "name": "Implementation",
+        "team": "Apps & Dev",
+        "sequence": 3,
+        "estimatedDays": 7
+      }
+    ],
+    "targetDays": {
+      "urgent": 5,
+      "high": 20,
+      "medium": 30,
+      "low": 60
+    }
+  },
+  {
+    "id": "website-digital",
+    "name": "Website & Digital Updates",
+    "leadTeam": "Web Development",
+    "supportingTeams": ["Web Development", "Cyber", "Apps & Dev"],
+    "standardTasks": [
+      {
+        "name": "Content review",
+        "team": "Web Development",
+        "sequence": 1,
+        "estimatedDays": 2
+      },
+      {
+        "name": "Security review",
+        "team": "Cyber",
+        "sequence": 2,
+        "estimatedDays": 1
+      },
+      {
+        "name": "Implementation",
+        "team": "Web Development",
+        "sequence": 3,
+        "estimatedDays": 5
+      }
+    ],
+    "targetDays": {
+      "urgent": 5,
+      "high": 20,
+      "medium": 30,
+      "low": 60
+    }
+  },
+  {
+    "id": "hardware-equipment",
+    "name": "IT Hardware & Equipment",
+    "leadTeam": "Infrastructure",
+    "supportingTeams": ["Infrastructure", "Cyber", "IT Support"],
+    "standardTasks": [
+      {
+        "name": "Requirements assessment",
+        "team": "Infrastructure",
+        "sequence": 1,
+        "estimatedDays": 2
+      },
+      {
+        "name": "Security review",
+        "team": "Cyber",
+        "sequence": 2,
+        "estimatedDays": 1
+      },
+      {
+        "name": "Procurement",
+        "team": "Infrastructure",
+        "sequence": 3,
+        "estimatedDays": 10
+      },
+      {
+        "name": "Installation",
+        "team": "IT Support",
+        "sequence": 4,
+        "estimatedDays": 3
+      }
+    ],
+    "targetDays": {
+      "urgent": 5,
+      "high": 20,
+      "medium": 30,
+      "low": 60
+    }
+  },
+  {
+    "id": "ai-solutions",
+    "name": "AI Solutions Request",
+    "leadTeam": "Apps & Dev",
+    "supportingTeams": ["Apps & Dev", "Business Area", "IT Support", "Infrastructure"],
+    "standardTasks": [
+      {
+        "name": "Business case review",
+        "team": "Business Area",
+        "sequence": 1,
+        "estimatedDays": 3
+      },
+      {
+        "name": "Technical feasibility",
+        "team": "Apps & Dev",
+        "sequence": 2,
+        "estimatedDays": 5
+      },
+      {
+        "name": "Infrastructure planning",
+        "team": "Infrastructure",
+        "sequence": 3,
+        "estimatedDays": 3
+      },
+      {
+        "name": "Implementation",
+        "team": "Apps & Dev",
+        "sequence": 4,
+        "estimatedDays": 15
+      }
+    ],
+    "targetDays": {
+      "urgent": 5,
+      "high": 20,
+      "medium": 30,
+      "low": 60
+    }
+  },
+  {
+    "id": "process-automation",
+    "name": "Process Automation",
+    "leadTeam": "Apps & Dev",
+    "supportingTeams": ["Apps & Dev", "Data", "Infrastructure", "Cyber", "SME", "IT Support"],
+    "standardTasks": [
+      {
+        "name": "Process analysis",
+        "team": "SME",
+        "sequence": 1,
+        "estimatedDays": 5
+      },
+      {
+        "name": "Automation design",
+        "team": "Apps & Dev",
+        "sequence": 2,
+        "estimatedDays": 7
+      },
+      {
+        "name": "Security review",
+        "team": "Cyber",
+        "sequence": 3,
+        "estimatedDays": 2
+      },
+      {
+        "name": "Implementation",
+        "team": "Apps & Dev",
+        "sequence": 4,
+        "estimatedDays": 10
+      }
+    ],
+    "targetDays": {
+      "urgent": 5,
+      "high": 20,
+      "medium": 30,
+      "low": 60
+    }
+  },
+  {
+    "id": "spatial-gis",
+    "name": "Spatial Solutions & Analysis (GIS)",
+    "leadTeam": "GIS Team",
+    "supportingTeams": ["GIS Team", "Data Team"],
+    "standardTasks": [
+      {
+        "name": "Data collection",
+        "team": "GIS Team",
+        "sequence": 1,
+        "estimatedDays": 5
+      },
+      {
+        "name": "Analysis",
+        "team": "GIS Team",
+        "sequence": 2,
+        "estimatedDays": 7
+      },
+      {
+        "name": "Report generation",
+        "team": "Data Team",
+        "sequence": 3,
+        "estimatedDays": 3
+      }
+    ],
+    "targetDays": {
+      "urgent": 5,
+      "high": 20,
+      "medium": 30,
+      "low": 60
+    }
+  },
+  {
+    "id": "professional-services",
+    "name": "Professional Services & Advisory",
+    "leadTeam": "Digital Solutions",
+    "supportingTeams": ["Digital Solutions (BA)", "Relevant Technical Area"],
+    "standardTasks": [
+      {
+        "name": "Requirements gathering",
+        "team": "Digital Solutions (BA)",
+        "sequence": 1,
+        "estimatedDays": 3
+      },
+      {
+        "name": "Vendor selection",
+        "team": "Digital Solutions (BA)",
+        "sequence": 2,
+        "estimatedDays": 5
+      },
+      {
+        "name": "Service delivery",
+        "team": "Relevant Technical Area",
+        "sequence": 3,
+        "estimatedDays": 15
+      }
+    ],
+    "targetDays": {
+      "urgent": 5,
+      "high": 20,
+      "medium": 30,
+      "low": 60
+    }
+  },
+  {
+    "id": "custom-solution",
+    "name": "Custom Solution",
+    "leadTeam": "Digital Solutions",
+    "supportingTeams": ["All Team Leads", "Digital Solutions (BA)", "PMO"],
+    "standardTasks": [
+      {
+        "name": "Business analysis",
+        "team": "Digital Solutions (BA)",
+        "sequence": 1,
+        "estimatedDays": 7
+      },
+      {
+        "name": "Solution design",
+        "team": "All Team Leads",
+        "sequence": 2,
+        "estimatedDays": 10
+      },
+      {
+        "name": "Project planning",
+        "team": "PMO",
+        "sequence": 3,
+        "estimatedDays": 5
+      },
+      {
+        "name": "Implementation",
+        "team": "All Team Leads",
+        "sequence": 4,
+        "estimatedDays": 20
+      }
+    ],
+    "targetDays": {
+      "urgent": 5,
+      "high": 20,
+      "medium": 30,
+      "low": 60
+    }
+  }
+]

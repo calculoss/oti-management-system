@@ -1,0 +1,44 @@
+{
+  "priorities": {
+    "urgent": {
+      "name": "Urgent",
+      "targetDays": 5,
+      "color": "#DC2626",
+      "criteria": [
+        "System failures affecting business operations",
+        "Compliance or security requirements with deadlines",
+        "Director-level requests with business justification"
+      ]
+    },
+    "high": {
+      "name": "High",
+      "targetDays": 20,
+      "color": "#F59E0B",
+      "criteria": [
+        "Department efficiency improvements with measurable impact",
+        "Customer service enhancements",
+        "Process automation with clear ROI"
+      ]
+    },
+    "medium": {
+      "name": "Medium",
+      "targetDays": 30,
+      "color": "#FCD34D",
+      "criteria": [
+        "General system enhancements",
+        "Reporting and analytics requests",
+        "Standard software implementations"
+      ]
+    },
+    "low": {
+      "name": "Low",
+      "targetDays": 60,
+      "color": "#10B981",
+      "criteria": [
+        "Nice-to-have improvements",
+        "Exploratory or pilot projects",
+        "Non-urgent equipment purchases"
+      ]
+    }
+  }
+}

@@ -1,0 +1,686 @@
+[
+  {
+    "id": "OTI-2025-001",
+    "title": "SharePoint Integration for HR System",
+    "description": "Integrate the new HR management system with SharePoint to enable automated document workflows and improve employee onboarding processes.",
+    "otiType": "system-enhancement",
+    "priority": "high",
+    "status": "in-progress",
+    "requestor": {
+      "name": "John Smith",
+      "email": "john.smith@lakemac.nsw.gov.au",
+      "department": "Human Resources"
+    },
+    "leadTeam": "Apps & Dev",
+    "leadCoordinator": "Jane Smith",
+    "supportingTeams": ["Cyber", "IT Support"],
+    "dateSubmitted": "2025-01-15",
+    "targetCompletionDate": "2025-02-14",
+    "actualCompletionDate": null,
+    "progressPercentage": 45,
+    "businessJustification": "Reduces manual data entry by 20 hours per week and improves data accuracy",
+    "escalationNotes": [],
+    "serviceNowParentId": "INC0012345",
+    "taskIds": ["TASK-001", "TASK-002", "TASK-003"],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-15",
+        "notes": "Initial assessment by Business Analyst",
+        "updatedBy": "Ryan Mitchell"
+      },
+      {
+        "status": "in-progress",
+        "date": "2025-01-18",
+        "notes": "Tasks assigned to teams, development started",
+        "updatedBy": "Jane Smith"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Jane Smith",
+        "text": "Cyber assessment approved, proceeding with development phase"
+      },
+      {
+        "date": "2025-01-22",
+        "author": "Michael Chen",
+        "text": "API integration completed, testing phase beginning"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-002",
+    "title": "Microsoft Teams Premium License Purchase",
+    "description": "Purchase and configure Microsoft Teams Premium licenses for executive team to enable advanced meeting features and AI capabilities.",
+    "otiType": "software-purchase",
+    "priority": "urgent",
+    "status": "stalled",
+    "requestor": {
+      "name": "Sarah Johnson",
+      "email": "sarah.johnson@lakemac.nsw.gov.au",
+      "department": "Executive"
+    },
+    "leadTeam": "Apps & Dev",
+    "leadCoordinator": "Sarah Wilson",
+    "supportingTeams": ["Cyber", "IT Support"],
+    "dateSubmitted": "2025-01-10",
+    "targetCompletionDate": "2025-01-17",
+    "actualCompletionDate": null,
+    "progressPercentage": 25,
+    "businessJustification": "Required for upcoming board meetings and executive communications",
+    "escalationNotes": ["Waiting for budget approval from Finance Department"],
+    "serviceNowParentId": "INC0012346",
+    "taskIds": ["TASK-004"],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-10",
+        "notes": "Urgent request from Executive team",
+        "updatedBy": "Ryan Mitchell"
+      },
+      {
+        "status": "in-progress",
+        "date": "2025-01-11",
+        "notes": "Cyber assessment completed, awaiting budget approval",
+        "updatedBy": "Sarah Wilson"
+      },
+      {
+        "status": "stalled",
+        "date": "2025-01-16",
+        "notes": "Blocked pending Finance approval",
+        "updatedBy": "Sarah Wilson"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-16",
+        "author": "Sarah Wilson",
+        "text": "Finance approval required - escalated to Director"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-003",
+    "title": "Customer Service Portal Enhancement",
+    "description": "Enhance the existing customer service portal with new features including live chat, ticket tracking, and mobile responsiveness.",
+    "otiType": "website-digital",
+    "priority": "medium",
+    "status": "in-progress",
+    "requestor": {
+      "name": "David Wilson",
+      "email": "david.wilson@lakemac.nsw.gov.au",
+      "department": "Customer Service"
+    },
+    "leadTeam": "Web Development",
+    "leadCoordinator": "Alex Rodriguez",
+    "supportingTeams": ["Cyber", "Apps & Dev"],
+    "dateSubmitted": "2025-01-08",
+    "targetCompletionDate": "2025-02-07",
+    "actualCompletionDate": null,
+    "progressPercentage": 70,
+    "businessJustification": "Improves customer satisfaction and reduces phone call volume by 30%",
+    "escalationNotes": [],
+    "serviceNowParentId": "INC0012347",
+    "taskIds": ["TASK-005", "TASK-006", "TASK-007"],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-08",
+        "notes": "Requirements gathered and approved",
+        "updatedBy": "Ryan Mitchell"
+      },
+      {
+        "status": "in-progress",
+        "date": "2025-01-12",
+        "notes": "Development started, UI framework implemented",
+        "updatedBy": "Alex Rodriguez"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-25",
+        "author": "Alex Rodriguez",
+        "text": "Mobile responsiveness completed, live chat integration in progress"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-004",
+    "title": "Data Analytics Dashboard for Finance",
+    "description": "Create a comprehensive analytics dashboard for the Finance department to track budget performance, expenditure trends, and forecasting.",
+    "otiType": "data-reporting",
+    "priority": "high",
+    "status": "done",
+    "requestor": {
+      "name": "Lisa Brown",
+      "email": "lisa.brown@lakemac.nsw.gov.au",
+      "department": "Finance"
+    },
+    "leadTeam": "Data Team",
+    "leadCoordinator": "Emma Davis",
+    "supportingTeams": ["Apps & Dev"],
+    "dateSubmitted": "2024-12-15",
+    "targetCompletionDate": "2025-01-14",
+    "actualCompletionDate": "2025-01-12",
+    "progressPercentage": 100,
+    "businessJustification": "Enables real-time budget monitoring and improves financial decision making",
+    "escalationNotes": [],
+    "serviceNowParentId": "INC0012348",
+    "taskIds": ["TASK-008", "TASK-009", "TASK-010"],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2024-12-15",
+        "notes": "Initial requirements analysis completed",
+        "updatedBy": "Ryan Mitchell"
+      },
+      {
+        "status": "in-progress",
+        "date": "2024-12-18",
+        "notes": "Data modeling and dashboard design started",
+        "updatedBy": "Emma Davis"
+      },
+      {
+        "status": "done",
+        "date": "2025-01-12",
+        "notes": "Dashboard completed and deployed successfully",
+        "updatedBy": "Emma Davis"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-10",
+        "author": "Emma Davis",
+        "text": "Final testing completed, ready for deployment"
+      },
+      {
+        "date": "2025-01-12",
+        "author": "Lisa Brown",
+        "text": "Dashboard deployed and user training completed"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-005",
+    "title": "Network Infrastructure Upgrade",
+    "description": "Upgrade core network switches and routers to support increased bandwidth requirements and improve network reliability.",
+    "otiType": "hardware-equipment",
+    "priority": "medium",
+    "status": "in-progress",
+    "requestor": {
+      "name": "Robert Taylor",
+      "email": "robert.taylor@lakemac.nsw.gov.au",
+      "department": "Infrastructure"
+    },
+    "leadTeam": "Infrastructure",
+    "leadCoordinator": "David Brown",
+    "supportingTeams": ["Cyber", "IT Support"],
+    "dateSubmitted": "2025-01-05",
+    "targetCompletionDate": "2025-02-04",
+    "actualCompletionDate": null,
+    "progressPercentage": 60,
+    "businessJustification": "Improves network performance and reduces downtime incidents by 40%",
+    "escalationNotes": [],
+    "serviceNowParentId": "INC0012349",
+    "taskIds": ["TASK-011", "TASK-012"],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-05",
+        "notes": "Infrastructure assessment completed",
+        "updatedBy": "David Brown"
+      },
+      {
+        "status": "in-progress",
+        "date": "2025-01-08",
+        "notes": "Equipment ordered, installation planning started",
+        "updatedBy": "David Brown"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "David Brown",
+        "text": "Equipment delivered, installation scheduled for next week"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-006",
+    "title": "AI-Powered Document Processing",
+    "description": "Implement AI solution for automated document processing and data extraction to reduce manual data entry across departments.",
+    "otiType": "ai-solutions",
+    "priority": "high",
+    "status": "received",
+    "requestor": {
+      "name": "Jennifer Thompson",
+      "email": "jennifer.thompson@lakemac.nsw.gov.au",
+      "department": "Digital Solutions"
+    },
+    "leadTeam": "Apps & Dev",
+    "leadCoordinator": "Jane Smith",
+    "supportingTeams": ["Business Area", "IT Support", "Infrastructure"],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-19",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Automates document processing, saving 15 hours per week across multiple departments",
+    "escalationNotes": [],
+    "serviceNowParentId": null,
+    "taskIds": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "Initial assessment and requirements gathering in progress",
+        "updatedBy": "Ryan Mitchell"
+      }
+    ],
+    "notes": []
+  },
+  {
+    "id": "OTI-2025-007",
+    "title": "GIS Mapping System Enhancement",
+    "description": "Enhance the existing GIS system with new mapping layers, improved performance, and mobile access capabilities.",
+    "otiType": "spatial-gis",
+    "priority": "medium",
+    "status": "in-progress",
+    "requestor": {
+      "name": "Mark Anderson",
+      "email": "mark.anderson@lakemac.nsw.gov.au",
+      "department": "Planning"
+    },
+    "leadTeam": "GIS Team",
+    "leadCoordinator": "Mark Anderson",
+    "supportingTeams": ["Data Team"],
+    "dateSubmitted": "2025-01-12",
+    "targetCompletionDate": "2025-02-11",
+    "actualCompletionDate": null,
+    "progressPercentage": 35,
+    "businessJustification": "Improves planning efficiency and provides better public access to mapping data",
+    "escalationNotes": [],
+    "serviceNowParentId": "INC0012350",
+    "taskIds": ["TASK-013", "TASK-014"],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-12",
+        "notes": "Requirements analysis completed",
+        "updatedBy": "Ryan Mitchell"
+      },
+      {
+        "status": "in-progress",
+        "date": "2025-01-16",
+        "notes": "Data collection and mapping layer development started",
+        "updatedBy": "Mark Anderson"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-24",
+        "author": "Nicole Clark",
+        "text": "New mapping layers created, performance optimization in progress"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-008",
+    "title": "Workflow Automation for Procurement",
+    "description": "Automate the procurement approval workflow to reduce processing time and improve compliance tracking.",
+    "otiType": "process-automation",
+    "priority": "high",
+    "status": "done",
+    "requestor": {
+      "name": "Michelle Roberts",
+      "email": "michelle.roberts@lakemac.nsw.gov.au",
+      "department": "Procurement"
+    },
+    "leadTeam": "Apps & Dev",
+    "leadCoordinator": "Sarah Wilson",
+    "supportingTeams": ["Apps & Dev", "Data", "Infrastructure", "Cyber", "SME", "IT Support"],
+    "dateSubmitted": "2024-12-01",
+    "targetCompletionDate": "2024-12-31",
+    "actualCompletionDate": "2024-12-28",
+    "progressPercentage": 100,
+    "businessJustification": "Reduces procurement processing time by 50% and improves compliance",
+    "escalationNotes": [],
+    "serviceNowParentId": "INC0012351",
+    "taskIds": ["TASK-015", "TASK-016", "TASK-017", "TASK-018"],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2024-12-01",
+        "notes": "Process analysis completed",
+        "updatedBy": "Ryan Mitchell"
+      },
+      {
+        "status": "in-progress",
+        "date": "2024-12-05",
+        "notes": "Automation design and development started",
+        "updatedBy": "Sarah Wilson"
+      },
+      {
+        "status": "done",
+        "date": "2024-12-28",
+        "notes": "Automation deployed and tested successfully",
+        "updatedBy": "Sarah Wilson"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2024-12-20",
+        "author": "Sarah Wilson",
+        "text": "Development completed, user acceptance testing in progress"
+      },
+      {
+        "date": "2024-12-28",
+        "author": "Michelle Roberts",
+        "text": "Workflow automation deployed successfully, training completed"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-009",
+    "title": "Security Assessment Services",
+    "description": "Engage external security consultants to perform comprehensive security assessment of IT infrastructure and applications.",
+    "otiType": "professional-services",
+    "priority": "urgent",
+    "status": "in-progress",
+    "requestor": {
+      "name": "Amanda Johnson",
+      "email": "amanda.johnson@lakemac.nsw.gov.au",
+      "department": "Cyber Security"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Jennifer Thompson",
+    "supportingTeams": ["Digital Solutions (BA)", "Relevant Technical Area"],
+    "dateSubmitted": "2025-01-03",
+    "targetCompletionDate": "2025-01-10",
+    "actualCompletionDate": null,
+    "progressPercentage": 80,
+    "businessJustification": "Required for compliance audit and cybersecurity insurance renewal",
+    "escalationNotes": [],
+    "serviceNowParentId": "INC0012352",
+    "taskIds": ["TASK-019", "TASK-020"],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-03",
+        "notes": "Urgent compliance requirement",
+        "updatedBy": "Ryan Mitchell"
+      },
+      {
+        "status": "in-progress",
+        "date": "2025-01-04",
+        "notes": "Vendor selected and assessment started",
+        "updatedBy": "Jennifer Thompson"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-25",
+        "author": "Amanda Johnson",
+        "text": "Assessment 80% complete, final report expected next week"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-010",
+    "title": "Mobile App for Field Services",
+    "description": "Develop a custom mobile application for field service teams to improve work order management and customer communication.",
+    "otiType": "custom-solution",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Chris Martinez",
+      "email": "chris.martinez@lakemac.nsw.gov.au",
+      "department": "Field Services"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Jennifer Thompson",
+    "supportingTeams": ["All Team Leads", "Digital Solutions (BA)", "PMO"],
+    "dateSubmitted": "2025-01-18",
+    "targetCompletionDate": "2025-03-19",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Improves field service efficiency and customer satisfaction",
+    "escalationNotes": [],
+    "serviceNowParentId": null,
+    "taskIds": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-18",
+        "notes": "Initial business analysis in progress",
+        "updatedBy": "Ryan Mitchell"
+      }
+    ],
+    "notes": []
+  },
+  {
+    "id": "OTI-2025-011",
+    "title": "Backup System Upgrade",
+    "description": "Upgrade the existing backup system to improve reliability and add cloud backup capabilities.",
+    "otiType": "hardware-equipment",
+    "priority": "high",
+    "status": "in-progress",
+    "requestor": {
+      "name": "Lisa Garcia",
+      "email": "lisa.garcia@lakemac.nsw.gov.au",
+      "department": "Infrastructure"
+    },
+    "leadTeam": "Infrastructure",
+    "leadCoordinator": "David Brown",
+    "supportingTeams": ["Cyber", "IT Support"],
+    "dateSubmitted": "2025-01-14",
+    "targetCompletionDate": "2025-02-13",
+    "actualCompletionDate": null,
+    "progressPercentage": 55,
+    "businessJustification": "Improves data protection and disaster recovery capabilities",
+    "escalationNotes": [],
+    "serviceNowParentId": "INC0012353",
+    "taskIds": ["TASK-021", "TASK-022"],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-14",
+        "notes": "Requirements analysis completed",
+        "updatedBy": "Ryan Mitchell"
+      },
+      {
+        "status": "in-progress",
+        "date": "2025-01-17",
+        "notes": "Equipment ordered and installation planned",
+        "updatedBy": "David Brown"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-23",
+        "author": "David Brown",
+        "text": "Cloud backup configuration in progress"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-012",
+    "title": "Website Accessibility Compliance",
+    "description": "Update the main council website to meet WCAG 2.1 AA accessibility standards for compliance requirements.",
+    "otiType": "website-digital",
+    "priority": "high",
+    "status": "stalled",
+    "requestor": {
+      "name": "Jessica White",
+      "email": "jessica.white@lakemac.nsw.gov.au",
+      "department": "Communications"
+    },
+    "leadTeam": "Web Development",
+    "leadCoordinator": "Alex Rodriguez",
+    "supportingTeams": ["Cyber", "Apps & Dev"],
+    "dateSubmitted": "2025-01-06",
+    "targetCompletionDate": "2025-02-05",
+    "actualCompletionDate": null,
+    "progressPercentage": 30,
+    "businessJustification": "Required for legal compliance and accessibility standards",
+    "escalationNotes": ["Waiting for content audit completion from Communications team"],
+    "serviceNowParentId": "INC0012354",
+    "taskIds": ["TASK-023"],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-06",
+        "notes": "Compliance requirement identified",
+        "updatedBy": "Ryan Mitchell"
+      },
+      {
+        "status": "in-progress",
+        "date": "2025-01-09",
+        "notes": "Technical audit started",
+        "updatedBy": "Alex Rodriguez"
+      },
+      {
+        "status": "stalled",
+        "date": "2025-01-20",
+        "notes": "Blocked pending content audit",
+        "updatedBy": "Alex Rodriguez"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Alex Rodriguez",
+        "text": "Technical changes ready, waiting for content team"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-013",
+    "title": "Email System Migration",
+    "description": "Migrate from on-premises Exchange to Microsoft 365 for improved reliability and collaboration features.",
+    "otiType": "system-enhancement",
+    "priority": "medium",
+    "status": "done",
+    "requestor": {
+      "name": "Stephanie Adams",
+      "email": "stephanie.adams@lakemac.nsw.gov.au",
+      "department": "IT Support"
+    },
+    "leadTeam": "Apps & Dev",
+    "leadCoordinator": "Jane Smith",
+    "supportingTeams": ["Apps & Dev", "SME", "IT Support"],
+    "dateSubmitted": "2024-11-15",
+    "targetCompletionDate": "2024-12-15",
+    "actualCompletionDate": "2024-12-12",
+    "progressPercentage": 100,
+    "businessJustification": "Improves email reliability and enables advanced collaboration features",
+    "escalationNotes": [],
+    "serviceNowParentId": "INC0012355",
+    "taskIds": ["TASK-024", "TASK-025", "TASK-026"],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2024-11-15",
+        "notes": "Migration planning started",
+        "updatedBy": "Ryan Mitchell"
+      },
+      {
+        "status": "in-progress",
+        "date": "2024-11-20",
+        "notes": "Migration testing and preparation",
+        "updatedBy": "Jane Smith"
+      },
+      {
+        "status": "done",
+        "date": "2024-12-12",
+        "notes": "Migration completed successfully",
+        "updatedBy": "Jane Smith"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2024-12-10",
+        "author": "Jane Smith",
+        "text": "Migration completed, user training in progress"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-014",
+    "title": "Digital Forms Platform",
+    "description": "Implement a digital forms platform to replace paper-based forms and improve data collection efficiency.",
+    "otiType": "software-purchase",
+    "priority": "medium",
+    "status": "in-progress",
+    "requestor": {
+      "name": "Rachel Thompson",
+      "email": "rachel.thompson@lakemac.nsw.gov.au",
+      "department": "Data Team"
+    },
+    "leadTeam": "Apps & Dev",
+    "leadCoordinator": "Michael Chen",
+    "supportingTeams": ["Cyber", "Apps & Dev", "IT Support"],
+    "dateSubmitted": "2025-01-09",
+    "targetCompletionDate": "2025-02-08",
+    "actualCompletionDate": null,
+    "progressPercentage": 40,
+    "businessJustification": "Reduces paper usage and improves data accuracy",
+    "escalationNotes": [],
+    "serviceNowParentId": "INC0012356",
+    "taskIds": ["TASK-027", "TASK-028"],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-09",
+        "notes": "Requirements gathered",
+        "updatedBy": "Ryan Mitchell"
+      },
+      {
+        "status": "in-progress",
+        "date": "2025-01-13",
+        "notes": "Platform evaluation and setup started",
+        "updatedBy": "Michael Chen"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-22",
+        "author": "Michael Chen",
+        "text": "Platform selected, configuration in progress"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-015",
+    "title": "IT Asset Management System",
+    "description": "Implement a comprehensive IT asset management system to track hardware, software licenses, and maintenance schedules.",
+    "otiType": "software-purchase",
+    "priority": "low",
+    "status": "received",
+    "requestor": {
+      "name": "Daniel Kim",
+      "email": "daniel.kim@lakemac.nsw.gov.au",
+      "department": "IT Support"
+    },
+    "leadTeam": "Apps & Dev",
+    "leadCoordinator": "Sarah Wilson",
+    "supportingTeams": ["Cyber", "Apps & Dev", "IT Support"],
+    "dateSubmitted": "2025-01-21",
+    "targetCompletionDate": "2025-03-22",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Improves asset tracking and reduces license compliance risks",
+    "escalationNotes": [],
+    "serviceNowParentId": null,
+    "taskIds": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-21",
+        "notes": "Initial assessment in progress",
+        "updatedBy": "Ryan Mitchell"
+      }
+    ],
+    "notes": []
+  }
+]

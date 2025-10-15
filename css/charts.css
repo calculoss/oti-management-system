@@ -1,0 +1,525 @@
+/**
+ * Charts Styles - OTI Management System
+ * 
+ * Styles for D3.js charts and data visualizations including
+ * tooltips, legends, and interactive elements.
+ */
+
+/* ===== CHART BASE STYLES ===== */
+.chart {
+  width: 100%;
+  height: 100%;
+}
+
+.chart svg {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-body);
+}
+
+/* ===== DONUT CHARTS ===== */
+.donut-chart {
+  position: relative;
+}
+
+.donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.donut-center-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-900);
+}
+
+.donut-center-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+.donut-slice {
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.donut-slice:hover {
+  opacity: 0.8;
+  transform: scale(1.02);
+}
+
+/* ===== BAR CHARTS ===== */
+.bar-chart .bar {
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.bar-chart .bar:hover {
+  opacity: 0.8;
+}
+
+.bar-chart .bar-group {
+  transition: all var(--transition-base);
+}
+
+.bar-chart .bar-group:hover {
+  opacity: 0.8;
+}
+
+/* ===== LINE CHARTS ===== */
+.line-chart .line {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.line-chart .line-path {
+  cursor: pointer;
+  transition: stroke-width var(--transition-base);
+}
+
+.line-chart .line-path:hover {
+  stroke-width: 4;
+}
+
+.line-chart .area {
+  opacity: 0.2;
+  transition: opacity var(--transition-base);
+}
+
+.line-chart .area:hover {
+  opacity: 0.3;
+}
+
+/* ===== AXES ===== */
+.chart-axis {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+.chart-axis .domain {
+  stroke: var(--color-gray-300);
+  stroke-width: 1;
+}
+
+.chart-axis .tick line {
+  stroke: var(--color-gray-300);
+  stroke-width: 1;
+}
+
+.chart-axis .tick text {
+  fill: var(--color-gray-600);
+  font-size: var(--font-size-sm);
+}
+
+.chart-axis-x .tick text {
+  text-anchor: middle;
+}
+
+.chart-axis-y .tick text {
+  text-anchor: end;
+}
+
+/* ===== GRID LINES ===== */
+.chart-grid .grid-line {
+  stroke: var(--color-gray-200);
+  stroke-width: 1;
+  stroke-dasharray: 2,2;
+  opacity: 0.7;
+}
+
+.chart-grid .grid-line-strong {
+  stroke: var(--color-gray-300);
+  stroke-width: 1;
+  stroke-dasharray: none;
+}
+
+/* ===== LEGENDS ===== */
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-4);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  transition: opacity var(--transition-base);
+}
+
+.legend-item:hover {
+  opacity: 0.8;
+}
+
+.legend-item.disabled {
+  opacity: 0.4;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.legend-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  font-weight: var(--font-weight-medium);
+}
+
+.legend-value {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin-left: auto;
+}
+
+/* ===== TOOLTIPS ===== */
+.chart-tooltip {
+  position: absolute;
+  background: var(--color-gray-900);
+  color: var(--color-white);
+  padding: var(--spacing-3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  z-index: var(--z-tooltip);
+  box-shadow: var(--shadow-lg);
+}
+
+.chart-tooltip.visible {
+  opacity: 1;
+}
+
+.tooltip-title {
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-1);
+  color: var(--color-white);
+}
+
+.tooltip-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+}
+
+.tooltip-label {
+  color: var(--color-gray-300);
+}
+
+.tooltip-value {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-white);
+}
+
+.tooltip-color {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: var(--spacing-2);
+  flex-shrink: 0;
+}
+
+/* ===== SANKEY DIAGRAMS ===== */
+.sankey-diagram .node {
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.sankey-diagram .node:hover {
+  opacity: 0.8;
+}
+
+.sankey-diagram .node-rect {
+  transition: all var(--transition-base);
+}
+
+.sankey-diagram .node-rect:hover {
+  stroke-width: 2;
+  stroke: var(--color-white);
+}
+
+.sankey-diagram .link {
+  cursor: pointer;
+  transition: opacity var(--transition-base);
+}
+
+.sankey-diagram .link:hover {
+  opacity: 0.8;
+}
+
+.sankey-diagram .node-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  fill: var(--color-gray-800);
+  pointer-events: none;
+}
+
+.sankey-diagram .node-value {
+  font-size: var(--font-size-xs);
+  fill: var(--color-gray-600);
+  pointer-events: none;
+}
+
+/* ===== HEATMAPS ===== */
+.heatmap-cell {
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.heatmap-cell:hover {
+  stroke: var(--color-white);
+  stroke-width: 2;
+}
+
+.heatmap-label {
+  font-size: var(--font-size-sm);
+  fill: var(--color-gray-700);
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+/* ===== SCATTER PLOTS ===== */
+.scatter-plot .point {
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.scatter-plot .point:hover {
+  stroke: var(--color-white);
+  stroke-width: 2;
+  r: 6;
+}
+
+.scatter-plot .point.selected {
+  stroke: var(--color-primary-light);
+  stroke-width: 2;
+}
+
+/* ===== BUBBLE CHARTS ===== */
+.bubble-chart .bubble {
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.bubble-chart .bubble:hover {
+  stroke: var(--color-white);
+  stroke-width: 2;
+}
+
+.bubble-label {
+  font-size: var(--font-size-xs);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+  fill: var(--color-gray-700);
+}
+
+/* ===== TREEMAP ===== */
+.treemap-tile {
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.treemap-tile:hover {
+  stroke: var(--color-white);
+  stroke-width: 2;
+}
+
+.treemap-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  fill: var(--color-gray-800);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+.treemap-value {
+  font-size: var(--font-size-xs);
+  fill: var(--color-gray-600);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+/* ===== RESPONSIVE CHART BEHAVIOR ===== */
+@media (max-width: 768px) {
+  .chart-legend {
+    justify-content: center;
+  }
+  
+  .legend-item {
+    font-size: var(--font-size-xs);
+  }
+  
+  .chart-tooltip {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-2);
+  }
+  
+  .sankey-diagram .node-label {
+    font-size: var(--font-size-xs);
+  }
+  
+  .heatmap-label {
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* ===== CHART ANIMATIONS ===== */
+@keyframes chartFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chart-container {
+  animation: chartFadeIn 0.5s ease-out;
+}
+
+/* ===== CHART LOADING STATES ===== */
+.chart-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: var(--color-gray-500);
+}
+
+.chart-loading .spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-gray-200);
+  border-top: 2px solid var(--color-primary-light);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--spacing-3);
+}
+
+.chart-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: var(--color-error);
+  text-align: center;
+}
+
+.chart-error-icon {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-3);
+}
+
+.chart-error-message {
+  font-size: var(--font-size-sm);
+}
+
+/* ===== CHART CONTROLS ===== */
+.chart-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-4);
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+}
+
+.chart-controls-left {
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: center;
+}
+
+.chart-controls-right {
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: center;
+}
+
+.chart-control-button {
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-gray-700);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.chart-control-button:hover {
+  border-color: var(--color-primary-light);
+  color: var(--color-primary-light);
+}
+
+.chart-control-button.active {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary-light);
+  color: var(--color-white);
+}
+
+.chart-control-select {
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+/* ===== ACCESSIBILITY ===== */
+.chart-container:focus-within {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: 2px;
+}
+
+.chart-container[aria-label] {
+  position: relative;
+}
+
+.chart-container[aria-label]::before {
+  content: attr(aria-label);
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .chart-controls {
+    display: none;
+  }
+  
+  .chart-tooltip {
+    display: none;
+  }
+  
+  .chart {
+    break-inside: avoid;
+  }
+}
