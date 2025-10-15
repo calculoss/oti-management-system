@@ -10,7 +10,7 @@
  */
 class DataManager {
   constructor() {
-    this.dataPath = '/data';
+    this.dataPath = './data';
     this.cache = {}; // Cache loaded data
   }
 
