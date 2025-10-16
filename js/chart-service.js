@@ -401,6 +401,172 @@ class ChartService {
   }
 
   /**
+   * Create multi-line chart for trends
+   * @param {string} containerId - Container element ID
+   * @param {Object} data - Chart data with labels and datasets
+   * @param {Object} options - Chart options
+   */
+  createMultiLineChart(containerId, data, options = {}) {
+    const chart = this.createChart(containerId, options);
+    if (!chart) return;
+
+    const { g, width, height } = chart;
+    
+    const { labels, datasets } = data;
+    
+    // Scales
+    const xScale = d3.scalePoint()
+      .domain(labels)
+      .range([0, width])
+      .padding(0.1);
+    
+    const allValues = datasets.flatMap(ds => ds.data);
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(allValues) * 1.1])
+      .range([height, 0]);
+    
+    // Line generator
+    const line = d3.line()
+      .x((d, i) => xScale(labels[i]))
+      .y(d => yScale(d))
+      .curve(d3.curveMonotoneX);
+    
+    // Draw grid if requested
+    if (options.showGrid) {
+      const yTicks = yScale.ticks(5);
+      g.selectAll('.grid-line')
+        .data(yTicks)
+        .enter()
+        .append('line')
+        .attr('class', 'grid-line')
+        .attr('x1', 0)
+        .attr('x2', width)
+        .attr('y1', d => yScale(d))
+        .attr('y2', d => yScale(d))
+        .style('stroke', '#E5E7EB')
+        .style('stroke-width', 1)
+        .style('stroke-dasharray', '3,3');
+    }
+    
+    // Draw each dataset
+    datasets.forEach((dataset, idx) => {
+      const lineGroup = g.append('g').attr('class', `line-group-${idx}`);
+      
+      // Draw line
+      lineGroup
+        .append('path')
+        .attr('class', `line-path line-${idx}`)
+        .datum(dataset.data)
+        .attr('d', line)
+        .attr('fill', 'none')
+        .attr('stroke', dataset.color || this.defaultColors[idx])
+        .attr('stroke-width', 3)
+        .style('opacity', 0)
+        .transition()
+        .duration(800)
+        .style('opacity', 1);
+      
+      // Draw dots
+      lineGroup
+        .selectAll(`.dot-${idx}`)
+        .data(dataset.data)
+        .enter()
+        .append('circle')
+        .attr('class', `dot dot-${idx}`)
+        .attr('cx', (d, i) => xScale(labels[i]))
+        .attr('cy', d => yScale(d))
+        .attr('r', 4)
+        .attr('fill', dataset.color || this.defaultColors[idx])
+        .attr('stroke', 'white')
+        .attr('stroke-width', 2)
+        .style('opacity', 0)
+        .on('mouseover', function(event, d) {
+          d3.select(this)
+            .transition()
+            .duration(200)
+            .attr('r', 6);
+          
+          if (options.tooltip) {
+            const dataIndex = dataset.data.indexOf(d);
+            options.tooltip.show(event, {
+              label: labels[dataIndex],
+              value: d,
+              series: dataset.label
+            });
+          }
+        })
+        .on('mouseout', function(event, d) {
+          d3.select(this)
+            .transition()
+            .duration(200)
+            .attr('r', 4);
+          
+          if (options.tooltip) {
+            options.tooltip.hide();
+          }
+        })
+        .transition()
+        .delay(800)
+        .duration(400)
+        .style('opacity', 1);
+    });
+    
+    // Add axes
+    const xAxis = d3.axisBottom(xScale);
+    const yAxis = d3.axisLeft(yScale).ticks(5);
+    
+    g.append('g')
+      .attr('class', 'chart-axis chart-axis-x')
+      .attr('transform', `translate(0,${height})`)
+      .call(xAxis)
+      .selectAll('text')
+      .style('text-anchor', 'middle')
+      .style('font-size', '11px');
+    
+    g.append('g')
+      .attr('class', 'chart-axis chart-axis-y')
+      .call(yAxis)
+      .selectAll('text')
+      .style('font-size', '11px');
+    
+    // Add y-axis label
+    if (options.yAxisLabel) {
+      g.append('text')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', -50)
+        .attr('x', -(height / 2))
+        .attr('text-anchor', 'middle')
+        .style('font-size', '12px')
+        .style('fill', '#6B7280')
+        .text(options.yAxisLabel);
+    }
+    
+    // Add legend if requested
+    if (options.showLegend) {
+      const legend = g.append('g')
+        .attr('class', 'chart-legend')
+        .attr('transform', `translate(${width - 150}, -10)`);
+      
+      datasets.forEach((dataset, idx) => {
+        const legendRow = legend.append('g')
+          .attr('transform', `translate(0, ${idx * 25})`);
+        
+        legendRow.append('rect')
+          .attr('width', 18)
+          .attr('height', 3)
+          .attr('fill', dataset.color || this.defaultColors[idx]);
+        
+        legendRow.append('text')
+          .attr('x', 24)
+          .attr('y', 4)
+          .style('font-size', '12px')
+          .style('fill', '#374151')
+          .text(dataset.label);
+      });
+    }
+  }
+
+  /**
    * Create Sankey diagram for pipeline flow
    * @param {string} containerId - Container element ID
    * @param {Array} data - Chart data

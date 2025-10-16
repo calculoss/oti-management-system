@@ -121,27 +121,58 @@ class DashboardView {
           </div>
         </div>
 
-        <!-- Health Metrics -->
-        <div class="health-metrics">
-          <!-- Stalled OTIs -->
-          <div class="chart-container">
+        <!-- Performance Trends Section -->
+        <div class="performance-trends-section">
+          <div class="chart-container full-width">
             <div class="chart-header">
-              <h3 class="chart-title">Stalled OTIs</h3>
-              <p class="chart-subtitle">Items requiring immediate attention</p>
+              <h3 class="chart-title">📈 12-Month Performance Trends</h3>
+              <p class="chart-subtitle">Track workload, throughput, and performance against historical baseline</p>
             </div>
-            <div class="chart-content" id="stalled-otis">
-              <!-- Stalled OTIs table -->
+            <div class="chart-content" id="trends-chart">
+              <!-- Monthly trends line chart -->
             </div>
           </div>
 
-          <!-- Overdue OTIs -->
-          <div class="chart-container">
-            <div class="chart-header">
-              <h3 class="chart-title">Overdue OTIs</h3>
-              <p class="chart-subtitle">Items past their target completion date</p>
+          <!-- KPI Cards -->
+          <div class="kpi-cards-grid">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-icon">🚀</span>
+                <span class="kpi-label">Throughput</span>
+              </div>
+              <div class="kpi-value" id="kpi-throughput-value">--</div>
+              <div class="kpi-subtitle" id="kpi-throughput-subtitle">vs. 12-month average</div>
+              <div class="kpi-trend" id="kpi-throughput-trend"></div>
             </div>
-            <div class="chart-content" id="overdue-otis">
-              <!-- Overdue OTIs table -->
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-icon">📊</span>
+                <span class="kpi-label">Active Backlog</span>
+              </div>
+              <div class="kpi-value" id="kpi-backlog-value">--</div>
+              <div class="kpi-subtitle" id="kpi-backlog-subtitle">vs. 12-month average</div>
+              <div class="kpi-trend" id="kpi-backlog-trend"></div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-icon">⏱️</span>
+                <span class="kpi-label">Avg. Cycle Time</span>
+              </div>
+              <div class="kpi-value" id="kpi-cycletime-value">--</div>
+              <div class="kpi-subtitle" id="kpi-cycletime-subtitle">vs. 12-month average</div>
+              <div class="kpi-trend" id="kpi-cycletime-trend"></div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-icon">⚠️</span>
+                <span class="kpi-label">Issues</span>
+              </div>
+              <div class="kpi-value" id="kpi-issues-value">--</div>
+              <div class="kpi-subtitle" id="kpi-issues-subtitle">Stalled + Overdue</div>
+              <div class="kpi-trend" id="kpi-issues-trend"></div>
             </div>
           </div>
         </div>
@@ -249,8 +280,8 @@ class DashboardView {
         this.renderTeamChart(),
         this.renderPriorityChart(),
         this.renderTypeChart(),
-        this.renderStalledOTIs(),
-        this.renderOverdueOTIs()
+        this.renderTrendsChart(),
+        this.renderKPICards()
       ]);
     } catch (error) {
       console.error('❌ Error rendering charts:', error);
@@ -430,7 +461,210 @@ class DashboardView {
   }
 
   /**
-   * Render stalled OTIs table
+   * Render 12-month performance trends chart
+   */
+  async renderTrendsChart() {
+    const container = document.getElementById('trends-chart');
+    if (!container || !this.chartService) return;
+
+    try {
+      const trendsData = this.calculate12MonthTrends();
+      
+      // Prepare data for multi-line chart
+      const months = trendsData.map(d => d.month);
+      const datasets = [
+        {
+          label: 'Submitted',
+          data: trendsData.map(d => d.submitted),
+          color: '#00C7FF',
+          fillOpacity: 0
+        },
+        {
+          label: 'Completed',
+          data: trendsData.map(d => d.completed),
+          color: '#00E39D',
+          fillOpacity: 0
+        },
+        {
+          label: 'Active (End of Month)',
+          data: trendsData.map(d => d.active),
+          color: '#F59E0B',
+          fillOpacity: 0
+        }
+      ];
+
+      this.chartService.createMultiLineChart('trends-chart', {
+        labels: months,
+        datasets: datasets
+      }, {
+        height: 400,
+        showGrid: true,
+        showLegend: true,
+        yAxisLabel: 'Number of OTIs'
+      });
+
+    } catch (error) {
+      console.error('❌ Error rendering trends chart:', error);
+      container.innerHTML = '<div class="chart-error">Failed to load trends data</div>';
+    }
+  }
+
+  /**
+   * Calculate 12-month trends data
+   */
+  calculate12MonthTrends() {
+    const otis = this.otiService.getAllOTIs();
+    const trends = [];
+    const now = new Date();
+    
+    // Generate last 12 months
+    for (let i = 11; i >= 0; i--) {
+      const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const monthStart = new Date(date.getFullYear(), date.getMonth(), 1);
+      const monthEnd = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+      
+      const monthLabel = date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+      
+      // Count submitted in this month
+      const submitted = otis.filter(oti => {
+        const submitDate = new Date(oti.dateSubmitted);
+        return submitDate >= monthStart && submitDate <= monthEnd;
+      }).length;
+      
+      // Count completed in this month
+      const completed = otis.filter(oti => {
+        if (!oti.actualCompletionDate) return false;
+        const completeDate = new Date(oti.actualCompletionDate);
+        return completeDate >= monthStart && completeDate <= monthEnd;
+      }).length;
+      
+      // Count active at end of month
+      const active = otis.filter(oti => {
+        const submitDate = new Date(oti.dateSubmitted);
+        const completeDate = oti.actualCompletionDate ? new Date(oti.actualCompletionDate) : null;
+        
+        // Submitted before or during this month AND (not completed OR completed after this month)
+        return submitDate <= monthEnd && (!completeDate || completeDate > monthEnd);
+      }).length;
+      
+      trends.push({
+        month: monthLabel,
+        submitted,
+        completed,
+        active,
+        date: monthStart
+      });
+    }
+    
+    return trends;
+  }
+
+  /**
+   * Render KPI cards
+   */
+  async renderKPICards() {
+    try {
+      const trends = this.calculate12MonthTrends();
+      const otis = this.otiService.getAllOTIs();
+      
+      // Current month (last in trends array)
+      const currentMonth = trends[trends.length - 1];
+      
+      // Calculate 12-month averages (excluding current month if it's incomplete)
+      const completedMonths = trends.slice(0, -1); // Exclude current month
+      const avgSubmitted = completedMonths.reduce((sum, m) => sum + m.submitted, 0) / completedMonths.length;
+      const avgCompleted = completedMonths.reduce((sum, m) => sum + m.completed, 0) / completedMonths.length;
+      const avgActive = completedMonths.reduce((sum, m) => sum + m.active, 0) / completedMonths.length;
+      
+      // KPI 1: Throughput (Completed this month)
+      const throughputChange = avgCompleted > 0 ? ((currentMonth.completed - avgCompleted) / avgCompleted * 100) : 0;
+      this.updateKPI('throughput', currentMonth.completed, throughputChange, avgCompleted);
+      
+      // KPI 2: Active Backlog
+      const backlogChange = avgActive > 0 ? ((currentMonth.active - avgActive) / avgActive * 100) : 0;
+      this.updateKPI('backlog', currentMonth.active, backlogChange, avgActive);
+      
+      // KPI 3: Cycle Time (average days to complete for completed OTIs)
+      const completedOTIs = otis.filter(oti => oti.actualCompletionDate && oti.status === 'done');
+      const cycleTimes = completedOTIs.map(oti => {
+        const start = new Date(oti.dateSubmitted);
+        const end = new Date(oti.actualCompletionDate);
+        return Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+      });
+      const avgCycleTime = cycleTimes.length > 0 ? Math.round(cycleTimes.reduce((a, b) => a + b, 0) / cycleTimes.length) : 0;
+      
+      // Compare to previous period (rough estimate)
+      const recentCompleted = completedOTIs.filter(oti => {
+        const completeDate = new Date(oti.actualCompletionDate);
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        return completeDate >= thirtyDaysAgo;
+      });
+      const recentCycleTimes = recentCompleted.map(oti => {
+        const start = new Date(oti.dateSubmitted);
+        const end = new Date(oti.actualCompletionDate);
+        return Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+      });
+      const recentAvgCycleTime = recentCycleTimes.length > 0 ? Math.round(recentCycleTimes.reduce((a, b) => a + b, 0) / recentCycleTimes.length) : avgCycleTime;
+      const cycleTimeChange = avgCycleTime > 0 ? ((recentAvgCycleTime - avgCycleTime) / avgCycleTime * 100) : 0;
+      
+      document.getElementById('kpi-cycletime-value').textContent = `${avgCycleTime}d`;
+      document.getElementById('kpi-cycletime-subtitle').textContent = `Recent: ${recentAvgCycleTime}d`;
+      this.updateKPITrend('cycletime', -cycleTimeChange); // Negative because lower is better
+      
+      // KPI 4: Issues (Stalled + Overdue)
+      const stalledCount = otis.filter(oti => oti.status === 'stalled').length;
+      const overdueCount = otis.filter(oti => this.otiService.isOverdue(oti)).length;
+      const issuesCount = stalledCount + overdueCount;
+      
+      document.getElementById('kpi-issues-value').textContent = issuesCount;
+      document.getElementById('kpi-issues-subtitle').textContent = `${stalledCount} stalled, ${overdueCount} overdue`;
+      
+      // Issues trend (less is better)
+      const issuesTrend = issuesCount === 0 ? '✅ Excellent' : issuesCount < 5 ? '⚠️ Monitor' : '🔴 Action Needed';
+      document.getElementById('kpi-issues-trend').innerHTML = `
+        <span class="trend-indicator ${issuesCount === 0 ? 'trend-good' : issuesCount < 5 ? 'trend-warning' : 'trend-bad'}">
+          ${issuesTrend}
+        </span>
+      `;
+
+    } catch (error) {
+      console.error('❌ Error rendering KPI cards:', error);
+    }
+  }
+
+  /**
+   * Update KPI card
+   */
+  updateKPI(type, value, changePercent, average) {
+    const valueEl = document.getElementById(`kpi-${type}-value`);
+    const subtitleEl = document.getElementById(`kpi-${type}-subtitle`);
+    
+    valueEl.textContent = Math.round(value);
+    subtitleEl.textContent = `12-mo avg: ${Math.round(average)}`;
+    
+    this.updateKPITrend(type, changePercent);
+  }
+
+  /**
+   * Update KPI trend indicator
+   */
+  updateKPITrend(type, changePercent) {
+    const trendEl = document.getElementById(`kpi-${type}-trend`);
+    const absChange = Math.abs(changePercent);
+    const direction = changePercent > 0 ? '↗️' : changePercent < 0 ? '↘️' : '➡️';
+    const trendClass = absChange < 5 ? 'trend-neutral' : changePercent > 0 ? 'trend-good' : 'trend-bad';
+    const trendText = absChange < 5 ? 'Stable' : `${direction} ${absChange.toFixed(0)}%`;
+    
+    trendEl.innerHTML = `
+      <span class="trend-indicator ${trendClass}">
+        ${trendText}
+      </span>
+    `;
+  }
+
+  /**
+   * Render stalled OTIs table (DEPRECATED - keeping for compatibility)
    */
   renderStalledOTIs() {
     const container = document.getElementById('stalled-otis');
