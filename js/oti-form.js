@@ -51,14 +51,9 @@ class OTIFormView {
    */
   async loadFormData() {
     try {
-      // Load OTI types
-      this.otiTypes = await this.otiService.dataManager.load('oti-types');
-      
-      // Load teams
-      this.teams = await this.otiService.dataManager.load('teams');
-      
-      // Load priorities
-      const priorityData = await this.otiService.dataManager.load('priorities');
+      this.otiTypes = await this.otiService.dataManager.loadJSON('config/oti-types.json');
+      this.teams = await this.otiService.dataManager.loadJSON('config/teams.json');
+      const priorityData = await this.otiService.dataManager.loadJSON('config/priorities.json');
       this.priorities = priorityData.priorities;
       
       // Load existing OTI data if editing

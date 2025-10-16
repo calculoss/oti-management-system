@@ -211,7 +211,7 @@ class DashboardView {
   async renderCharts() {
     try {
       await Promise.all([
-        this.renderPipelineChart(),
+        // this.renderPipelineChart(); // Temporarily disabled - data format issue
         this.renderStatusChart(),
         this.renderTeamChart(),
         this.renderPriorityChart(),
@@ -472,7 +472,7 @@ class DashboardView {
             ${overdueOTIs.map(oti => {
               const targetDate = new Date(oti.targetCompletionDate);
               const currentDate = new Date();
-              const daysOverdue = this.otiService.getBusinessDaysBetween(targetDate, currentDate);
+              const daysOverdue = Math.ceil((currentDate - targetDate) / (1000 * 60 * 60 * 24));
               
               return `
                 <tr>
