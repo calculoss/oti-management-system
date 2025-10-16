@@ -32,6 +32,9 @@ class DashboardView {
       this.render();
       this.setupEventListeners();
       
+      // Wait for DOM to be fully rendered before drawing charts
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
       console.log('✅ Dashboard initialized');
       
     } catch (error) {

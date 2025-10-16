@@ -204,7 +204,9 @@ class ChartService {
    * @param {Object} options - Chart options
    */
   createHorizontalBarChart(containerId, data, options = {}) {
-    const chart = this.createChart(containerId, options);
+    // Increase left margin for horizontal bar charts to fit labels
+    const chartOptions = { ...options, margin: { top: 20, right: 40, bottom: 20, left: 150 } };
+    const chart = this.createChart(containerId, chartOptions);
     if (!chart) return;
 
     const { g, width, height } = chart;
