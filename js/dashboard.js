@@ -486,6 +486,7 @@ class DashboardView {
         datasets: datasets
       }, {
         height: 400,
+        margin: { top: 60, right: 40, bottom: 50, left: 70 },
         showGrid: true,
         showLegend: true,
         yAxisLabel: 'Number of OTIs'

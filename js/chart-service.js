@@ -545,11 +545,11 @@ class ChartService {
     if (options.showLegend) {
       const legend = g.append('g')
         .attr('class', 'chart-legend')
-        .attr('transform', `translate(${width - 150}, 0)`);
+        .attr('transform', `translate(${width - 480}, -50)`);
       
       datasets.forEach((dataset, idx) => {
         const legendRow = legend.append('g')
-          .attr('transform', `translate(0, ${idx * 25})`);
+          .attr('transform', `translate(${idx * 160}, 0)`);
         
         legendRow.append('rect')
           .attr('width', 18)
