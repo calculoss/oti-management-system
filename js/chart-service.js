@@ -93,8 +93,8 @@ class ChartService {
 
     const { g, width, height } = chart;
     
-    // Calculate radius based on available space
-    const radius = Math.min(width, height) / 2;
+    // Calculate radius based on available space (with padding)
+    const radius = (Math.min(width, height) / 2) * 0.9; // 90% to add padding
     const innerRadius = radius * (options.innerRadius || 0.6);
     
     // Create pie layout

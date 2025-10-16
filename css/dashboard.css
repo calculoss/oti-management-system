@@ -148,6 +148,21 @@
   overflow: visible;
 }
 
+/* Tables need auto height to expand with content */
+#stalled-otis,
+#overdue-otis {
+  height: auto;
+  min-height: 200px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+/* Pipeline chart needs less height to avoid overlap */
+#pipeline-chart {
+  height: 300px;
+  min-height: 300px;
+}
+
 .chart-loading {
   display: flex;
   align-items: center;
