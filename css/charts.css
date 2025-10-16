@@ -31,6 +31,15 @@
   justify-content: center !important;
 }
 
+/* Force visibility for donut charts */
+#status-chart svg,
+#priority-chart svg {
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
 #status-chart svg,
 #priority-chart svg,
 #team-chart svg,

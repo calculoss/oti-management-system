@@ -214,7 +214,7 @@ class DashboardView {
   async renderCharts() {
     try {
       await Promise.all([
-        // this.renderPipelineChart(); // Temporarily disabled - data format issue
+        this.renderPipelineChart(),
         this.renderStatusChart(),
         this.renderTeamChart(),
         this.renderPriorityChart(),
@@ -228,7 +228,7 @@ class DashboardView {
   }
 
   /**
-   * Render pipeline flow chart
+   * Render pipeline flow chart (simplified as horizontal bar chart)
    */
   async renderPipelineChart() {
     const container = document.getElementById('pipeline-chart');
@@ -238,22 +238,15 @@ class DashboardView {
       const otis = this.otiService.getAllOTIs();
       const statusCounts = this.groupByStatus(otis);
       
-      // Create pipeline flow data
-      const pipelineData = {
-        nodes: [
-          { name: 'Received', value: statusCounts.received || 0 },
-          { name: 'In Progress', value: statusCounts['in-progress'] || 0 },
-          { name: 'Stalled', value: statusCounts.stalled || 0 },
-          { name: 'Done', value: statusCounts.done || 0 }
-        ],
-        links: [
-          { source: 'Received', target: 'In Progress', value: statusCounts['in-progress'] || 0 },
-          { source: 'In Progress', target: 'Stalled', value: statusCounts.stalled || 0 },
-          { source: 'In Progress', target: 'Done', value: statusCounts.done || 0 }
-        ]
-      };
+      // Create simple pipeline data for horizontal bar chart
+      const pipelineData = [
+        { label: 'Received', value: statusCounts.received || 0 },
+        { label: 'In Progress', value: statusCounts['in-progress'] || 0 },
+        { label: 'Stalled', value: statusCounts.stalled || 0 },
+        { label: 'Done', value: statusCounts.done || 0 }
+      ];
 
-      this.chartService.createSankeyChart('pipeline-chart', pipelineData, {
+      this.chartService.createHorizontalBarChart('pipeline-chart', pipelineData, {
         colors: ['#9CA3AF', '#00C7FF', '#DC2626', '#00E39D'],
         tooltip: this.chartService.createTooltip('pipeline-chart')
       });
