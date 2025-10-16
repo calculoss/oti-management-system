@@ -142,13 +142,20 @@ class ChartService {
       .attr('class', 'donut-center')
       .attr('transform', `translate(${validWidth / 2},${validHeight / 2})`);
     
+    console.log(`🎯 Center group transform for ${containerId}:`, `translate(${validWidth / 2},${validHeight / 2})`);
+    
     // Draw slices
+    const pieData = pie(data);
+    console.log(`🥧 Pie data for ${containerId}:`, pieData);
+    
     const slices = centerGroup
       .selectAll('.donut-slice')
-      .data(pie(data))
+      .data(pieData)
       .enter()
       .append('g')
       .attr('class', 'donut-slice');
+    
+    console.log(`📊 Created ${slices.size()} slices for ${containerId}`);
     
     slices
       .append('path')
