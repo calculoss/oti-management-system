@@ -196,7 +196,32 @@ class OTIDetailView {
                 <div class="progress-fill-large ${this.getProgressClass(this.oti.progressPercentage || 0)}" 
                      style="width: ${this.oti.progressPercentage || 0}%"></div>
               </div>
-              <div class="progress-details">
+              
+              <!-- Progress Update Control -->
+              <div class="progress-update-control" style="margin-top: 1rem; padding: 1rem; background: #f9fafb; border-radius: 0.5rem;">
+                <label for="progress-slider" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">
+                  Update Progress
+                </label>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <input 
+                    type="range" 
+                    id="progress-slider" 
+                    min="0" 
+                    max="100" 
+                    step="5" 
+                    value="${this.oti.progressPercentage || 0}"
+                    style="flex: 1;"
+                  />
+                  <span id="progress-display" style="font-weight: 600; min-width: 3rem; text-align: right;">
+                    ${this.oti.progressPercentage || 0}%
+                  </span>
+                </div>
+                <button id="update-progress-btn" class="button button-primary" style="width: 100%; margin-top: 0.75rem;">
+                  💾 Update Progress
+                </button>
+              </div>
+
+              <div class="progress-details" style="margin-top: 1rem;">
                 <div class="progress-detail">
                   <div class="progress-detail-value">${this.otiService.calculateDaysActive(this.oti)}</div>
                   <div class="progress-detail-label">Days Active</div>
@@ -214,6 +239,46 @@ class OTIDetailView {
                   </a>
                 </div>
               ` : ''}
+            </div>
+
+            <!-- Status Change Section -->
+            <div class="info-card">
+              <div class="info-card-header">
+                <h2 class="info-card-title">Change Status</h2>
+              </div>
+              <div class="status-buttons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem;">
+                <button class="status-btn ${this.oti.status === 'received' ? 'status-active' : ''}" data-status="received" style="padding: 0.5rem; border: 2px solid #e5e7eb; border-radius: 0.375rem; background: ${this.oti.status === 'received' ? '#3b82f6' : 'white'}; color: ${this.oti.status === 'received' ? 'white' : '#374151'}; font-weight: 500; cursor: pointer;">
+                  📥 Received
+                </button>
+                <button class="status-btn ${this.oti.status === 'in-progress' ? 'status-active' : ''}" data-status="in-progress" style="padding: 0.5rem; border: 2px solid #e5e7eb; border-radius: 0.375rem; background: ${this.oti.status === 'in-progress' ? '#3b82f6' : 'white'}; color: ${this.oti.status === 'in-progress' ? 'white' : '#374151'}; font-weight: 500; cursor: pointer;">
+                  ⚙️ In Progress
+                </button>
+                <button class="status-btn ${this.oti.status === 'stalled' ? 'status-active' : ''}" data-status="stalled" style="padding: 0.5rem; border: 2px solid #e5e7eb; border-radius: 0.375rem; background: ${this.oti.status === 'stalled' ? '#ef4444' : 'white'}; color: ${this.oti.status === 'stalled' ? 'white' : '#374151'}; font-weight: 500; cursor: pointer;">
+                  ⚠️ Stalled
+                </button>
+                <button class="status-btn ${this.oti.status === 'done' ? 'status-active' : ''}" data-status="done" style="padding: 0.5rem; border: 2px solid #e5e7eb; border-radius: 0.375rem; background: ${this.oti.status === 'done' ? '#10b981' : 'white'}; color: ${this.oti.status === 'done' ? 'white' : '#374151'}; font-weight: 500; cursor: pointer;">
+                  ✅ Done
+                </button>
+              </div>
+              <div id="status-note-section" style="display: none;">
+                <label for="status-note" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">
+                  Status Change Note (required)
+                </label>
+                <textarea 
+                  id="status-note" 
+                  rows="3" 
+                  placeholder="Why are you changing the status?"
+                  style="width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 0.375rem; font-size: 0.875rem; margin-bottom: 0.75rem;"
+                ></textarea>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button id="cancel-status-btn" class="button button-secondary" style="flex: 1;">
+                    Cancel
+                  </button>
+                  <button id="confirm-status-btn" class="button button-primary" style="flex: 1;">
+                    Confirm Change
+                  </button>
+                </div>
+              </div>
             </div>
 
             <!-- Key Dates -->
@@ -330,6 +395,70 @@ class OTIDetailView {
    * Setup event listeners
    */
   setupEventListeners() {
+    // Progress slider - update display as user moves slider
+    const progressSlider = document.getElementById('progress-slider');
+    const progressDisplay = document.getElementById('progress-display');
+    if (progressSlider && progressDisplay) {
+      progressSlider.addEventListener('input', (e) => {
+        progressDisplay.textContent = `${e.target.value}%`;
+      });
+    }
+
+    // Update progress button
+    const updateProgressBtn = document.getElementById('update-progress-btn');
+    if (updateProgressBtn) {
+      updateProgressBtn.addEventListener('click', () => {
+        this.handleProgressUpdate();
+      });
+    }
+
+    // Status change buttons
+    const statusButtons = document.querySelectorAll('.status-btn');
+    let selectedStatus = null;
+    
+    statusButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const newStatus = btn.dataset.status;
+        
+        // Don't allow changing to current status
+        if (newStatus === this.oti.status) {
+          return;
+        }
+        
+        // Show note section
+        selectedStatus = newStatus;
+        document.getElementById('status-note-section').style.display = 'block';
+        
+        // Highlight selected button
+        statusButtons.forEach(b => {
+          b.style.opacity = b === btn ? '1' : '0.5';
+        });
+      });
+    });
+
+    // Cancel status change
+    const cancelStatusBtn = document.getElementById('cancel-status-btn');
+    if (cancelStatusBtn) {
+      cancelStatusBtn.addEventListener('click', () => {
+        document.getElementById('status-note-section').style.display = 'none';
+        document.getElementById('status-note').value = '';
+        statusButtons.forEach(b => {
+          b.style.opacity = '1';
+        });
+        selectedStatus = null;
+      });
+    }
+
+    // Confirm status change
+    const confirmStatusBtn = document.getElementById('confirm-status-btn');
+    if (confirmStatusBtn) {
+      confirmStatusBtn.addEventListener('click', () => {
+        if (selectedStatus) {
+          this.handleStatusChange(selectedStatus);
+        }
+      });
+    }
+
     // Edit button
     const editBtn = document.getElementById('edit-oti-btn');
     if (editBtn) {
@@ -615,6 +744,81 @@ class OTIDetailView {
         <button onclick="location.reload()" class="button button-primary">Refresh Page</button>
       </div>
     `;
+  }
+
+  /**
+   * Handle progress update
+   */
+  async handleProgressUpdate() {
+    const progressSlider = document.getElementById('progress-slider');
+    const newProgress = parseInt(progressSlider.value);
+    
+    if (newProgress === this.oti.progressPercentage) {
+      alert('Progress value has not changed.');
+      return;
+    }
+
+    // Show confirmation
+    if (!confirm(`Update progress from ${this.oti.progressPercentage}% to ${newProgress}%?`)) {
+      return;
+    }
+
+    try {
+      // Update progress
+      const updatedOTI = await this.otiService.updateProgress(
+        this.otiId,
+        newProgress,
+        'Current User' // In production, get from auth system
+      );
+
+      // Reload data and re-render
+      this.oti = updatedOTI;
+      
+      // Show success message
+      alert(`✅ Progress updated to ${newProgress}%`);
+      
+      // Reload the page to show updated data
+      await this.init();
+      
+    } catch (error) {
+      console.error('❌ Error updating progress:', error);
+      alert('Failed to update progress. Please try again.');
+    }
+  }
+
+  /**
+   * Handle status change
+   */
+  async handleStatusChange(newStatus) {
+    const statusNote = document.getElementById('status-note').value.trim();
+    
+    if (!statusNote) {
+      alert('Please provide a note explaining the status change.');
+      return;
+    }
+
+    try {
+      // Update status
+      const updatedOTI = await this.otiService.updateStatus(
+        this.otiId,
+        newStatus,
+        statusNote,
+        'Current User' // In production, get from auth system
+      );
+
+      // Reload data and re-render
+      this.oti = updatedOTI;
+      
+      // Show success message
+      alert(`✅ Status changed to ${newStatus}`);
+      
+      // Reload the page to show updated data
+      await this.init();
+      
+    } catch (error) {
+      console.error('❌ Error updating status:', error);
+      alert('Failed to update status. Please try again.');
+    }
   }
 
   /**

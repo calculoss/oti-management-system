@@ -111,7 +111,8 @@ class OTIService {
       const updatedOTI = {
         ...existingOTI,
         ...updateData,
-        id: existingOTI.id // Ensure ID cannot be changed
+        id: existingOTI.id, // Ensure ID cannot be changed
+        lastModified: new Date().toISOString()
       };
 
       this.otis[index] = updatedOTI;
@@ -124,6 +125,95 @@ class OTIService {
       
     } catch (error) {
       console.error(`❌ Error updating OTI ${id}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update OTI progress percentage
+   * @param {string} id - OTI ID
+   * @param {number} progressPercentage - Progress (0-100)
+   * @param {string} updatedBy - Name of person updating
+   * @returns {Promise<Object>} Updated OTI
+   */
+  async updateProgress(id, progressPercentage, updatedBy = 'System') {
+    try {
+      const oti = this.getOTIById(id);
+      if (!oti) {
+        throw new Error(`OTI with ID ${id} not found`);
+      }
+
+      // Validate progress
+      const progress = Math.max(0, Math.min(100, progressPercentage));
+
+      // Add note about progress update
+      const note = {
+        date: new Date().toISOString(),
+        author: updatedBy,
+        text: `Progress updated from ${oti.progressPercentage}% to ${progress}%`
+      };
+
+      const notes = [...(oti.notes || []), note];
+
+      return await this.updateOTI(id, {
+        progressPercentage: progress,
+        notes: notes,
+        lastModifiedBy: updatedBy
+      });
+      
+    } catch (error) {
+      console.error(`❌ Error updating progress for OTI ${id}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update OTI status with history tracking
+   * @param {string} id - OTI ID
+   * @param {string} newStatus - New status (received|in-progress|stalled|done)
+   * @param {string} statusNote - Note explaining status change
+   * @param {string} updatedBy - Name of person updating
+   * @returns {Promise<Object>} Updated OTI
+   */
+  async updateStatus(id, newStatus, statusNote, updatedBy = 'System') {
+    try {
+      const oti = this.getOTIById(id);
+      if (!oti) {
+        throw new Error(`OTI with ID ${id} not found`);
+      }
+
+      // Validate status
+      const validStatuses = ['received', 'in-progress', 'stalled', 'done'];
+      if (!validStatuses.includes(newStatus)) {
+        throw new Error(`Invalid status: ${newStatus}`);
+      }
+
+      // Add to status history
+      const historyEntry = {
+        status: newStatus,
+        date: new Date().toISOString(),
+        notes: statusNote || `Status changed to ${newStatus}`,
+        updatedBy: updatedBy
+      };
+
+      const statusHistory = [...(oti.statusHistory || []), historyEntry];
+
+      // If status is 'done', set actual completion date
+      const updateData = {
+        status: newStatus,
+        statusHistory: statusHistory,
+        lastModifiedBy: updatedBy
+      };
+
+      if (newStatus === 'done') {
+        updateData.actualCompletionDate = new Date().toISOString();
+        updateData.progressPercentage = 100;
+      }
+
+      return await this.updateOTI(id, updateData);
+      
+    } catch (error) {
+      console.error(`❌ Error updating status for OTI ${id}:`, error);
       throw error;
     }
   }

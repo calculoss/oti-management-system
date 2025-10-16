@@ -27,7 +27,18 @@ class DataManager {
         return this.cache[filename];
       }
 
-      console.log(`📥 Loading: ${filename}`);
+      // Check localStorage for saved changes
+      const localKey = `oti-data-${filename.replace(/\//g, '-')}`;
+      const localData = localStorage.getItem(localKey);
+      
+      if (localData) {
+        console.log(`💾 Loading from localStorage: ${filename}`);
+        const data = JSON.parse(localData);
+        this.cache[filename] = data;
+        return data;
+      }
+
+      console.log(`📥 Loading from file: ${filename}`);
       const response = await fetch(`${this.dataPath}/${filename}`);
       
       if (!response.ok) {
