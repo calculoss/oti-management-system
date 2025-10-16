@@ -157,10 +157,15 @@
   overflow-y: auto;
 }
 
-/* Pipeline chart needs less height to avoid overlap */
+/* Pipeline chart needs less height and proper spacing */
 #pipeline-chart {
-  height: 300px;
-  min-height: 300px;
+  height: 280px;
+  min-height: 280px;
+  margin-top: var(--spacing-4);
+}
+
+.pipeline-container .chart-header {
+  margin-bottom: var(--spacing-6);
 }
 
 .chart-loading {
@@ -256,14 +261,33 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: var(--spacing-4);
+  font-size: var(--font-size-sm);
+  table-layout: fixed; /* Fixed layout for better control */
 }
 
 .stalled-otis-table th,
 .stalled-otis-table td {
-  padding: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3);
   text-align: left;
   border-bottom: 1px solid var(--color-gray-200);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+/* Column widths */
+.stalled-otis-table th:nth-child(1),
+.stalled-otis-table td:nth-child(1) { width: 15%; } /* ID */
+.stalled-otis-table th:nth-child(2),
+.stalled-otis-table td:nth-child(2) { width: 30%; } /* Title */
+.stalled-otis-table th:nth-child(3),
+.stalled-otis-table td:nth-child(3) { width: 15%; } /* Priority */
+.stalled-otis-table th:nth-child(4),
+.stalled-otis-table td:nth-child(4) { width: 12%; text-align: center; } /* Days */
+.stalled-otis-table th:nth-child(5),
+.stalled-otis-table td:nth-child(5) { width: 15%; } /* Date */
+.stalled-otis-table th:nth-child(6),
+.stalled-otis-table td:nth-child(6) { width: 13%; text-align: center; } /* Actions */
 
 .stalled-otis-table th {
   background: var(--color-gray-50);
@@ -274,6 +298,12 @@
 
 .stalled-otis-table tr:hover {
   background: var(--color-gray-50);
+}
+
+.stalled-otis-table .oti-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ===== TREND INDICATORS ===== */
