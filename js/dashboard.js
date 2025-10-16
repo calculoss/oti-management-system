@@ -16,6 +16,14 @@ class DashboardView {
     this.otiService = otiService;
     this.chartService = null;
     this.charts = {};
+    this.activeFilters = {
+      status: null,
+      team: null,
+      priority: null,
+      type: null,
+      dateRange: 'all' // 'all', 'recent', 'custom'
+    };
+    this.filteredOTIs = [];
   }
 
   /**
@@ -60,17 +68,6 @@ class DashboardView {
         <!-- Key Metrics Cards -->
         <div class="metrics-grid" id="metrics-grid">
           <!-- Metrics will be populated here -->
-        </div>
-
-        <!-- Pipeline Overview -->
-        <div class="pipeline-container">
-          <div class="chart-header">
-            <h2 class="chart-title">Pipeline Flow</h2>
-            <p class="chart-subtitle">Current status distribution and flow</p>
-          </div>
-          <div class="chart-content" id="pipeline-chart">
-            <!-- Pipeline chart will be rendered here -->
-          </div>
         </div>
 
         <!-- Charts Grid -->
@@ -144,11 +141,38 @@ class DashboardView {
             </div>
           </div>
         </div>
+
+        <!-- Filtered OTI Listing -->
+        <div class="filtered-otis-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">OTI Listing</h2>
+              <p class="section-subtitle" id="filter-description">Showing all OTIs</p>
+            </div>
+            <div class="filter-actions">
+              <button id="clear-filters-btn" class="button button-outline" style="display: none;">
+                🔄 Clear Filters
+              </button>
+              <select id="date-range-select" class="form-select">
+                <option value="all">All Time</option>
+                <option value="recent">Recent (Last 90 days)</option>
+                <option value="active">Active Only</option>
+              </select>
+            </div>
+          </div>
+          <div id="active-filters" class="active-filters" style="display: none;">
+            <!-- Active filter chips will appear here -->
+          </div>
+          <div id="filtered-otis-list" class="filtered-otis-list">
+            <!-- Filtered OTIs will be rendered here -->
+          </div>
+        </div>
       </div>
     `;
 
     this.renderMetrics();
     this.renderCharts();
+    this.renderFilteredOTIs();
   }
 
   /**
@@ -217,7 +241,6 @@ class DashboardView {
   async renderCharts() {
     try {
       await Promise.all([
-        this.renderPipelineChart(),
         this.renderStatusChart(),
         this.renderTeamChart(),
         this.renderPriorityChart(),
@@ -596,6 +619,23 @@ class DashboardView {
       });
     }
 
+    // Clear filters button
+    const clearFiltersBtn = document.getElementById('clear-filters-btn');
+    if (clearFiltersBtn) {
+      clearFiltersBtn.addEventListener('click', () => {
+        this.clearAllFilters();
+      });
+    }
+
+    // Date range selector
+    const dateRangeSelect = document.getElementById('date-range-select');
+    if (dateRangeSelect) {
+      dateRangeSelect.addEventListener('change', (e) => {
+        this.activeFilters.dateRange = e.target.value;
+        this.renderFilteredOTIs();
+      });
+    }
+
     // Add any dashboard-specific event listeners here
     window.addEventListener('resize', () => {
       this.resizeCharts();
@@ -670,6 +710,223 @@ class DashboardView {
     } catch (error) {
       console.error('❌ Error exporting dashboard data:', error);
       alert('Failed to export dashboard data. Please try again.');
+    }
+  }
+
+  /**
+   * Render filtered OTI list
+   */
+  renderFilteredOTIs() {
+    const otis = this.getFilteredOTIs();
+    const container = document.getElementById('filtered-otis-list');
+    
+    if (!container) return;
+
+    if (otis.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">📭</div>
+          <p>No OTIs match the current filters</p>
+          <button class="button button-primary" id="reset-filters-btn">Reset Filters</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = `
+      <div class="oti-table-container">
+        <table class="oti-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Status</th>
+              <th>Priority</th>
+              <th>Lead Team</th>
+              <th>Progress</th>
+              <th>Target Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${otis.map(oti => `
+              <tr class="oti-row" data-oti-id="${oti.id}">
+                <td><a href="#oti-detail/${oti.id}" class="oti-link">${oti.id}</a></td>
+                <td class="oti-title">${oti.title}</td>
+                <td><span class="status-badge status-${oti.status}">${oti.status}</span></td>
+                <td><span class="priority-badge priority-${oti.priority}">${oti.priority}</span></td>
+                <td>${oti.leadTeam}</td>
+                <td>
+                  <div class="progress-bar-mini">
+                    <div class="progress-fill-mini" style="width: ${this.otiService.calculateProgress(oti)}%"></div>
+                  </div>
+                  <span class="progress-text">${this.otiService.calculateProgress(oti)}%</span>
+                </td>
+                <td>${oti.targetCompletionDate ? formatDate(oti.targetCompletionDate) : '-'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div class="oti-count">
+        Showing ${otis.length} OTI${otis.length !== 1 ? 's' : ''}
+      </div>
+    `;
+  }
+
+  /**
+   * Get filtered OTIs based on active filters
+   */
+  getFilteredOTIs() {
+    let otis = this.otiService.getAllOTIs();
+
+    // Apply date range filter
+    if (this.activeFilters.dateRange === 'recent') {
+      const ninetyDaysAgo = new Date();
+      ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+      otis = otis.filter(oti => {
+        const submitDate = new Date(oti.dateSubmitted);
+        return submitDate >= ninetyDaysAgo;
+      });
+    } else if (this.activeFilters.dateRange === 'active') {
+      otis = otis.filter(oti => oti.status !== 'done');
+    }
+
+    // Apply status filter
+    if (this.activeFilters.status) {
+      otis = otis.filter(oti => oti.status === this.activeFilters.status);
+    }
+
+    // Apply team filter
+    if (this.activeFilters.team) {
+      otis = otis.filter(oti => oti.leadTeam === this.activeFilters.team);
+    }
+
+    // Apply priority filter
+    if (this.activeFilters.priority) {
+      otis = otis.filter(oti => oti.priority === this.activeFilters.priority);
+    }
+
+    // Apply type filter
+    if (this.activeFilters.type) {
+      otis = otis.filter(oti => oti.otiType === this.activeFilters.type);
+    }
+
+    return otis;
+  }
+
+  /**
+   * Apply filter from chart click
+   */
+  applyFilter(filterType, value) {
+    this.activeFilters[filterType] = value;
+    this.updateFilterUI();
+    this.renderFilteredOTIs();
+  }
+
+  /**
+   * Clear specific filter
+   */
+  clearFilter(filterType) {
+    this.activeFilters[filterType] = null;
+    this.updateFilterUI();
+    this.renderFilteredOTIs();
+  }
+
+  /**
+   * Clear all filters
+   */
+  clearAllFilters() {
+    this.activeFilters = {
+      status: null,
+      team: null,
+      priority: null,
+      type: null,
+      dateRange: this.activeFilters.dateRange // Keep date range
+    };
+    this.updateFilterUI();
+    this.renderFilteredOTIs();
+  }
+
+  /**
+   * Update filter UI (description and chips)
+   */
+  updateFilterUI() {
+    const descriptionEl = document.getElementById('filter-description');
+    const clearBtn = document.getElementById('clear-filters-btn');
+    const activeFiltersEl = document.getElementById('active-filters');
+
+    const hasActiveFilters = this.activeFilters.status || this.activeFilters.team || 
+                            this.activeFilters.priority || this.activeFilters.type;
+
+    // Update description
+    if (descriptionEl) {
+      const parts = [];
+      if (this.activeFilters.status) parts.push(`Status: ${this.activeFilters.status}`);
+      if (this.activeFilters.team) parts.push(`Team: ${this.activeFilters.team}`);
+      if (this.activeFilters.priority) parts.push(`Priority: ${this.activeFilters.priority}`);
+      if (this.activeFilters.type) parts.push(`Type: ${this.activeFilters.type}`);
+
+      if (parts.length > 0) {
+        descriptionEl.textContent = `Filtered by: ${parts.join(', ')}`;
+      } else {
+        descriptionEl.textContent = 'Showing all OTIs';
+      }
+    }
+
+    // Show/hide clear button
+    if (clearBtn) {
+      clearBtn.style.display = hasActiveFilters ? 'inline-flex' : 'none';
+    }
+
+    // Render filter chips
+    if (activeFiltersEl) {
+      if (hasActiveFilters) {
+        activeFiltersEl.style.display = 'flex';
+        activeFiltersEl.innerHTML = '';
+
+        if (this.activeFilters.status) {
+          activeFiltersEl.innerHTML += `
+            <div class="filter-chip">
+              <span>Status: ${this.activeFilters.status}</span>
+              <button class="chip-remove" data-filter="status">×</button>
+            </div>
+          `;
+        }
+        if (this.activeFilters.team) {
+          activeFiltersEl.innerHTML += `
+            <div class="filter-chip">
+              <span>Team: ${this.activeFilters.team}</span>
+              <button class="chip-remove" data-filter="team">×</button>
+            </div>
+          `;
+        }
+        if (this.activeFilters.priority) {
+          activeFiltersEl.innerHTML += `
+            <div class="filter-chip">
+              <span>Priority: ${this.activeFilters.priority}</span>
+              <button class="chip-remove" data-filter="priority">×</button>
+            </div>
+          `;
+        }
+        if (this.activeFilters.type) {
+          activeFiltersEl.innerHTML += `
+            <div class="filter-chip">
+              <span>Type: ${this.activeFilters.type}</span>
+              <button class="chip-remove" data-filter="type">×</button>
+            </div>
+          `;
+        }
+
+        // Add event listeners to remove buttons
+        activeFiltersEl.querySelectorAll('.chip-remove').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const filterType = e.target.dataset.filter;
+            this.clearFilter(filterType);
+          });
+        });
+      } else {
+        activeFiltersEl.style.display = 'none';
+      }
     }
   }
 
