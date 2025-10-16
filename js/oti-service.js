@@ -17,6 +17,8 @@ class OTIService {
     this.otiTypes = initialData.otiTypes || [];
     this.teams = initialData.teams || [];
     this.priorities = initialData.priorities || {};
+    this.buildingBlocks = initialData.buildingBlocks || [];
+    this.workflowTemplates = initialData.workflowTemplates || [];
   }
 
   /**
@@ -28,6 +30,8 @@ class OTIService {
     this.otiTypes = data.otiTypes || [];
     this.teams = data.teams || [];
     this.priorities = data.priorities || {};
+    this.buildingBlocks = data.buildingBlocks || [];
+    this.workflowTemplates = data.workflowTemplates || [];
   }
 
   /**
@@ -579,6 +583,417 @@ class OTIService {
       totalOTIs: this.otis.length,
       completedOTIs: this.otis.filter(oti => oti.status === 'done').length
     };
+  }
+
+  // ========================================
+  // BUILDING BLOCK MANAGEMENT METHODS
+  // ========================================
+
+  /**
+   * Get all building blocks
+   * @returns {Array} Array of building block objects
+   */
+  getAllBuildingBlocks() {
+    return deepClone(this.buildingBlocks.filter(block => block.isActive));
+  }
+
+  /**
+   * Get building block by ID
+   * @param {string} id - Building block ID
+   * @returns {Object|null} Building block object or null if not found
+   */
+  getBuildingBlockById(id) {
+    const block = this.buildingBlocks.find(block => block.id === id);
+    return block ? deepClone(block) : null;
+  }
+
+  /**
+   * Create new building block
+   * @param {Object} blockData - Building block data
+   * @returns {Promise<Object>} Created building block
+   */
+  async createBuildingBlock(blockData) {
+    try {
+      const newBlock = {
+        id: generateId('block'),
+        ...blockData,
+        createdDate: new Date().toISOString(),
+        usageCount: 0,
+        isActive: true
+      };
+
+      this.buildingBlocks.push(newBlock);
+      
+      // Save to data manager
+      await this.dataManager.saveJSON('config/building-blocks.json', this.buildingBlocks);
+      
+      console.log(`✅ Created building block: ${newBlock.id}`);
+      return deepClone(newBlock);
+      
+    } catch (error) {
+      console.error('❌ Error creating building block:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update existing building block
+   * @param {string} id - Building block ID
+   * @param {Object} updateData - Data to update
+   * @returns {Promise<Object|null>} Updated building block or null if not found
+   */
+  async updateBuildingBlock(id, updateData) {
+    try {
+      const index = this.buildingBlocks.findIndex(block => block.id === id);
+      if (index === -1) {
+        throw new Error(`Building block with ID ${id} not found`);
+      }
+
+      const existingBlock = this.buildingBlocks[index];
+      const updatedBlock = {
+        ...existingBlock,
+        ...updateData,
+        id: existingBlock.id // Ensure ID cannot be changed
+      };
+
+      this.buildingBlocks[index] = updatedBlock;
+      
+      // Save to data manager
+      await this.dataManager.saveJSON('config/building-blocks.json', this.buildingBlocks);
+      
+      console.log(`✅ Updated building block: ${id}`);
+      return deepClone(updatedBlock);
+      
+    } catch (error) {
+      console.error(`❌ Error updating building block ${id}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Delete (archive) building block
+   * @param {string} id - Building block ID
+   * @returns {Promise<boolean>} Success status
+   */
+  async deleteBuildingBlock(id) {
+    try {
+      const index = this.buildingBlocks.findIndex(block => block.id === id);
+      if (index === -1) {
+        throw new Error(`Building block with ID ${id} not found`);
+      }
+
+      // Soft delete - mark as inactive
+      this.buildingBlocks[index].isActive = false;
+      
+      // Save to data manager
+      await this.dataManager.saveJSON('config/building-blocks.json', this.buildingBlocks);
+      
+      console.log(`✅ Archived building block: ${id}`);
+      return true;
+      
+    } catch (error) {
+      console.error(`❌ Error deleting building block ${id}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get building blocks by category
+   * @param {string} category - Category name
+   * @returns {Array} Filtered building blocks
+   */
+  getBuildingBlocksByCategory(category) {
+    return this.buildingBlocks.filter(
+      block => block.isActive && block.category === category
+    );
+  }
+
+  // ========================================
+  // WORKFLOW TEMPLATE MANAGEMENT METHODS
+  // ========================================
+
+  /**
+   * Get all workflow templates
+   * @returns {Array} Array of template objects
+   */
+  getAllWorkflowTemplates() {
+    return deepClone(this.workflowTemplates.filter(template => template.isActive));
+  }
+
+  /**
+   * Get workflow template by ID
+   * @param {string} id - Template ID
+   * @returns {Object|null} Template object or null if not found
+   */
+  getWorkflowTemplateById(id) {
+    const template = this.workflowTemplates.find(template => template.id === id);
+    return template ? deepClone(template) : null;
+  }
+
+  /**
+   * Create new workflow template
+   * @param {Object} templateData - Template data
+   * @returns {Promise<Object>} Created template
+   */
+  async createWorkflowTemplate(templateData) {
+    try {
+      const newTemplate = {
+        id: generateId('template'),
+        ...templateData,
+        createdDate: new Date().toISOString(),
+        lastModified: new Date().toISOString(),
+        usageCount: 0,
+        isActive: true
+      };
+
+      // Calculate estimated total days
+      newTemplate.estimatedTotalDays = this.calculateTemplateEstimate(newTemplate.blocks);
+
+      this.workflowTemplates.push(newTemplate);
+      
+      // Save to data manager
+      await this.dataManager.saveJSON('config/workflow-templates.json', this.workflowTemplates);
+      
+      console.log(`✅ Created workflow template: ${newTemplate.id}`);
+      return deepClone(newTemplate);
+      
+    } catch (error) {
+      console.error('❌ Error creating workflow template:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update existing workflow template
+   * @param {string} id - Template ID
+   * @param {Object} updateData - Data to update
+   * @returns {Promise<Object|null>} Updated template or null if not found
+   */
+  async updateWorkflowTemplate(id, updateData) {
+    try {
+      const index = this.workflowTemplates.findIndex(template => template.id === id);
+      if (index === -1) {
+        throw new Error(`Workflow template with ID ${id} not found`);
+      }
+
+      const existingTemplate = this.workflowTemplates[index];
+      const updatedTemplate = {
+        ...existingTemplate,
+        ...updateData,
+        id: existingTemplate.id, // Ensure ID cannot be changed
+        lastModified: new Date().toISOString()
+      };
+
+      // Recalculate estimated total days if blocks changed
+      if (updateData.blocks) {
+        updatedTemplate.estimatedTotalDays = this.calculateTemplateEstimate(updatedTemplate.blocks);
+      }
+
+      this.workflowTemplates[index] = updatedTemplate;
+      
+      // Save to data manager
+      await this.dataManager.saveJSON('config/workflow-templates.json', this.workflowTemplates);
+      
+      console.log(`✅ Updated workflow template: ${id}`);
+      return deepClone(updatedTemplate);
+      
+    } catch (error) {
+      console.error(`❌ Error updating workflow template ${id}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Delete (archive) workflow template
+   * @param {string} id - Template ID
+   * @returns {Promise<boolean>} Success status
+   */
+  async deleteWorkflowTemplate(id) {
+    try {
+      const index = this.workflowTemplates.findIndex(template => template.id === id);
+      if (index === -1) {
+        throw new Error(`Workflow template with ID ${id} not found`);
+      }
+
+      // Soft delete - mark as inactive
+      this.workflowTemplates[index].isActive = false;
+      
+      // Save to data manager
+      await this.dataManager.saveJSON('config/workflow-templates.json', this.workflowTemplates);
+      
+      console.log(`✅ Archived workflow template: ${id}`);
+      return true;
+      
+    } catch (error) {
+      console.error(`❌ Error deleting workflow template ${id}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Calculate estimated total days for template
+   * @param {Array} blocks - Array of template blocks
+   * @returns {number} Total estimated days
+   */
+  calculateTemplateEstimate(blocks) {
+    if (!blocks || blocks.length === 0) return 0;
+    
+    return blocks.reduce((total, block) => {
+      const buildingBlock = this.getBuildingBlockById(block.blockId);
+      if (!buildingBlock) return total;
+      
+      const duration = block.customDuration || buildingBlock.estimatedDays;
+      return total + duration;
+    }, 0);
+  }
+
+  /**
+   * Create workflow from template for an OTI
+   * @param {string} templateId - Template ID
+   * @returns {Object} Workflow object ready to attach to OTI
+   */
+  createWorkflowFromTemplate(templateId) {
+    const template = this.getWorkflowTemplateById(templateId);
+    if (!template) {
+      throw new Error(`Template ${templateId} not found`);
+    }
+
+    // Create workflow blocks with status tracking
+    const workflowBlocks = template.blocks.map(templateBlock => {
+      const buildingBlock = this.getBuildingBlockById(templateBlock.blockId);
+      
+      return {
+        blockId: templateBlock.blockId,
+        sequence: templateBlock.sequence,
+        assignedTo: null,
+        status: templateBlock.sequence === 1 ? 'not-started' : 'waiting',
+        startDate: null,
+        completedDate: null,
+        actualDays: null,
+        notes: templateBlock.notes || '',
+        completionNotes: '',
+        customDuration: templateBlock.customDuration,
+        estimatedDays: templateBlock.customDuration || buildingBlock?.estimatedDays || 0
+      };
+    });
+
+    return {
+      templateId: templateId,
+      blocks: workflowBlocks,
+      overallProgress: 0,
+      currentBlock: 1,
+      blocksCompleted: 0,
+      blocksTotal: workflowBlocks.length
+    };
+  }
+
+  /**
+   * Calculate workflow progress
+   * @param {Object} workflow - Workflow object
+   * @returns {number} Progress percentage (0-100)
+   */
+  calculateWorkflowProgress(workflow) {
+    if (!workflow || !workflow.blocks || workflow.blocks.length === 0) {
+      return 0;
+    }
+
+    const completedBlocks = workflow.blocks.filter(
+      block => block.status === 'completed'
+    ).length;
+
+    return Math.round((completedBlocks / workflow.blocks.length) * 100);
+  }
+
+  /**
+   * Update workflow block status
+   * @param {string} otiId - OTI ID
+   * @param {number} blockSequence - Block sequence number
+   * @param {string} newStatus - New status
+   * @param {Object} blockUpdateData - Additional block data to update
+   * @returns {Promise<Object>} Updated OTI
+   */
+  async updateWorkflowBlock(otiId, blockSequence, newStatus, blockUpdateData = {}) {
+    try {
+      const oti = this.getOTIById(otiId);
+      if (!oti || !oti.workflow) {
+        throw new Error(`OTI ${otiId} has no workflow`);
+      }
+
+      const blockIndex = oti.workflow.blocks.findIndex(
+        block => block.sequence === blockSequence
+      );
+
+      if (blockIndex === -1) {
+        throw new Error(`Block ${blockSequence} not found in workflow`);
+      }
+
+      // Update block
+      oti.workflow.blocks[blockIndex] = {
+        ...oti.workflow.blocks[blockIndex],
+        ...blockUpdateData,
+        status: newStatus
+      };
+
+      // If marking as completed
+      if (newStatus === 'completed') {
+        oti.workflow.blocks[blockIndex].completedDate = new Date().toISOString();
+        
+        // Calculate actual days if start date exists
+        if (oti.workflow.blocks[blockIndex].startDate) {
+          const start = new Date(oti.workflow.blocks[blockIndex].startDate);
+          const end = new Date();
+          oti.workflow.blocks[blockIndex].actualDays = getBusinessDaysBetween(start, end);
+        }
+
+        // Update next block to 'not-started'
+        const nextBlock = oti.workflow.blocks.find(
+          block => block.sequence === blockSequence + 1
+        );
+        if (nextBlock && nextBlock.status === 'waiting') {
+          nextBlock.status = 'not-started';
+        }
+      }
+
+      // If starting a block
+      if (newStatus === 'in-progress' && !oti.workflow.blocks[blockIndex].startDate) {
+        oti.workflow.blocks[blockIndex].startDate = new Date().toISOString();
+      }
+
+      // Recalculate workflow progress
+      oti.workflow.blocksCompleted = oti.workflow.blocks.filter(
+        block => block.status === 'completed'
+      ).length;
+      
+      oti.workflow.overallProgress = this.calculateWorkflowProgress(oti.workflow);
+      
+      // Update current block
+      const currentBlockInProgress = oti.workflow.blocks.find(
+        block => block.status === 'in-progress'
+      );
+      oti.workflow.currentBlock = currentBlockInProgress 
+        ? currentBlockInProgress.sequence 
+        : oti.workflow.blocks.findIndex(block => block.status === 'not-started') + 1;
+
+      // Update OTI progress percentage to match workflow
+      oti.progressPercentage = oti.workflow.overallProgress;
+
+      // If all blocks complete, mark OTI as done
+      if (oti.workflow.blocksCompleted === oti.workflow.blocksTotal) {
+        oti.status = 'done';
+        oti.actualCompletionDate = new Date().toISOString();
+      }
+
+      return await this.updateOTI(otiId, {
+        workflow: oti.workflow,
+        progressPercentage: oti.progressPercentage,
+        status: oti.status,
+        actualCompletionDate: oti.actualCompletionDate
+      });
+
+    } catch (error) {
+      console.error(`❌ Error updating workflow block:`, error);
+      throw error;
+    }
   }
 }
 

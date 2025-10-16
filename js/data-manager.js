@@ -135,7 +135,9 @@ class DataManager {
       otis: await this.loadJSON('otis/otis.json'),
       otiTypes: await this.loadJSON('config/oti-types.json'),
       teams: await this.loadJSON('config/teams.json'),
-      priorities: await this.loadJSON('config/priorities.json')
+      priorities: await this.loadJSON('config/priorities.json'),
+      buildingBlocks: await this.loadJSON('config/building-blocks.json'),
+      workflowTemplates: await this.loadJSON('config/workflow-templates.json')
     };
     
     console.log('✅ DataManager initialized');

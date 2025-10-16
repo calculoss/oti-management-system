@@ -6,6 +6,7 @@
 
 import DataManager from './data-manager.js';
 import OTIService from './oti-service.js';
+import BuildingBlocksView from './building-blocks.js';
 
 /**
  * Main App class for coordinating the application
@@ -79,6 +80,8 @@ class App {
         <ul class="nav-menu">
           <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
           <li><a href="#oti-list" class="nav-link">OTI List</a></li>
+          <li><a href="#building-blocks" class="nav-link">Building Blocks</a></li>
+          <li><a href="#workflow-templates" class="nav-link">Templates</a></li>
           <li><a href="#add-oti" class="nav-link nav-link-primary">+ Add OTI</a></li>
         </ul>
       </nav>
@@ -161,6 +164,14 @@ class App {
         }
         break;
         
+      case 'building-blocks':
+        await this.renderBuildingBlocks(main);
+        break;
+        
+      case 'workflow-templates':
+        await this.renderWorkflowTemplates(main);
+        break;
+        
       default:
         this.show404();
     }
@@ -219,6 +230,32 @@ class App {
     } catch (error) {
       console.error('❌ Error rendering OTI form:', error);
       this.showError('Failed to load OTI form');
+    }
+  }
+
+  /**
+   * Render Building Blocks view
+   */
+  async renderBuildingBlocks(container) {
+    try {
+      this.currentView = new BuildingBlocksView(container, this.otiService);
+      await this.currentView.init();
+    } catch (error) {
+      console.error('❌ Error rendering building blocks:', error);
+      this.showError('Failed to load building blocks');
+    }
+  }
+
+  /**
+   * Render Workflow Templates view
+   */
+  async renderWorkflowTemplates(container) {
+    try {
+      // Will be implemented next
+      this.showComingSoon('Workflow Templates');
+    } catch (error) {
+      console.error('❌ Error rendering workflow templates:', error);
+      this.showError('Failed to load workflow templates');
     }
   }
 

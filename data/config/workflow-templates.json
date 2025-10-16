@@ -1,0 +1,185 @@
+[
+  {
+    "id": "template-standard-procurement",
+    "name": "Standard Procurement",
+    "description": "Off-the-shelf software or hardware procurement workflow with security reviews",
+    "category": "Procurement",
+    "icon": "📦",
+    "color": "#F59E0B",
+    "blocks": [
+      {
+        "blockId": "block-cyber-review",
+        "sequence": 1,
+        "customDuration": null,
+        "notes": "Initial security assessment before procurement"
+      },
+      {
+        "blockId": "block-procurement",
+        "sequence": 2,
+        "customDuration": 10,
+        "notes": "Purchase and vendor coordination - extended timeline for contract review"
+      },
+      {
+        "blockId": "block-cyber-review",
+        "sequence": 3,
+        "customDuration": null,
+        "notes": "Final security check before deployment"
+      },
+      {
+        "blockId": "block-implementation",
+        "sequence": 4,
+        "customDuration": null,
+        "notes": "Deploy to production environment"
+      }
+    ],
+    "estimatedTotalDays": 18,
+    "isActive": true,
+    "createdDate": "2025-01-01",
+    "createdBy": "Ryan Mitchell",
+    "lastModified": "2025-01-15",
+    "lastModifiedBy": "Ryan Mitchell",
+    "usageCount": 15
+  },
+  {
+    "id": "template-custom-development",
+    "name": "Custom Development",
+    "description": "Full software development lifecycle for custom applications or major enhancements",
+    "category": "Development",
+    "icon": "💻",
+    "color": "#009BDB",
+    "blocks": [
+      {
+        "blockId": "block-infra-assessment",
+        "sequence": 1,
+        "customDuration": null,
+        "notes": "Assess infrastructure and capacity requirements"
+      },
+      {
+        "blockId": "block-cyber-review",
+        "sequence": 2,
+        "customDuration": null,
+        "notes": "Security review of proposed solution"
+      },
+      {
+        "blockId": "block-development",
+        "sequence": 3,
+        "customDuration": 15,
+        "notes": "Development phase - extended for complex features"
+      },
+      {
+        "blockId": "block-uat",
+        "sequence": 4,
+        "customDuration": 5,
+        "notes": "Comprehensive user acceptance testing"
+      },
+      {
+        "blockId": "block-documentation",
+        "sequence": 5,
+        "customDuration": null,
+        "notes": "Complete technical and user documentation"
+      },
+      {
+        "blockId": "block-implementation",
+        "sequence": 6,
+        "customDuration": 3,
+        "notes": "Production deployment with monitoring"
+      }
+    ],
+    "estimatedTotalDays": 33,
+    "isActive": true,
+    "createdDate": "2025-01-01",
+    "createdBy": "Ryan Mitchell",
+    "lastModified": "2025-01-10",
+    "lastModifiedBy": "Sarah Chen",
+    "usageCount": 8
+  },
+  {
+    "id": "template-quick-enhancement",
+    "name": "Quick Enhancement",
+    "description": "Fast-track workflow for minor system improvements or bug fixes",
+    "category": "Enhancement",
+    "icon": "⚡",
+    "color": "#10B981",
+    "blocks": [
+      {
+        "blockId": "block-development",
+        "sequence": 1,
+        "customDuration": 3,
+        "notes": "Quick development cycle for minor changes"
+      },
+      {
+        "blockId": "block-uat",
+        "sequence": 2,
+        "customDuration": 2,
+        "notes": "Focused testing of changes"
+      },
+      {
+        "blockId": "block-implementation",
+        "sequence": 3,
+        "customDuration": 1,
+        "notes": "Rapid deployment"
+      }
+    ],
+    "estimatedTotalDays": 6,
+    "isActive": true,
+    "createdDate": "2025-01-05",
+    "createdBy": "Sarah Chen",
+    "lastModified": "2025-01-05",
+    "lastModifiedBy": "Sarah Chen",
+    "usageCount": 12
+  },
+  {
+    "id": "template-data-reporting",
+    "name": "Data & Reporting",
+    "description": "Workflow for creating new reports, dashboards, or data integration projects",
+    "category": "Data",
+    "icon": "📊",
+    "color": "#8B5CF6",
+    "blocks": [
+      {
+        "blockId": "block-infra-assessment",
+        "sequence": 1,
+        "customDuration": 3,
+        "notes": "Assess data sources and integration requirements"
+      },
+      {
+        "blockId": "block-cyber-review",
+        "sequence": 2,
+        "customDuration": 2,
+        "notes": "Review data access and security"
+      },
+      {
+        "blockId": "block-development",
+        "sequence": 3,
+        "customDuration": 7,
+        "notes": "Build reports, dashboards, or data pipelines"
+      },
+      {
+        "blockId": "block-uat",
+        "sequence": 4,
+        "customDuration": 3,
+        "notes": "Validate data accuracy and report functionality"
+      },
+      {
+        "blockId": "block-documentation",
+        "sequence": 5,
+        "customDuration": 1,
+        "notes": "Document data sources and report specifications"
+      },
+      {
+        "blockId": "block-training",
+        "sequence": 6,
+        "customDuration": 3,
+        "notes": "Train users on new reports and dashboards"
+      }
+    ],
+    "estimatedTotalDays": 19,
+    "isActive": true,
+    "createdDate": "2025-01-08",
+    "createdBy": "Sarah Chen",
+    "lastModified": "2025-01-08",
+    "lastModifiedBy": "Sarah Chen",
+    "usageCount": 6
+  }
+]
+
