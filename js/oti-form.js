@@ -416,6 +416,22 @@ class OTIFormView {
     document.getElementById('priority')?.addEventListener('change', () => this.handlePriorityChange());
     document.getElementById('leadTeam')?.addEventListener('change', () => this.handleLeadTeamChange());
     
+    // Workflow type selection
+    document.querySelectorAll('input[name="workflowType"]').forEach(radio => {
+      radio.addEventListener('change', (e) => this.handleWorkflowTypeChange(e.target.value));
+    });
+    
+    // Template selection
+    document.getElementById('templateSelect')?.addEventListener('change', (e) => this.handleTemplateSelect(e.target.value));
+    
+    // Custom workflow: Add block button
+    document.getElementById('addCustomBlockBtn')?.addEventListener('click', () => this.addCustomBlock());
+    
+    // Custom workflow: Block actions (move up/down, remove)
+    document.querySelectorAll('.custom-block-item [data-action]').forEach(btn => {
+      btn.addEventListener('click', (e) => this.handleCustomBlockAction(e));
+    });
+    
     // Real-time validation
     const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
     inputs.forEach(input => {
@@ -816,7 +832,7 @@ class OTIFormView {
       targetCompletionDate = targetCompletionDate.toISOString().split('T')[0];
     }
     
-    return {
+    const data = {
       title: formData.get('title'),
       description: formData.get('description'),
       otiType: formData.get('otiType'),
@@ -835,6 +851,47 @@ class OTIFormView {
       targetCompletionDate: targetCompletionDate,
       dateSubmitted: this.otiId ? this.otiData.dateSubmitted : new Date().toISOString().split('T')[0]
     };
+
+    // Add workflow data if applicable
+    if (this.selectedWorkflowType !== 'none') {
+      data.workflowType = this.selectedWorkflowType;
+      
+      if (this.selectedWorkflowType === 'template' && this.selectedTemplateId) {
+        // Create workflow from template
+        data.workflow = this.otiService.createWorkflowFromTemplate(this.selectedTemplateId);
+      } else if (this.selectedWorkflowType === 'custom' && this.customWorkflowBlocks.length > 0) {
+        // Create custom workflow
+        const customBlocks = this.customWorkflowBlocks.map((block, index) => ({
+          blockId: block.blockId,
+          sequence: index + 1,
+          assignedTo: null,
+          status: index === 0 ? 'waiting' : 'waiting',
+          startDate: null,
+          completedDate: null,
+          actualDays: null,
+          notes: block.notes || '',
+          completionNotes: '',
+          customDuration: block.customDuration,
+          estimatedDays: block.customDuration || this.buildingBlocks.find(b => b.id === block.blockId)?.estimatedDays || 0,
+          checklistProgress: {
+            completed: [],
+            total: this.buildingBlocks.find(b => b.id === block.blockId)?.checklistItems?.length || 0
+          }
+        }));
+
+        const totalEstimatedDays = customBlocks.reduce((sum, b) => sum + b.estimatedDays, 0);
+
+        data.workflow = {
+          blocks: customBlocks,
+          overallProgress: 0,
+          currentBlock: 1,
+          blocksCompleted: 0,
+          blocksTotal: customBlocks.length
+        };
+      }
+    }
+
+    return data;
   }
 
   /**
@@ -868,6 +925,175 @@ class OTIFormView {
     setTimeout(() => {
       notification.remove();
     }, 5000);
+  }
+
+  /**
+   * Handle workflow type change
+   */
+  handleWorkflowTypeChange(type) {
+    this.selectedWorkflowType = type;
+    
+    // Show/hide appropriate sections
+    const templateSection = document.getElementById('template-selection');
+    const customSection = document.getElementById('custom-workflow-section');
+    
+    if (type === 'template') {
+      templateSection?.classList.remove('hidden');
+      customSection?.classList.add('hidden');
+    } else if (type === 'custom') {
+      templateSection?.classList.add('hidden');
+      customSection?.classList.remove('hidden');
+    } else {
+      templateSection?.classList.add('hidden');
+      customSection?.classList.add('hidden');
+    }
+    
+    // Update visual selection
+    document.querySelectorAll('.workflow-option').forEach(option => {
+      option.classList.remove('selected');
+    });
+    document.querySelector(`[data-workflow-type="${type}"]`)?.classList.add('selected');
+  }
+
+  /**
+   * Handle template selection
+   */
+  handleTemplateSelect(templateId) {
+    this.selectedTemplateId = templateId || null;
+    
+    const previewContainer = document.getElementById('template-preview');
+    if (!previewContainer) return;
+    
+    if (templateId) {
+      previewContainer.innerHTML = this.renderTemplatePreview(templateId);
+      previewContainer.classList.remove('hidden');
+    } else {
+      previewContainer.classList.add('hidden');
+    }
+  }
+
+  /**
+   * Add a custom workflow block
+   */
+  addCustomBlock() {
+    const newBlock = {
+      blockId: '',
+      sequence: this.customWorkflowBlocks.length + 1,
+      customDuration: null,
+      notes: ''
+    };
+    
+    this.customWorkflowBlocks.push(newBlock);
+    
+    // Re-render the custom blocks section
+    const container = document.getElementById('custom-blocks-container');
+    if (container) {
+      container.innerHTML = this.customWorkflowBlocks.map((block, index) => 
+        this.renderCustomBlockForm(block, index)
+      ).join('');
+      
+      // Reattach event listeners
+      this.setupCustomBlockListeners();
+    }
+  }
+
+  /**
+   * Handle custom block actions (move up/down, remove)
+   */
+  handleCustomBlockAction(e) {
+    const action = e.currentTarget.dataset.action;
+    const index = parseInt(e.currentTarget.dataset.index);
+    
+    e.stopPropagation();
+    
+    switch (action) {
+      case 'move-up':
+        this.moveCustomBlock(index, -1);
+        break;
+      case 'move-down':
+        this.moveCustomBlock(index, 1);
+        break;
+      case 'remove':
+        this.removeCustomBlock(index);
+        break;
+    }
+  }
+
+  /**
+   * Move a custom block up or down
+   */
+  moveCustomBlock(index, direction) {
+    const newIndex = index + direction;
+    if (newIndex < 0 || newIndex >= this.customWorkflowBlocks.length) return;
+    
+    // Swap the blocks
+    [this.customWorkflowBlocks[index], this.customWorkflowBlocks[newIndex]] = 
+    [this.customWorkflowBlocks[newIndex], this.customWorkflowBlocks[index]];
+    
+    // Update sequences
+    this.customWorkflowBlocks.forEach((block, idx) => {
+      block.sequence = idx + 1;
+    });
+    
+    // Re-render
+    const container = document.getElementById('custom-blocks-container');
+    if (container) {
+      container.innerHTML = this.customWorkflowBlocks.map((block, idx) => 
+        this.renderCustomBlockForm(block, idx)
+      ).join('');
+      
+      this.setupCustomBlockListeners();
+    }
+  }
+
+  /**
+   * Remove a custom block
+   */
+  removeCustomBlock(index) {
+    this.customWorkflowBlocks.splice(index, 1);
+    
+    // Update sequences
+    this.customWorkflowBlocks.forEach((block, idx) => {
+      block.sequence = idx + 1;
+    });
+    
+    // Re-render
+    const container = document.getElementById('custom-blocks-container');
+    if (container) {
+      if (this.customWorkflowBlocks.length === 0) {
+        container.innerHTML = '<div class="empty-workflow">No blocks added yet. Click "Add Block" to start building your workflow.</div>';
+      } else {
+        container.innerHTML = this.customWorkflowBlocks.map((block, idx) => 
+          this.renderCustomBlockForm(block, idx)
+        ).join('');
+        
+        this.setupCustomBlockListeners();
+      }
+    }
+  }
+
+  /**
+   * Setup event listeners for custom block items
+   */
+  setupCustomBlockListeners() {
+    document.querySelectorAll('.custom-block-item [data-action]').forEach(btn => {
+      btn.addEventListener('click', (e) => this.handleCustomBlockAction(e));
+    });
+    
+    // Update block data when selects change
+    document.querySelectorAll('.custom-block-select').forEach(select => {
+      select.addEventListener('change', (e) => {
+        const index = parseInt(e.target.dataset.index);
+        this.customWorkflowBlocks[index].blockId = e.target.value;
+        
+        // Update the block name display
+        const blockItem = document.querySelector(`[data-block-index="${index}"]`);
+        const buildingBlock = this.buildingBlocks.find(b => b.id === e.target.value);
+        if (blockItem && buildingBlock) {
+          blockItem.querySelector('.custom-block-name').textContent = buildingBlock.name;
+        }
+      });
+    });
   }
 
   /**
