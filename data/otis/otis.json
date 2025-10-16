@@ -20,8 +20,6 @@
     "progressPercentage": 25,
     "businessJustification": "Legacy system is unsupported and has data integrity issues affecting asset tracking and financial reporting",
     "escalationNotes": [],
-    "serviceNowParentId": "INC0012351",
-    "taskIds": [],
     "workflowType": "template",
     "workflow": {
       "templateId": "template-standard-procurement",
@@ -128,8 +126,6 @@
     "progressPercentage": 45,
     "businessJustification": "Reduces manual data entry by 20 hours per week and improves data accuracy",
     "escalationNotes": [],
-    "serviceNowParentId": "INC0012345",
-    "taskIds": ["TASK-001", "TASK-002", "TASK-003"],
     "statusHistory": [
       {
         "status": "received",
@@ -178,8 +174,6 @@
     "progressPercentage": 25,
     "businessJustification": "Required for upcoming board meetings and executive communications",
     "escalationNotes": ["Waiting for budget approval from Finance Department"],
-    "serviceNowParentId": "INC0012346",
-    "taskIds": ["TASK-004"],
     "statusHistory": [
       {
         "status": "received",
@@ -229,8 +223,6 @@
     "progressPercentage": 70,
     "businessJustification": "Improves customer satisfaction and reduces phone call volume by 30%",
     "escalationNotes": [],
-    "serviceNowParentId": "INC0012347",
-    "taskIds": ["TASK-005", "TASK-006", "TASK-007"],
     "statusHistory": [
       {
         "status": "received",
@@ -274,8 +266,6 @@
     "progressPercentage": 100,
     "businessJustification": "Enables real-time budget monitoring and improves financial decision making",
     "escalationNotes": [],
-    "serviceNowParentId": "INC0012348",
-    "taskIds": ["TASK-008", "TASK-009", "TASK-010"],
     "statusHistory": [
       {
         "status": "received",

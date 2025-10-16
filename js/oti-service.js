@@ -359,16 +359,14 @@ class OTIService {
    * @returns {number} Progress percentage (0-100)
    */
   calculateProgress(oti) {
-    // If progress is manually set, use that
-    if (oti.progressPercentage !== undefined) {
-      return Math.max(0, Math.min(100, oti.progressPercentage));
+    // If workflow exists, calculate from workflow blocks
+    if (oti.workflow && oti.workflow.blocks) {
+      return this.calculateWorkflowProgress(oti.workflow);
     }
     
-    // Otherwise calculate based on task completion
-    if (oti.taskIds && oti.taskIds.length > 0) {
-      // This would integrate with ServiceNow in production
-      // For now, return a placeholder calculation
-      return Math.floor(Math.random() * 100);
+    // Otherwise use manual progress
+    if (oti.progressPercentage !== undefined) {
+      return Math.max(0, Math.min(100, oti.progressPercentage));
     }
     
     return 0;
