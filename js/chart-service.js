@@ -156,7 +156,13 @@ class ChartService {
         if (options.tooltip) {
           options.tooltip.hide();
         }
-      });
+      })
+      .on('click', function(event, d) {
+        if (options.onClick) {
+          options.onClick(d.data);
+        }
+      })
+      .style('cursor', options.onClick ? 'pointer' : 'default');
     
     // Add labels
     if (options.showLabels) {
@@ -259,7 +265,13 @@ class ChartService {
         if (options.tooltip) {
           options.tooltip.hide();
         }
-      });
+      })
+      .on('click', function(event, d) {
+        if (options.onClick) {
+          options.onClick(d);
+        }
+      })
+      .style('cursor', options.onClick ? 'pointer' : 'default');
     
     // Add labels
     bars

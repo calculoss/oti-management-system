@@ -307,7 +307,16 @@ class DashboardView {
           value: formatNumber(otis.length),
           label: 'Total OTIs'
         },
-        tooltip: this.chartService.createTooltip('status-chart')
+        tooltip: this.chartService.createTooltip('status-chart'),
+        onClick: (data) => {
+          const statusMap = {
+            'Received': 'received',
+            'In Progress': 'in-progress',
+            'Stalled': 'stalled',
+            'Done': 'done'
+          };
+          this.applyFilter('status', statusMap[data.label]);
+        }
       });
 
     } catch (error) {
@@ -335,7 +344,10 @@ class DashboardView {
         .sort((a, b) => b.value - a.value);
 
       this.chartService.createHorizontalBarChart('team-chart', teamData, {
-        tooltip: this.chartService.createTooltip('team-chart')
+        tooltip: this.chartService.createTooltip('team-chart'),
+        onClick: (data) => {
+          this.applyFilter('team', data.label);
+        }
       });
 
     } catch (error) {
@@ -363,7 +375,16 @@ class DashboardView {
       this.chartService.createDonutChart('priority-chart', priorityData, {
         height: 400,
         colors: ['#DC2626', '#F59E0B', '#FCD34D', '#10B981'],
-        tooltip: this.chartService.createTooltip('priority-chart')
+        tooltip: this.chartService.createTooltip('priority-chart'),
+        onClick: (data) => {
+          const priorityMap = {
+            'Urgent': 'urgent',
+            'High': 'high',
+            'Medium': 'medium',
+            'Low': 'low'
+          };
+          this.applyFilter('priority', priorityMap[data.label]);
+        }
       });
 
     } catch (error) {
@@ -386,12 +407,16 @@ class DashboardView {
       const typeData = Object.entries(typeCounts)
         .map(([type, count]) => ({
           label: this.formatTypeLabel(type),
-          value: count
+          value: count,
+          id: type  // Keep original type ID for filtering
         }))
         .sort((a, b) => b.value - a.value);
 
       this.chartService.createHorizontalBarChart('type-chart', typeData, {
-        tooltip: this.chartService.createTooltip('type-chart')
+        tooltip: this.chartService.createTooltip('type-chart'),
+        onClick: (data) => {
+          this.applyFilter('type', data.id || data.label);
+        }
       });
 
     } catch (error) {
