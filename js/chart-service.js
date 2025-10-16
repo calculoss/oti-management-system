@@ -112,13 +112,11 @@ class ChartService {
     const { g, width, height } = chart;
     console.log(`📏 Donut chart dimensions for ${containerId}:`, { width, height });
     
-    // Ensure we have valid dimensions
-    const validWidth = Math.max(width, 200);
-    const validHeight = Math.max(height, 200);
-    const radius = Math.min(validWidth, validHeight) / 2;
+    // Calculate radius based on available space
+    const radius = Math.min(width, height) / 2;
     const innerRadius = radius * (options.innerRadius || 0.6);
     
-    console.log(`🎯 Calculated values for ${containerId}:`, { validWidth, validHeight, radius, innerRadius });
+    console.log(`🎯 Calculated values for ${containerId}:`, { width, height, radius, innerRadius });
     
     // Create pie layout
     const pie = d3.pie()
@@ -136,13 +134,13 @@ class ChartService {
       .domain(data.map(d => d.label))
       .range(options.colors || this.defaultColors);
     
-    // Center the chart
+    // Center the chart - use width/height (the actual drawing dimensions)
     const centerGroup = g
       .append('g')
       .attr('class', 'donut-center')
-      .attr('transform', `translate(${validWidth / 2},${validHeight / 2})`);
+      .attr('transform', `translate(${width / 2},${height / 2})`);
     
-    console.log(`🎯 Center group transform for ${containerId}:`, `translate(${validWidth / 2},${validHeight / 2})`);
+    console.log(`🎯 Center group transform for ${containerId}:`, `translate(${width / 2},${height / 2})`);
     
     // Draw slices
     const pieData = pie(data);
