@@ -157,6 +157,9 @@ class OTIDetailView {
               </div>
             </div>
 
+            <!-- Workflow Progress (if workflow exists) -->
+            ${this.oti.workflow ? this.renderWorkflow() : ''}
+
             <!-- Timeline/History -->
             <div class="info-card">
               <div class="info-card-header">
@@ -329,6 +332,143 @@ class OTIDetailView {
             ` : ''}
           </div>
         </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Render workflow progress
+   */
+  renderWorkflow() {
+    if (!this.oti.workflow || !this.oti.workflow.blocks || this.oti.workflow.blocks.length === 0) {
+      return '';
+    }
+
+    const workflow = this.oti.workflow;
+    const template = this.otiService.getWorkflowTemplateById(workflow.templateId);
+    
+    return `
+      <div class="info-card workflow-card">
+        <div class="info-card-header">
+          <h2 class="info-card-title">
+            🔄 Workflow Progress 
+            ${template ? `<span style="font-size: 0.875rem; font-weight: 400; color: #6b7280;">
+              (${template.name})
+            </span>` : ''}
+          </h2>
+        </div>
+        
+        <div class="workflow-progress-bar">
+          <div class="workflow-stats">
+            <span>${workflow.blocksCompleted} of ${workflow.blocksTotal} blocks complete</span>
+            <span class="workflow-percentage">${workflow.overallProgress}%</span>
+          </div>
+          <div class="progress-bar-large">
+            <div class="progress-fill-large" style="width: ${workflow.overallProgress}%"></div>
+          </div>
+        </div>
+
+        <div class="workflow-blocks">
+          ${workflow.blocks.map((block, index) => this.renderWorkflowBlock(block, index)).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Render a single workflow block
+   */
+  renderWorkflowBlock(block, index) {
+    const buildingBlock = this.otiService.getBuildingBlockById(block.blockId);
+    if (!buildingBlock) {
+      return `<div class="workflow-block-error">Block ${block.blockId} not found</div>`;
+    }
+
+    const isCompleted = block.status === 'completed';
+    const isInProgress = block.status === 'in-progress';
+    const isWaiting = block.status === 'waiting';
+    const isNotStarted = block.status === 'not-started';
+    
+    const statusIcon = isCompleted ? '✅' : isInProgress ? '🔄' : isWaiting ? '⏸️' : '⭕';
+    const statusColor = isCompleted ? '#10b981' : isInProgress ? '#3b82f6' : isWaiting ? '#9ca3af' : '#f59e0b';
+    const statusLabel = isCompleted ? 'Completed' : isInProgress ? 'In Progress' : isWaiting ? 'Waiting' : 'Not Started';
+    
+    return `
+      <div class="workflow-block ${block.status}" data-block-sequence="${block.sequence}" style="border-left: 4px solid ${statusColor};">
+        <div class="workflow-block-header">
+          <div class="workflow-block-title">
+            <span class="workflow-block-icon" style="font-size: 1.25rem;">${buildingBlock.icon}</span>
+            <div>
+              <div style="font-weight: 600; color: #111827;">
+                ${block.sequence}. ${buildingBlock.name}
+              </div>
+              <div style="font-size: 0.75rem; color: #6b7280; margin-top: 0.125rem;">
+                ${buildingBlock.team} • ${block.estimatedDays || buildingBlock.estimatedDays} days estimated
+              </div>
+            </div>
+          </div>
+          <div class="workflow-block-status" style="background: ${statusColor}20; color: ${statusColor}; padding: 0.25rem 0.75rem; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 600;">
+            ${statusIcon} ${statusLabel}
+          </div>
+        </div>
+
+        <div class="workflow-block-body">
+          ${block.assignedTo ? `
+            <div class="workflow-block-assigned">
+              <span style="color: #6b7280; font-size: 0.875rem;">👤 Assigned to:</span>
+              <span style="font-weight: 500; font-size: 0.875rem;">${block.assignedTo}</span>
+            </div>
+          ` : ''}
+          
+          ${block.notes ? `
+            <div class="workflow-block-notes" style="font-size: 0.875rem; color: #6b7280; margin-top: 0.5rem;">
+              ${block.notes}
+            </div>
+          ` : ''}
+
+          ${isCompleted ? `
+            <div class="workflow-block-completion" style="margin-top: 0.75rem; padding: 0.75rem; background: #f0fdf4; border-radius: 0.375rem;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
+                <span style="color: #15803d;">✓ Completed:</span>
+                <span style="font-weight: 500;">${formatDate(block.completedDate)}</span>
+              </div>
+              ${block.actualDays ? `
+                <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+                  <span style="color: #15803d;">Duration:</span>
+                  <span style="font-weight: 500;">${block.actualDays} day${block.actualDays !== 1 ? 's' : ''} ${block.actualDays > block.estimatedDays ? '(⚠️ over estimate)' : '(✓ on time)'}</span>
+                </div>
+              ` : ''}
+              ${block.completionNotes ? `
+                <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #bbf7d0; font-size: 0.875rem; color: #15803d;">
+                  <strong>Notes:</strong> ${block.completionNotes}
+                </div>
+              ` : ''}
+            </div>
+          ` : ''}
+
+          ${isInProgress ? `
+            <div class="workflow-block-actions" style="margin-top: 0.75rem; display: flex; gap: 0.5rem;">
+              <button class="button button-primary button-sm mark-block-complete-btn" data-sequence="${block.sequence}">
+                ✅ Mark as Complete
+              </button>
+              <button class="button button-outline button-sm reassign-block-btn" data-sequence="${block.sequence}">
+                👤 Reassign
+              </button>
+            </div>
+          ` : ''}
+
+          ${isNotStarted ? `
+            <div class="workflow-block-actions" style="margin-top: 0.75rem;">
+              <button class="button button-primary button-sm start-block-btn" data-sequence="${block.sequence}">
+                ▶️ Start Block
+              </button>
+            </div>
+          ` : ''}
+        </div>
+
+        ${index < this.oti.workflow.blocks.length - 1 ? `
+          <div class="workflow-connector" style="width: 2px; height: 20px; background: ${statusColor}; margin: 0 auto;"></div>
+        ` : ''}
       </div>
     `;
   }
@@ -507,6 +647,28 @@ class OTIDetailView {
         this.handleSaveNote();
       });
     }
+
+    // Workflow block buttons
+    document.querySelectorAll('.mark-block-complete-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const sequence = parseInt(e.target.dataset.sequence);
+        this.handleMarkBlockComplete(sequence);
+      });
+    });
+
+    document.querySelectorAll('.start-block-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const sequence = parseInt(e.target.dataset.sequence);
+        this.handleStartBlock(sequence);
+      });
+    });
+
+    document.querySelectorAll('.reassign-block-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const sequence = parseInt(e.target.dataset.sequence);
+        this.handleReassignBlock(sequence);
+      });
+    });
   }
 
   /**
@@ -818,6 +980,84 @@ class OTIDetailView {
     } catch (error) {
       console.error('❌ Error updating status:', error);
       alert('Failed to update status. Please try again.');
+    }
+  }
+
+  /**
+   * Handle marking workflow block as complete
+   */
+  async handleMarkBlockComplete(sequence) {
+    const block = this.oti.workflow.blocks.find(b => b.sequence === sequence);
+    if (!block) return;
+
+    const completionNotes = prompt('Add completion notes (optional):');
+    if (completionNotes === null) return; // User cancelled
+
+    try {
+      await this.otiService.updateWorkflowBlock(
+        this.otiId,
+        sequence,
+        'completed',
+        { completionNotes: completionNotes || '' }
+      );
+
+      alert('✅ Block marked as complete!');
+      await this.init(); // Reload view
+    } catch (error) {
+      console.error('❌ Error completing block:', error);
+      alert('Failed to complete block. Please try again.');
+    }
+  }
+
+  /**
+   * Handle starting workflow block
+   */
+  async handleStartBlock(sequence) {
+    const block = this.oti.workflow.blocks.find(b => b.sequence === sequence);
+    if (!block) return;
+
+    const assignedTo = prompt('Assign this block to:', 'Current User');
+    if (!assignedTo) return;
+
+    try {
+      await this.otiService.updateWorkflowBlock(
+        this.otiId,
+        sequence,
+        'in-progress',
+        { assignedTo: assignedTo }
+      );
+
+      alert('✅ Block started!');
+      await this.init(); // Reload view
+    } catch (error) {
+      console.error('❌ Error starting block:', error);
+      alert('Failed to start block. Please try again.');
+    }
+  }
+
+  /**
+   * Handle reassigning workflow block
+   */
+  async handleReassignBlock(sequence) {
+    const block = this.oti.workflow.blocks.find(b => b.sequence === sequence);
+    if (!block) return;
+
+    const newAssignee = prompt('Reassign this block to:', block.assignedTo || '');
+    if (!newAssignee) return;
+
+    try {
+      await this.otiService.updateWorkflowBlock(
+        this.otiId,
+        sequence,
+        block.status, // Keep same status
+        { assignedTo: newAssignee }
+      );
+
+      alert('✅ Block reassigned!');
+      await this.init(); // Reload view
+    } catch (error) {
+      console.error('❌ Error reassigning block:', error);
+      alert('Failed to reassign block. Please try again.');
     }
   }
 

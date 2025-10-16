@@ -539,3 +539,127 @@
     flex-direction: column;
   }
 }
+
+/* ===== WORKFLOW STYLES ===== */
+.workflow-card {
+  background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+  border: 2px solid var(--color-gray-200);
+}
+
+.workflow-progress-bar {
+  margin-bottom: var(--spacing-6);
+}
+
+.workflow-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-gray-700);
+}
+
+.workflow-percentage {
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+}
+
+.workflow-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.workflow-block {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+  transition: all 0.2s ease;
+}
+
+.workflow-block:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: translateX(4px);
+}
+
+.workflow-block.completed {
+  opacity: 0.85;
+}
+
+.workflow-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-3);
+  gap: var(--spacing-3);
+}
+
+.workflow-block-title {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  flex: 1;
+}
+
+.workflow-block-icon {
+  flex-shrink: 0;
+}
+
+.workflow-block-status {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.workflow-block-body {
+  padding-left: calc(1.25rem + var(--spacing-3));
+}
+
+.workflow-block-assigned {
+  display: flex;
+  gap: var(--spacing-2);
+  align-items: center;
+  margin-bottom: var(--spacing-2);
+}
+
+.workflow-block-actions {
+  display: flex;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+}
+
+.workflow-connector {
+  margin: var(--spacing-2) 0;
+}
+
+.workflow-block-error {
+  padding: var(--spacing-4);
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: var(--radius-md);
+  color: #991b1b;
+  font-size: var(--font-size-sm);
+}
+
+@media (max-width: 768px) {
+  .workflow-block-header {
+    flex-direction: column;
+  }
+
+  .workflow-block-status {
+    align-self: flex-start;
+  }
+
+  .workflow-block-body {
+    padding-left: 0;
+    margin-top: var(--spacing-2);
+  }
+
+  .workflow-block-actions {
+    flex-direction: column;
+  }
+
+  .workflow-block-actions button {
+    width: 100%;
+  }
+}

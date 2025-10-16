@@ -1,5 +1,113 @@
 [
   {
+    "id": "OTI-2025-008",
+    "title": "Procurement of Asset Management Software",
+    "description": "Purchase and implement new asset management software to replace aging legacy system. Includes data migration from old system.",
+    "otiType": "software-purchase",
+    "priority": "high",
+    "status": "in-progress",
+    "requestor": {
+      "name": "Michael Torres",
+      "email": "michael.torres@lakemac.nsw.gov.au",
+      "department": "Finance"
+    },
+    "leadTeam": "Infrastructure",
+    "leadCoordinator": "Sarah Chen",
+    "supportingTeams": ["Cyber", "IT Support", "Apps & Dev"],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-15",
+    "actualCompletionDate": null,
+    "progressPercentage": 25,
+    "businessJustification": "Legacy system is unsupported and has data integrity issues affecting asset tracking and financial reporting",
+    "escalationNotes": [],
+    "serviceNowParentId": "INC0012351",
+    "taskIds": [],
+    "workflowType": "template",
+    "workflow": {
+      "templateId": "template-standard-procurement",
+      "blocks": [
+        {
+          "blockId": "block-cyber-review",
+          "sequence": 1,
+          "assignedTo": "Ryan Mitchell",
+          "status": "completed",
+          "startDate": "2025-01-20",
+          "completedDate": "2025-01-22",
+          "actualDays": 2,
+          "notes": "Initial security assessment before procurement",
+          "completionNotes": "Vendor approved. No significant security concerns identified.",
+          "estimatedDays": 3
+        },
+        {
+          "blockId": "block-procurement",
+          "sequence": 2,
+          "assignedTo": "Sarah Chen",
+          "status": "in-progress",
+          "startDate": "2025-01-22",
+          "completedDate": null,
+          "actualDays": null,
+          "notes": "Purchase and vendor coordination - extended timeline for contract review",
+          "completionNotes": "",
+          "estimatedDays": 10
+        },
+        {
+          "blockId": "block-cyber-review",
+          "sequence": 3,
+          "assignedTo": null,
+          "status": "waiting",
+          "startDate": null,
+          "completedDate": null,
+          "actualDays": null,
+          "notes": "Final security check before deployment",
+          "completionNotes": "",
+          "estimatedDays": 3
+        },
+        {
+          "blockId": "block-implementation",
+          "sequence": 4,
+          "assignedTo": null,
+          "status": "waiting",
+          "startDate": null,
+          "completedDate": null,
+          "actualDays": null,
+          "notes": "Deploy to production environment",
+          "completionNotes": "",
+          "estimatedDays": 2
+        }
+      ],
+      "overallProgress": 25,
+      "currentBlock": 2,
+      "blocksCompleted": 1,
+      "blocksTotal": 4
+    },
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted using Standard Procurement workflow template",
+        "updatedBy": "System"
+      },
+      {
+        "status": "in-progress",
+        "date": "2025-01-22",
+        "notes": "Cyber review completed. Procurement phase started.",
+        "updatedBy": "Sarah Chen"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-22",
+        "author": "Ryan Mitchell",
+        "text": "Security assessment approved. Vendor meets all security requirements."
+      },
+      {
+        "date": "2025-01-23",
+        "author": "Sarah Chen",
+        "text": "Quotes received from 3 vendors. Evaluating pricing and features."
+      }
+    ]
+  },
+  {
     "id": "OTI-2025-001",
     "title": "SharePoint Integration for HR System",
     "description": "Integrate the new HR management system with SharePoint to enable automated document workflows and improve employee onboarding processes.",
