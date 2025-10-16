@@ -61,6 +61,8 @@
   position: relative;
 }
 
+/* REMOVED: This CSS was conflicting with SVG transform attributes!
+   SVG groups use transform attributes, not CSS positioning.
 .donut-center {
   position: absolute;
   top: 50%;
@@ -68,6 +70,7 @@
   transform: translate(-50%, -50%);
   text-align: center;
 }
+*/
 
 .donut-center-value {
   font-size: var(--font-size-2xl);
