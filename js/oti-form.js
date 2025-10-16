@@ -377,26 +377,26 @@ class OTIFormView {
                     ` : ''}
                   </div>
                 </div>
-              </div>
             </div>
-
-          </form>
-        </div>
-
-        <!-- Form Actions -->
-        <div class="form-actions">
-          <div class="form-actions-left">
-            ${this.currentStep > 1 ? '<button type="button" id="prev-btn" class="button button-outline">Previous</button>' : ''}
-            <a href="#oti-list" class="button button-outline">Cancel</a>
           </div>
-          <div class="form-actions-right">
-            ${this.currentStep < this.totalSteps ? 
-              '<button type="button" id="next-btn" class="button button-primary">Next</button>' : 
-              `<button type="submit" id="submit-btn" class="button button-primary">${isEdit ? 'Update OTI' : 'Create OTI'}</button>`
-            }
+
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <div class="form-actions-left">
+              ${this.currentStep > 1 ? '<button type="button" id="prev-btn" class="button button-outline">Previous</button>' : ''}
+              <a href="#oti-list" class="button button-outline">Cancel</a>
+            </div>
+            <div class="form-actions-right">
+              ${this.currentStep < this.totalSteps ? 
+                '<button type="button" id="next-btn" class="button button-primary">Next</button>' : 
+                `<button type="submit" id="submit-btn" class="button button-primary">${isEdit ? 'Update OTI' : 'Create OTI'}</button>`
+              }
+            </div>
           </div>
-        </div>
+
+        </form>
       </div>
+    </div>
     `;
   }
 
