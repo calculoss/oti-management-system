@@ -805,6 +805,79 @@
   gap: var(--spacing-3);
 }
 
+/* ===== HELP ICONS & TOOLTIPS ===== */
+.help-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-left: var(--spacing-2);
+  font-size: 14px;
+  color: var(--color-gray-400);
+  cursor: help;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  background: var(--color-gray-100);
+  font-weight: bold;
+  position: relative;
+}
+
+.help-icon:hover {
+  color: var(--color-primary-light);
+  background: var(--color-primary-light);
+  color: white;
+  transform: scale(1.1);
+}
+
+.help-icon[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(31, 41, 55, 0.95);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  white-space: normal;
+  width: 320px;
+  max-width: 90vw;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+  text-align: left;
+}
+
+.help-icon[data-tooltip]::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(31, 41, 55, 0.95);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1001;
+}
+
+.help-icon:hover::after,
+.help-icon:hover::before {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.help-icon:hover::after {
+  transform: translateX(-50%) translateY(-5px);
+}
+
 /* Responsive adjustments for modal */
 @media (max-width: 768px) {
   .header-actions {
@@ -819,5 +892,16 @@
   .modal-dialog {
     max-width: 95%;
     margin: var(--spacing-4);
+  }
+  
+  .help-icon[data-tooltip]::after {
+    width: 280px;
+    left: auto;
+    right: 0;
+    transform: translateX(0);
+  }
+  
+  .help-icon:hover::after {
+    transform: translateX(0) translateY(-5px);
   }
 }

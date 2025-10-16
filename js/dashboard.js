@@ -79,8 +79,11 @@ class DashboardView {
           <!-- Status Distribution -->
           <div class="chart-container">
             <div class="chart-header">
-              <h3 class="chart-title">Status Distribution</h3>
-              <p class="chart-subtitle">OTIs by current status</p>
+              <h3 class="chart-title">
+                Status Distribution
+                <span class="help-icon" data-tooltip="Shows how many OTIs are in each workflow stage. Click on a segment to filter the list below.">ⓘ</span>
+              </h3>
+              <p class="chart-subtitle">OTIs by current status • Click segments to filter</p>
             </div>
             <div class="chart-content" id="status-chart">
               <!-- Status donut chart -->
@@ -90,8 +93,11 @@ class DashboardView {
           <!-- Team Performance -->
           <div class="chart-container">
             <div class="chart-header">
-              <h3 class="chart-title">Team Performance</h3>
-              <p class="chart-subtitle">Active OTIs by lead team</p>
+              <h3 class="chart-title">
+                Team Performance
+                <span class="help-icon" data-tooltip="Displays the workload distribution across teams. Helps identify teams with high OTI volumes.">ⓘ</span>
+              </h3>
+              <p class="chart-subtitle">Active OTIs by lead team • Click bars to filter</p>
             </div>
             <div class="chart-content" id="team-chart">
               <!-- Team bar chart -->
@@ -101,8 +107,11 @@ class DashboardView {
           <!-- Priority Distribution -->
           <div class="chart-container">
             <div class="chart-header">
-              <h3 class="chart-title">Priority Distribution</h3>
-              <p class="chart-subtitle">OTIs by priority level</p>
+              <h3 class="chart-title">
+                Priority Distribution
+                <span class="help-icon" data-tooltip="Shows OTI breakdown by urgency level. Higher priority items require faster response times.">ⓘ</span>
+              </h3>
+              <p class="chart-subtitle">OTIs by priority level • Click segments to filter</p>
             </div>
             <div class="chart-content" id="priority-chart">
               <!-- Priority donut chart -->
@@ -114,7 +123,10 @@ class DashboardView {
         <div class="performance-trends-section">
           <div class="chart-container full-width">
             <div class="chart-header">
-              <h3 class="chart-title">📈 12-Month Performance Trends</h3>
+              <h3 class="chart-title">
+                📈 12-Month Performance Trends
+                <span class="help-icon" data-tooltip="Compares current year performance with last year. Green line shows this year's incoming OTIs, blue shows completed OTIs, gray shows last year's baseline. ↑ Upward trend indicates increase, ↓ downward trend shows decrease.">ⓘ</span>
+              </h3>
               <p class="chart-subtitle">Track workload, throughput, and performance against historical baseline</p>
             </div>
             <div class="chart-content" id="trends-chart">
@@ -326,6 +338,7 @@ class DashboardView {
         height: 400,
         colors: ['#9CA3AF', '#00C7FF', '#DC2626', '#00E39D'],
         showLabels: true,
+        showLegend: true,
         centerText: {
           value: formatNumber(otis.length),
           label: 'Total OTIs'
@@ -398,6 +411,12 @@ class DashboardView {
       this.chartService.createDonutChart('priority-chart', priorityData, {
         height: 400,
         colors: ['#DC2626', '#F59E0B', '#FCD34D', '#10B981'],
+        showLabels: true,
+        showLegend: true,
+        centerText: {
+          value: formatNumber(otis.length),
+          label: 'Total OTIs'
+        },
         tooltip: this.chartService.createTooltip('priority-chart'),
         onClick: (data) => {
           const priorityMap = {

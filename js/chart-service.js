@@ -199,6 +199,59 @@ class ChartService {
         .style('fill', '#6B7280')
         .text(options.centerText.label || '');
     }
+    
+    // Add legend
+    if (options.showLegend) {
+      const legendGroup = g
+        .append('g')
+        .attr('class', 'chart-legend')
+        .attr('transform', `translate(${width / 2}, ${height - 10})`);
+      
+      const legendItemWidth = 120;
+      const legendItems = data.length;
+      const legendStartX = -(legendItems * legendItemWidth) / 2;
+      
+      data.forEach((item, i) => {
+        const legendItem = legendGroup
+          .append('g')
+          .attr('class', 'legend-item')
+          .attr('transform', `translate(${legendStartX + i * legendItemWidth}, 0)`)
+          .style('cursor', 'pointer')
+          .on('click', function() {
+            if (options.onClick) {
+              options.onClick(item);
+            }
+          });
+        
+        // Legend color box
+        legendItem
+          .append('rect')
+          .attr('width', 14)
+          .attr('height', 14)
+          .attr('rx', 2)
+          .attr('fill', colorScale(item.label));
+        
+        // Legend label
+        legendItem
+          .append('text')
+          .attr('x', 20)
+          .attr('y', 11)
+          .style('font-size', '12px')
+          .style('fill', '#374151')
+          .style('font-weight', '500')
+          .text(item.label);
+        
+        // Legend value
+        legendItem
+          .append('text')
+          .attr('x', 20)
+          .attr('y', 11)
+          .attr('dx', item.label.length * 6 + 5)
+          .style('font-size', '12px')
+          .style('fill', '#6B7280')
+          .text(`(${item.value})`);
+      });
+    }
   }
 
   /**
