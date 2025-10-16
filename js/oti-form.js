@@ -21,7 +21,12 @@ class OTIFormView {
     this.priorities = {};
     this.formData = {};
     this.currentStep = 1;
-    this.totalSteps = 4;
+    this.totalSteps = 5;
+    this.workflowTemplates = [];
+    this.buildingBlocks = [];
+    this.selectedWorkflowType = 'none'; // 'none', 'template', 'custom'
+    this.selectedTemplateId = null;
+    this.customWorkflowBlocks = [];
   }
 
   /**
@@ -56,11 +61,31 @@ class OTIFormView {
       const priorityData = await this.otiService.dataManager.loadJSON('config/priorities.json');
       this.priorities = priorityData.priorities;
       
+      // Load workflow data
+      this.workflowTemplates = await this.otiService.getAllWorkflowTemplates();
+      this.buildingBlocks = await this.otiService.getAllBuildingBlocks();
+      
+      // Check if a template was pre-selected (from "Use Template" button)
+      const preSelectedTemplate = sessionStorage.getItem('selectedTemplate');
+      if (preSelectedTemplate) {
+        this.selectedWorkflowType = 'template';
+        this.selectedTemplateId = preSelectedTemplate;
+        sessionStorage.removeItem('selectedTemplate');
+      }
+      
       // Load existing OTI data if editing
       if (this.otiId) {
         this.otiData = await this.otiService.getOTIById(this.otiId);
         if (!this.otiData) {
           throw new Error('OTI not found');
+        }
+        
+        // Load existing workflow data
+        if (this.otiData.workflow) {
+          this.selectedWorkflowType = this.otiData.workflowType || 'custom';
+          if (this.otiData.workflow.templateId) {
+            this.selectedTemplateId = this.otiData.workflow.templateId;
+          }
         }
       }
       
@@ -103,7 +128,11 @@ class OTIFormView {
             </div>
             <div class="step ${this.currentStep >= 4 ? 'active' : ''} ${this.currentStep > 4 ? 'completed' : ''}">
               <span class="step-number">4</span>
-              <span class="step-label">Integration</span>
+              <span class="step-label">Workflow</span>
+            </div>
+            <div class="step ${this.currentStep >= 5 ? 'active' : ''} ${this.currentStep > 5 ? 'completed' : ''}">
+              <span class="step-number">5</span>
+              <span class="step-label">Review</span>
             </div>
           </div>
         </div>
@@ -237,8 +266,88 @@ class OTIFormView {
               </div>
             </div>
 
-            <!-- Step 4: Review & Summary -->
+            <!-- Step 4: Workflow Selection -->
             <div class="form-step ${this.currentStep === 4 ? 'active' : ''}" data-step="4">
+              <div class="step-header">
+                <h2 class="step-title">Workflow Setup</h2>
+                <p class="step-description">Choose how this OTI will be managed</p>
+              </div>
+              
+              <div class="form-grid">
+                <!-- Workflow Type Selection -->
+                <div class="form-group full-width">
+                  <label class="form-label">Workflow Type</label>
+                  <div class="workflow-options">
+                    <div class="workflow-option ${this.selectedWorkflowType === 'none' ? 'selected' : ''}" data-workflow-type="none">
+                      <input type="radio" name="workflowType" value="none" id="workflow-none" ${this.selectedWorkflowType === 'none' ? 'checked' : ''}>
+                      <label for="workflow-none">
+                        <div class="option-icon">🚫</div>
+                        <div class="option-title">No Workflow</div>
+                        <div class="option-description">Manual progress tracking only</div>
+                      </label>
+                    </div>
+                    
+                    <div class="workflow-option ${this.selectedWorkflowType === 'template' ? 'selected' : ''}" data-workflow-type="template">
+                      <input type="radio" name="workflowType" value="template" id="workflow-template" ${this.selectedWorkflowType === 'template' ? 'checked' : ''}>
+                      <label for="workflow-template">
+                        <div class="option-icon">📋</div>
+                        <div class="option-title">Use Template</div>
+                        <div class="option-description">Apply a pre-configured workflow</div>
+                      </label>
+                    </div>
+                    
+                    <div class="workflow-option ${this.selectedWorkflowType === 'custom' ? 'selected' : ''}" data-workflow-type="custom">
+                      <input type="radio" name="workflowType" value="custom" id="workflow-custom" ${this.selectedWorkflowType === 'custom' ? 'checked' : ''}>
+                      <label for="workflow-custom">
+                        <div class="option-icon">⚙️</div>
+                        <div class="option-title">Custom Workflow</div>
+                        <div class="option-description">Build a custom workflow from blocks</div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Template Selection (shown when template is selected) -->
+                <div class="form-group full-width ${this.selectedWorkflowType === 'template' ? '' : 'hidden'}" id="template-selection">
+                  <label for="templateSelect" class="form-label">Select Template</label>
+                  <select id="templateSelect" class="form-select">
+                    <option value="">Choose a template...</option>
+                    ${this.workflowTemplates.map(template => `
+                      <option value="${template.id}" ${this.selectedTemplateId === template.id ? 'selected' : ''}>
+                        ${template.name} (${template.blocks.length} blocks, ${template.estimatedTotalDays} days)
+                      </option>
+                    `).join('')}
+                  </select>
+                  
+                  <!-- Template Preview -->
+                  <div id="template-preview" class="template-preview ${this.selectedTemplateId ? '' : 'hidden'}">
+                    ${this.selectedTemplateId ? this.renderTemplatePreview(this.selectedTemplateId) : ''}
+                  </div>
+                </div>
+
+                <!-- Custom Workflow Builder (shown when custom is selected) -->
+                <div class="form-group full-width ${this.selectedWorkflowType === 'custom' ? '' : 'hidden'}" id="custom-workflow-section">
+                  <div class="workflow-builder">
+                    <div class="builder-header">
+                      <label class="form-label">Build Custom Workflow</label>
+                      <button type="button" class="btn btn-sm btn-secondary" id="addCustomBlockBtn">
+                        ➕ Add Block
+                      </button>
+                    </div>
+                    
+                    <div id="custom-blocks-container" class="custom-blocks-container">
+                      ${this.customWorkflowBlocks.length === 0 ? 
+                        '<div class="empty-workflow">No blocks added yet. Click "Add Block" to start building your workflow.</div>' : 
+                        this.customWorkflowBlocks.map((block, index) => this.renderCustomBlockForm(block, index)).join('')
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 5: Review & Summary -->
+            <div class="form-step ${this.currentStep === 5 ? 'active' : ''}" data-step="5">
               <div class="step-header">
                 <h2 class="step-title">Review & Submit</h2>
                 <p class="step-description">Review your OTI details before submitting</p>
@@ -260,6 +369,12 @@ class OTIFormView {
                       <span class="summary-label">Lead Team:</span>
                       <span class="summary-value" id="leadTeamSummary">-</span>
                     </div>
+                    ${this.selectedWorkflowType !== 'none' ? `
+                      <div class="summary-item">
+                        <span class="summary-label">Workflow:</span>
+                        <span class="summary-value" id="workflowSummary">-</span>
+                      </div>
+                    ` : ''}
                   </div>
                 </div>
               </div>
@@ -753,6 +868,99 @@ class OTIFormView {
     setTimeout(() => {
       notification.remove();
     }, 5000);
+  }
+
+  /**
+   * Render template preview
+   */
+  renderTemplatePreview(templateId) {
+    const template = this.workflowTemplates.find(t => t.id === templateId);
+    if (!template) return '';
+
+    return `
+      <div class="template-preview-card">
+        <div class="preview-header">
+          <h4>${template.name}</h4>
+          <span class="preview-badge">${template.blocks.length} blocks • ${template.estimatedTotalDays} days</span>
+        </div>
+        <p class="preview-description">${template.description}</p>
+        <div class="preview-blocks">
+          ${template.blocks.map((block, index) => {
+            const buildingBlock = this.buildingBlocks.find(b => b.id === block.blockId);
+            if (!buildingBlock) return '';
+            return `
+              <div class="preview-block" style="border-left: 3px solid ${buildingBlock.color}">
+                <div class="preview-block-header">
+                  <span class="preview-block-sequence">#${index + 1}</span>
+                  <span class="preview-block-icon">${buildingBlock.icon}</span>
+                  <span class="preview-block-name">${buildingBlock.name}</span>
+                  <span class="preview-block-duration">${block.customDuration || buildingBlock.estimatedDays} days</span>
+                </div>
+                ${block.notes ? `<div class="preview-block-notes">${block.notes}</div>` : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Render custom workflow block form
+   */
+  renderCustomBlockForm(block, index) {
+    const buildingBlock = this.buildingBlocks.find(b => b.id === block.blockId);
+    
+    return `
+      <div class="custom-block-item" data-block-index="${index}">
+        <div class="custom-block-header">
+          <span class="custom-block-sequence">#${index + 1}</span>
+          <span class="custom-block-name">${buildingBlock?.name || 'Select Block'}</span>
+          <div class="custom-block-actions">
+            <button type="button" class="btn-icon" data-action="move-up" data-index="${index}" ${index === 0 ? 'disabled' : ''}>↑</button>
+            <button type="button" class="btn-icon" data-action="move-down" data-index="${index}">↓</button>
+            <button type="button" class="btn-icon" data-action="remove" data-index="${index}">🗑️</button>
+          </div>
+        </div>
+        <div class="custom-block-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Building Block *</label>
+              <select name="customBlockId[]" class="form-select custom-block-select" data-index="${index}" required>
+                <option value="">Select a building block...</option>
+                ${this.buildingBlocks
+                  .filter(b => b.isActive !== false)
+                  .map(b => `
+                    <option value="${b.id}" ${block.blockId === b.id ? 'selected' : ''}>
+                      ${b.icon} ${b.name} (${b.estimatedDays} days)
+                    </option>
+                  `).join('')}
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Custom Duration (days)</label>
+              <input 
+                type="number" 
+                name="customBlockDuration[]" 
+                class="form-input" 
+                placeholder="${buildingBlock?.estimatedDays || 'Auto'}"
+                value="${block.customDuration || ''}"
+                min="0"
+              >
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes</label>
+            <textarea 
+              name="customBlockNotes[]" 
+              class="form-input" 
+              rows="2"
+              placeholder="Any special instructions for this block..."
+            >${block.notes || ''}</textarea>
+          </div>
+        </div>
+      </div>
+    `;
   }
 
   /**
