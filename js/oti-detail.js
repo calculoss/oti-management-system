@@ -65,10 +65,7 @@ class OTIDetailView {
               </div>
             </div>
             <div class="header-actions">
-              <a href="#edit-oti/${this.oti.id}" class="button button-outline" id="edit-oti-btn">Edit</a>
-              <button class="button button-secondary" id="change-status-btn">Change Status</button>
-              <button class="button button-primary" id="add-note-btn">Add Note</button>
-              ${this.oti.status !== 'stalled' ? `<button class="button button-secondary" id="mark-stalled-btn">Mark as Stalled</button>` : ''}
+              <a href="#edit-oti/${this.oti.id}" class="button button-primary" id="edit-oti-btn">✏️ Edit OTI</a>
             </div>
           </div>
         </div>
@@ -600,29 +597,8 @@ class OTIDetailView {
       });
     }
 
-    // Change status button
-    const changeStatusBtn = document.getElementById('change-status-btn');
-    if (changeStatusBtn) {
-      changeStatusBtn.addEventListener('click', () => {
-        this.showStatusChangeModal();
-      });
-    }
-
-    // Add note button
-    const addNoteBtn = document.getElementById('add-note-btn');
-    if (addNoteBtn) {
-      addNoteBtn.addEventListener('click', () => {
-        this.showNoteForm();
-      });
-    }
-
-    // Mark as stalled button
-    const markStalledBtn = document.getElementById('mark-stalled-btn');
-    if (markStalledBtn) {
-      markStalledBtn.addEventListener('click', () => {
-        this.handleMarkAsStalled();
-      });
-    }
+    // Removed: Change status, Add note, and Mark as stalled buttons
+    // Users can edit OTI status through the Edit form
 
     // Note form actions
     const cancelNoteBtn = document.getElementById('cancel-note-btn');
