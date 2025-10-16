@@ -45,17 +45,28 @@ class ChartService {
   createChart(containerId, config = {}) {
     const container = d3.select(`#${containerId}`);
     if (container.empty()) {
-      console.error(`Container #${containerId} not found`);
+      console.error(`❌ Container #${containerId} not found`);
       return null;
     }
 
     const margin = config.margin || { top: 20, right: 20, bottom: 20, left: 20 };
     const containerRect = container.node().getBoundingClientRect();
     
+    console.log(`📦 Container ${containerId} rect:`, containerRect);
+    
     // Use container width if available, otherwise default
     let containerWidth = containerRect.width > 0 ? containerRect.width : 400;
     const width = (config.width || containerWidth) - margin.left - margin.right;
     const height = (config.height || 300) - margin.top - margin.bottom;
+    
+    console.log(`📐 Final dimensions for ${containerId}:`, { 
+      configWidth: config.width, 
+      configHeight: config.height,
+      width, 
+      height,
+      svgWidth: width + margin.left + margin.right,
+      svgHeight: height + margin.top + margin.bottom
+    });
     
     // Clear existing content
     container.selectAll('*').remove();
@@ -67,6 +78,8 @@ class ChartService {
       .attr('height', height + margin.top + margin.bottom)
       .attr('class', 'chart')
       .style('background', 'transparent');
+    
+    console.log(`✅ SVG created for ${containerId}`, svg.node());
     
     const g = svg
       .append('g')
@@ -88,16 +101,24 @@ class ChartService {
    * @param {Object} options - Chart options
    */
   createDonutChart(containerId, data, options = {}) {
+    console.log(`🍩 Creating donut chart for: ${containerId}`, { data, options });
+    
     const chart = this.createChart(containerId, options);
-    if (!chart) return;
+    if (!chart) {
+      console.error(`❌ Failed to create chart base for ${containerId}`);
+      return;
+    }
 
     const { g, width, height } = chart;
+    console.log(`📏 Donut chart dimensions for ${containerId}:`, { width, height });
     
     // Ensure we have valid dimensions
     const validWidth = Math.max(width, 200);
     const validHeight = Math.max(height, 200);
     const radius = Math.min(validWidth, validHeight) / 2;
     const innerRadius = radius * (options.innerRadius || 0.6);
+    
+    console.log(`🎯 Calculated values for ${containerId}:`, { validWidth, validHeight, radius, innerRadius });
     
     // Create pie layout
     const pie = d3.pie()
