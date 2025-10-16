@@ -219,11 +219,11 @@ class OTIFormView {
                 </div>
 
                 <div class="form-group">
-                  <label for="leadCoordinator" class="form-label required">Lead Coordinator</label>
-                  <select id="leadCoordinator" name="leadCoordinator" class="form-select" required>
+                  <label for="leadCoordinator" class="form-label">Lead Coordinator</label>
+                  <select id="leadCoordinator" name="leadCoordinator" class="form-select">
                     <option value="">Select Coordinator...</option>
                   </select>
-                  <div class="form-help">Team member responsible for coordination</div>
+                  <div class="form-help">Team member responsible for coordination (optional)</div>
                   <div class="form-error" id="leadCoordinator-error"></div>
                 </div>
 
