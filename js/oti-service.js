@@ -35,6 +35,26 @@ class OTIService {
   }
 
   /**
+   * Reload OTIs from storage (useful after updates)
+   * @returns {Promise<void>}
+   */
+  async reloadOTIs() {
+    try {
+      // Clear cache to force reload from localStorage or file
+      this.dataManager.clearCache('otis/otis.json');
+      
+      // Reload OTIs
+      const otisData = await this.dataManager.loadJSON('otis/otis.json');
+      this.otis = otisData || [];
+      
+      console.log('✅ OTIs reloaded from storage');
+    } catch (error) {
+      console.error('❌ Error reloading OTIs:', error);
+      throw error;
+    }
+  }
+
+  /**
    * Get all OTIs
    * @returns {Array} Array of OTI objects
    */

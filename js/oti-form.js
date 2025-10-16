@@ -807,18 +807,26 @@ class OTIFormView {
       const formData = this.collectFormData();
       
       // Submit data
+      let savedOTIId;
       if (this.otiId) {
         // Update existing OTI
         await this.otiService.updateOTI(this.otiId, formData);
+        savedOTIId = this.otiId;
         console.log('✅ OTI updated successfully');
+        alert('✅ OTI updated successfully!');
       } else {
         // Create new OTI
         const newOTI = await this.otiService.createOTI(formData);
+        savedOTIId = newOTI.id;
         console.log('✅ OTI created successfully:', newOTI.id);
+        alert('✅ OTI created successfully!');
       }
       
-      // Redirect to OTI list
-      window.location.hash = '#oti-list';
+      // Reload OTIs from storage to sync in-memory data
+      await this.otiService.reloadOTIs();
+      
+      // Redirect to OTI detail to see changes
+      window.location.hash = `#oti-detail/${savedOTIId}`;
       
     } catch (error) {
       console.error('❌ Error submitting form:', error);
