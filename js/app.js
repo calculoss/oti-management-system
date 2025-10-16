@@ -7,6 +7,7 @@
 import DataManager from './data-manager.js';
 import OTIService from './oti-service.js';
 import BuildingBlocksView from './building-blocks.js';
+import WorkflowTemplatesView from './workflow-templates.js';
 
 /**
  * Main App class for coordinating the application
@@ -251,8 +252,8 @@ class App {
    */
   async renderWorkflowTemplates(container) {
     try {
-      // Will be implemented next
-      this.showComingSoon('Workflow Templates');
+      this.currentView = new WorkflowTemplatesView(container, this.otiService);
+      await this.currentView.init();
     } catch (error) {
       console.error('❌ Error rendering workflow templates:', error);
       this.showError('Failed to load workflow templates');
