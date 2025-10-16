@@ -48,25 +48,25 @@ class ChartService {
       console.error(`Container #${containerId} not found`);
       return null;
     }
-  
-    const margin = config.margin || { top: 20, right: 20, bottom: 30, left: 40 };
+
+    const margin = config.margin || { top: 20, right: 20, bottom: 20, left: 20 };
+    const containerRect = container.node().getBoundingClientRect();
     
-    // FIXED: Set explicit dimensions if not provided
-    const width = config.width || 350;
-    const height = config.height || 300;
+    // Use container width if available, otherwise default
+    let containerWidth = containerRect.width > 0 ? containerRect.width : 400;
+    const width = (config.width || containerWidth) - margin.left - margin.right;
+    const height = (config.height || 300) - margin.top - margin.bottom;
     
     // Clear existing content
     container.selectAll('*').remove();
     
-    // Create SVG with explicit sizing
+    // Create SVG
     const svg = container
       .append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .attr('class', 'chart')
-      .style('background', 'transparent')
-      .style('display', 'block')
-      .style('margin', '0 auto');
+      .style('background', 'transparent');
     
     const g = svg
       .append('g')
