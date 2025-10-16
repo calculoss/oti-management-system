@@ -793,29 +793,40 @@ class OTIFormView {
    */
   async handleSubmit(event) {
     event.preventDefault();
+    console.log('🔵 Form submitted - starting validation...');
     
     // Validate all steps
-    if (!this.validateAllSteps()) {
+    const isValid = this.validateAllSteps();
+    console.log('🔵 Validation result:', isValid);
+    
+    if (!isValid) {
+      console.log('❌ Validation failed - stopping submission');
       return;
     }
+    
+    console.log('✅ Validation passed - proceeding with submission');
     
     try {
       // Show loading state
       this.setLoadingState(true);
       
       // Collect form data
+      console.log('🔵 Collecting form data...');
       const formData = this.collectFormData();
+      console.log('🔵 Form data collected:', formData);
       
       // Submit data
       let savedOTIId;
       if (this.otiId) {
         // Update existing OTI
+        console.log('🔵 Updating OTI:', this.otiId);
         await this.otiService.updateOTI(this.otiId, formData);
         savedOTIId = this.otiId;
         console.log('✅ OTI updated successfully');
         alert('✅ OTI updated successfully!');
       } else {
         // Create new OTI
+        console.log('🔵 Creating new OTI...');
         const newOTI = await this.otiService.createOTI(formData);
         savedOTIId = newOTI.id;
         console.log('✅ OTI created successfully:', newOTI.id);
@@ -823,13 +834,16 @@ class OTIFormView {
       }
       
       // Reload OTIs from storage to sync in-memory data
+      console.log('🔵 Reloading OTIs from storage...');
       await this.otiService.reloadOTIs();
       
       // Redirect to OTI detail to see changes
+      console.log('🔵 Redirecting to OTI detail:', savedOTIId);
       window.location.hash = `#oti-detail/${savedOTIId}`;
       
     } catch (error) {
       console.error('❌ Error submitting form:', error);
+      alert('❌ Error: ' + error.message);
       this.showError('Failed to save OTI. Please try again.');
     } finally {
       this.setLoadingState(false);
@@ -840,41 +854,68 @@ class OTIFormView {
    * Validate all steps
    */
   validateAllSteps() {
+    console.log('🔍 Starting validateAllSteps...');
+    console.log('🔍 Total steps:', this.totalSteps);
+    console.log('🔍 Workflow type:', this.selectedWorkflowType);
+    console.log('🔍 Template ID:', this.selectedTemplateId);
+    console.log('🔍 Custom blocks:', this.customWorkflowBlocks);
+    
     let isValid = true;
+    let invalidFields = [];
     
     for (let step = 1; step <= this.totalSteps; step++) {
+      console.log(`🔍 Checking step ${step}...`);
       const stepElement = document.querySelector(`[data-step="${step}"]`);
-      if (!stepElement) continue;
+      if (!stepElement) {
+        console.log(`⚠️ Step ${step} element not found`);
+        continue;
+      }
       
       const requiredFields = stepElement.querySelectorAll('[required]');
+      console.log(`🔍 Step ${step} has ${requiredFields.length} required fields`);
       
       requiredFields.forEach(field => {
         // Skip validation for fields in hidden sections
         const parent = field.closest('.hidden');
-        if (parent) return;
+        if (parent) {
+          console.log(`⏭️ Skipping hidden field: ${field.name}`);
+          return;
+        }
         
         // Skip validation for hidden fields themselves
-        if (field.offsetParent === null) return;
+        if (field.offsetParent === null) {
+          console.log(`⏭️ Skipping invisible field: ${field.name}`);
+          return;
+        }
         
-        if (!this.validateField(field)) {
+        const fieldValid = this.validateField(field);
+        console.log(`🔍 Field ${field.name}: ${fieldValid ? '✅ valid' : '❌ invalid'} (value: "${field.value}")`);
+        
+        if (!fieldValid) {
           isValid = false;
-          console.log('❌ Validation failed for field:', field.name, field.value);
+          invalidFields.push({ step, name: field.name, value: field.value });
         }
       });
     }
     
     // Special validation for workflow step (step 4)
     if (this.selectedWorkflowType === 'template' && !this.selectedTemplateId) {
+      console.log('❌ Template workflow selected but no template chosen');
       alert('Please select a workflow template');
       return false;
     }
     if (this.selectedWorkflowType === 'custom' && this.customWorkflowBlocks.length === 0) {
+      console.log('❌ Custom workflow selected but no blocks added');
       alert('Please add at least one building block to your custom workflow');
       return false;
     }
     
     if (!isValid) {
-      alert('Please fill in all required fields before submitting');
+      console.log('❌ Validation failed for fields:', invalidFields);
+      alert('Please fill in all required fields before submitting:\n' + 
+            invalidFields.map(f => `- ${f.name}`).join('\n'));
+    } else {
+      console.log('✅ All validations passed');
     }
     
     return isValid;
