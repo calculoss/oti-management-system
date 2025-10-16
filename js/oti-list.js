@@ -54,20 +54,21 @@ class OTIListView {
 
         <!-- Filters Section -->
         <div class="filters-section">
-          <div class="filters-row">
-            <div class="filter-group">
-              <label class="filter-label">Search</label>
+          <div class="filters-bar">
+            <!-- Search -->
+            <div class="filter-item filter-search">
               <div class="search-box">
-                <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16">
+                <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18">
                   <path fill="currentColor" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                 </svg>
-                <input type="text" class="filter-input search-input" id="search-input" placeholder="Search OTIs...">
+                <input type="text" class="filter-input" id="search-input" placeholder="Search by title, ID, or description...">
               </div>
             </div>
 
-            <div class="filter-group">
-              <label class="filter-label">Status</label>
-              <select class="filter-select" id="status-filter" multiple>
+            <!-- Status -->
+            <div class="filter-item">
+              <select class="filter-select" id="status-filter">
+                <option value="">All Status</option>
                 <option value="received">Received</option>
                 <option value="in-progress">In Progress</option>
                 <option value="stalled">Stalled</option>
@@ -75,9 +76,10 @@ class OTIListView {
               </select>
             </div>
 
-            <div class="filter-group">
-              <label class="filter-label">Priority</label>
-              <select class="filter-select" id="priority-filter" multiple>
+            <!-- Priority -->
+            <div class="filter-item">
+              <select class="filter-select" id="priority-filter">
+                <option value="">All Priorities</option>
                 <option value="urgent">Urgent</option>
                 <option value="high">High</option>
                 <option value="medium">Medium</option>
@@ -85,34 +87,41 @@ class OTIListView {
               </select>
             </div>
 
-            <div class="filter-group">
-              <label class="filter-label">Type</label>
+            <!-- Type -->
+            <div class="filter-item">
               <select class="filter-select" id="type-filter">
                 <option value="">All Types</option>
                 <!-- Options will be populated dynamically -->
               </select>
             </div>
 
-            <div class="filter-group">
-              <label class="filter-label">Lead Team</label>
+            <!-- Team -->
+            <div class="filter-item">
               <select class="filter-select" id="team-filter">
                 <option value="">All Teams</option>
                 <!-- Options will be populated dynamically -->
               </select>
             </div>
 
-            <div class="filter-group">
-              <label class="filter-label">Quick Filters</label>
-              <div class="filter-toggles">
-                <label class="filter-toggle" id="overdue-toggle">
-                  <input type="checkbox" id="overdue-checkbox">
-                  <span>Overdue Only</span>
-                </label>
-                <label class="filter-toggle" id="stalled-toggle">
-                  <input type="checkbox" id="stalled-checkbox">
-                  <span>Stalled Only</span>
-                </label>
-              </div>
+            <!-- Quick Filter: Overdue -->
+            <div class="filter-item filter-checkbox">
+              <label class="checkbox-filter">
+                <input type="checkbox" id="overdue-checkbox">
+                <span>Overdue</span>
+              </label>
+            </div>
+
+            <!-- Quick Filter: Stalled -->
+            <div class="filter-item filter-checkbox">
+              <label class="checkbox-filter">
+                <input type="checkbox" id="stalled-checkbox">
+                <span>Issues</span>
+              </label>
+            </div>
+
+            <!-- Clear Button -->
+            <div class="filter-item">
+              <button id="clear-filters-btn" class="button button-text">✕ Clear</button>
             </div>
           </div>
         </div>
@@ -373,24 +382,24 @@ class OTIListView {
       }
     });
 
-    // Toggle filters
-    const overdueToggle = document.getElementById('overdue-toggle');
-    const stalledToggle = document.getElementById('stalled-toggle');
+    // Toggle filters (checkboxes)
+    const overdueCheckbox = document.getElementById('overdue-checkbox');
+    const stalledCheckbox = document.getElementById('stalled-checkbox');
     
-    if (overdueToggle) {
-      overdueToggle.addEventListener('click', () => {
+    if (overdueCheckbox) {
+      overdueCheckbox.addEventListener('change', () => {
         this.updateFilters();
       });
     }
     
-    if (stalledToggle) {
-      stalledToggle.addEventListener('click', () => {
+    if (stalledCheckbox) {
+      stalledCheckbox.addEventListener('change', () => {
         this.updateFilters();
       });
     }
 
     // Clear filters button
-    const clearFiltersBtn = document.getElementById('clear-filters');
+    const clearFiltersBtn = document.getElementById('clear-filters-btn');
     if (clearFiltersBtn) {
       clearFiltersBtn.addEventListener('click', () => {
         this.clearFilters();
@@ -473,15 +482,15 @@ class OTIListView {
    * Update toggle filter visual states
    */
   updateToggleStates() {
-    const overdueToggle = document.getElementById('overdue-toggle');
-    const stalledToggle = document.getElementById('stalled-toggle');
+    const overdueCheckbox = document.getElementById('overdue-checkbox');
+    const stalledCheckbox = document.getElementById('stalled-checkbox');
 
-    if (overdueToggle) {
-      overdueToggle.classList.toggle('active', this.currentFilters.overdueOnly);
+    if (overdueCheckbox) {
+      overdueCheckbox.checked = this.currentFilters.overdueOnly;
     }
 
-    if (stalledToggle) {
-      stalledToggle.classList.toggle('active', this.currentFilters.stalledOnly);
+    if (stalledCheckbox) {
+      stalledCheckbox.checked = this.currentFilters.stalledOnly;
     }
   }
 
