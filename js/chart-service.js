@@ -52,21 +52,10 @@ class ChartService {
     const margin = config.margin || { top: 20, right: 20, bottom: 20, left: 20 };
     const containerRect = container.node().getBoundingClientRect();
     
-    console.log(`📦 Container ${containerId} rect:`, containerRect);
-    
     // Use container width if available, otherwise default
     let containerWidth = containerRect.width > 0 ? containerRect.width : 400;
     const width = (config.width || containerWidth) - margin.left - margin.right;
     const height = (config.height || 300) - margin.top - margin.bottom;
-    
-    console.log(`📐 Final dimensions for ${containerId}:`, { 
-      configWidth: config.width, 
-      configHeight: config.height,
-      width, 
-      height,
-      svgWidth: width + margin.left + margin.right,
-      svgHeight: height + margin.top + margin.bottom
-    });
     
     // Clear existing content
     container.selectAll('*').remove();
@@ -78,8 +67,6 @@ class ChartService {
       .attr('height', height + margin.top + margin.bottom)
       .attr('class', 'chart')
       .style('background', 'transparent');
-    
-    console.log(`✅ SVG created for ${containerId}`, svg.node());
     
     const g = svg
       .append('g')
@@ -101,22 +88,14 @@ class ChartService {
    * @param {Object} options - Chart options
    */
   createDonutChart(containerId, data, options = {}) {
-    console.log(`🍩 Creating donut chart for: ${containerId}`, { data, options });
-    
     const chart = this.createChart(containerId, options);
-    if (!chart) {
-      console.error(`❌ Failed to create chart base for ${containerId}`);
-      return;
-    }
+    if (!chart) return;
 
     const { g, width, height } = chart;
-    console.log(`📏 Donut chart dimensions for ${containerId}:`, { width, height });
     
     // Calculate radius based on available space
     const radius = Math.min(width, height) / 2;
     const innerRadius = radius * (options.innerRadius || 0.6);
-    
-    console.log(`🎯 Calculated values for ${containerId}:`, { width, height, radius, innerRadius });
     
     // Create pie layout
     const pie = d3.pie()
@@ -134,26 +113,19 @@ class ChartService {
       .domain(data.map(d => d.label))
       .range(options.colors || this.defaultColors);
     
-    // Center the chart - use width/height (the actual drawing dimensions)
+    // Center the chart
     const centerGroup = g
       .append('g')
       .attr('class', 'donut-center')
       .attr('transform', `translate(${width / 2},${height / 2})`);
     
-    console.log(`🎯 Center group transform for ${containerId}:`, `translate(${width / 2},${height / 2})`);
-    
     // Draw slices
-    const pieData = pie(data);
-    console.log(`🥧 Pie data for ${containerId}:`, pieData);
-    
     const slices = centerGroup
       .selectAll('.donut-slice')
-      .data(pieData)
+      .data(pie(data))
       .enter()
       .append('g')
       .attr('class', 'donut-slice');
-    
-    console.log(`📊 Created ${slices.size()} slices for ${containerId}`);
     
     slices
       .append('path')
