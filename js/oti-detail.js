@@ -230,18 +230,10 @@ class OTIDetailView {
                   <div class="progress-detail-label">Days Active</div>
                 </div>
                 <div class="progress-detail">
-                  <div class="progress-detail-value">${this.getTaskSummary()}</div>
-                  <div class="progress-detail-label">Tasks</div>
+                  <div class="progress-detail-value">${this.oti.workflow ? `${this.oti.workflow.blocksCompleted}/${this.oti.workflow.blocksTotal}` : 'N/A'}</div>
+                  <div class="progress-detail-label">Workflow Blocks</div>
                 </div>
               </div>
-              ${this.oti.serviceNowParentId ? `
-                <div style="margin-top: 1rem;">
-                  <a href="#" class="servicenow-link" target="_blank">
-                    <span>📋</span>
-                    View in ServiceNow
-                  </a>
-                </div>
-              ` : ''}
             </div>
 
             <!-- Status Change Section -->
@@ -310,26 +302,6 @@ class OTIDetailView {
               </div>
             </div>
 
-            <!-- ServiceNow Integration -->
-            ${this.oti.serviceNowParentId || (this.oti.taskIds && this.oti.taskIds.length > 0) ? `
-              <div class="info-card">
-                <div class="info-card-header">
-                  <h2 class="info-card-title">ServiceNow Integration</h2>
-                </div>
-                ${this.oti.serviceNowParentId ? `
-                  <div class="info-section">
-                    <div class="info-label">Parent Incident</div>
-                    <div class="info-value">${this.oti.serviceNowParentId}</div>
-                  </div>
-                ` : ''}
-                ${this.oti.taskIds && this.oti.taskIds.length > 0 ? `
-                  <div class="info-section">
-                    <div class="info-label">Task IDs</div>
-                    <div class="info-value">${this.oti.taskIds.join(', ')}</div>
-                  </div>
-                ` : ''}
-              </div>
-            ` : ''}
           </div>
         </div>
       </div>
@@ -551,15 +523,6 @@ class OTIDetailView {
   /**
    * Get task summary text
    */
-  getTaskSummary() {
-    if (!this.oti.taskIds || this.oti.taskIds.length === 0) {
-      return 'No tasks';
-    }
-    
-    // In a real implementation, this would check ServiceNow for task completion
-    // For now, return a placeholder
-    return `${this.oti.taskIds.length} tasks`;
-  }
 
   /**
    * Setup event listeners

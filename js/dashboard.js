@@ -654,8 +654,7 @@ class DashboardView {
         { key: 'targetCompletionDate', label: 'Target Completion' },
         { key: 'actualCompletionDate', label: 'Actual Completion' },
         { key: 'businessJustification', label: 'Business Justification' },
-        { key: 'supportingTeams', label: 'Supporting Teams' },
-        { key: 'serviceNowParentId', label: 'ServiceNow ID' }
+        { key: 'supportingTeams', label: 'Supporting Teams' }
       ];
 
       // Generate filename with timestamp

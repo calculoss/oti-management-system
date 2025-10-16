@@ -237,26 +237,14 @@ class OTIFormView {
               </div>
             </div>
 
-            <!-- Step 4: Integration -->
+            <!-- Step 4: Review & Summary -->
             <div class="form-step ${this.currentStep === 4 ? 'active' : ''}" data-step="4">
               <div class="step-header">
-                <h2 class="step-title">ServiceNow Integration</h2>
-                <p class="step-description">Link to existing ServiceNow records (optional)</p>
+                <h2 class="step-title">Review & Submit</h2>
+                <p class="step-description">Review your OTI details before submitting</p>
               </div>
               
               <div class="form-grid">
-                <div class="form-group">
-                  <label for="serviceNowParentId" class="form-label">ServiceNow Parent ID</label>
-                  <input type="text" id="serviceNowParentId" name="serviceNowParentId" class="form-input">
-                  <div class="form-help">Parent incident or request number</div>
-                </div>
-
-                <div class="form-group">
-                  <label for="taskIds" class="form-label">Task IDs</label>
-                  <input type="text" id="taskIds" name="taskIds" class="form-input">
-                  <div class="form-help">Comma-separated list of related task IDs</div>
-                </div>
-
                 <div class="form-group full-width">
                   <div class="info-card">
                     <h3 class="info-title">Summary</h3>
@@ -407,8 +395,6 @@ class OTIFormView {
     document.getElementById('dependencies').value = data.dependencies || '';
     
     // Integration
-    document.getElementById('serviceNowParentId').value = data.serviceNowParentId || '';
-    document.getElementById('taskIds').value = data.taskIds?.join(', ') || '';
     
     // Supporting teams
     if (data.supportingTeams) {
@@ -700,14 +686,6 @@ class OTIFormView {
     });
     
     // Collect task IDs
-    const taskIds = [];
-    const taskIdsInput = document.getElementById('taskIds').value;
-    if (taskIdsInput) {
-      taskIdsInput.split(',').forEach(id => {
-        const trimmedId = id.trim();
-        if (trimmedId) taskIds.push(trimmedId);
-      });
-    }
     
     // Calculate target completion date
     const typeId = document.getElementById('otiType').value;
@@ -739,8 +717,6 @@ class OTIFormView {
       businessJustification: formData.get('businessJustification'),
       expectedBenefits: formData.get('expectedBenefits'),
       dependencies: formData.get('dependencies'),
-      serviceNowParentId: formData.get('serviceNowParentId'),
-      taskIds: taskIds,
       targetCompletionDate: targetCompletionDate,
       dateSubmitted: this.otiId ? this.otiData.dateSubmitted : new Date().toISOString().split('T')[0]
     };
