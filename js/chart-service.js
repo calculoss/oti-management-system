@@ -92,7 +92,11 @@ class ChartService {
     if (!chart) return;
 
     const { g, width, height } = chart;
-    const radius = Math.min(width, height) / 2;
+    
+    // Ensure we have valid dimensions
+    const validWidth = Math.max(width, 200);
+    const validHeight = Math.max(height, 200);
+    const radius = Math.min(validWidth, validHeight) / 2;
     const innerRadius = radius * (options.innerRadius || 0.6);
     
     // Create pie layout
@@ -115,7 +119,7 @@ class ChartService {
     const centerGroup = g
       .append('g')
       .attr('class', 'donut-center')
-      .attr('transform', `translate(${width / 2},${height / 2})`);
+      .attr('transform', `translate(${validWidth / 2},${validHeight / 2})`);
     
     // Draw slices
     const slices = centerGroup
