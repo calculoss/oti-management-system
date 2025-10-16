@@ -844,13 +844,37 @@ class OTIFormView {
     
     for (let step = 1; step <= this.totalSteps; step++) {
       const stepElement = document.querySelector(`[data-step="${step}"]`);
+      if (!stepElement) continue;
+      
       const requiredFields = stepElement.querySelectorAll('[required]');
       
       requiredFields.forEach(field => {
+        // Skip validation for fields in hidden sections
+        const parent = field.closest('.hidden');
+        if (parent) return;
+        
+        // Skip validation for hidden fields themselves
+        if (field.offsetParent === null) return;
+        
         if (!this.validateField(field)) {
           isValid = false;
+          console.log('❌ Validation failed for field:', field.name, field.value);
         }
       });
+    }
+    
+    // Special validation for workflow step (step 4)
+    if (this.selectedWorkflowType === 'template' && !this.selectedTemplateId) {
+      alert('Please select a workflow template');
+      return false;
+    }
+    if (this.selectedWorkflowType === 'custom' && this.customWorkflowBlocks.length === 0) {
+      alert('Please add at least one building block to your custom workflow');
+      return false;
+    }
+    
+    if (!isValid) {
+      alert('Please fill in all required fields before submitting');
     }
     
     return isValid;
