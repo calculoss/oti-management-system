@@ -495,5 +495,92 @@ export default {
   
   // Color utilities
   getPriorityColor,
-  getStatusColor
+  getStatusColor,
+  
+  // Export utilities
+  exportToCSV,
+  downloadFile
 };
+
+/**
+ * Export Utilities
+ */
+
+/**
+ * Export array of objects to CSV format
+ * @param {Array} data - Array of objects to export
+ * @param {string} filename - Name of the CSV file
+ * @param {Array} columns - Optional array of column definitions {key, label}
+ */
+export function exportToCSV(data, filename = 'export.csv', columns = null) {
+  if (!data || data.length === 0) {
+    console.warn('No data to export');
+    return;
+  }
+
+  // If no columns specified, use all keys from first object
+  if (!columns) {
+    const firstItem = data[0];
+    columns = Object.keys(firstItem).map(key => ({
+      key: key,
+      label: key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')
+    }));
+  }
+
+  // Build CSV header
+  const header = columns.map(col => `"${col.label}"`).join(',');
+  
+  // Build CSV rows
+  const rows = data.map(item => {
+    return columns.map(col => {
+      let value = item[col.key];
+      
+      // Handle different data types
+      if (value === null || value === undefined) {
+        value = '';
+      } else if (typeof value === 'object') {
+        // Handle nested objects (like requestor)
+        if (value.name) value = value.name;
+        else if (Array.isArray(value)) value = value.join('; ');
+        else value = JSON.stringify(value);
+      } else if (typeof value === 'string') {
+        // Escape quotes in strings
+        value = value.replace(/"/g, '""');
+      }
+      
+      return `"${value}"`;
+    }).join(',');
+  });
+
+  // Combine header and rows
+  const csv = [header, ...rows].join('\n');
+  
+  // Download the file
+  downloadFile(csv, filename, 'text/csv;charset=utf-8;');
+  
+  console.log(`✅ Exported ${data.length} rows to ${filename}`);
+}
+
+/**
+ * Download a file with given content
+ * @param {string} content - File content
+ * @param {string} filename - File name
+ * @param {string} mimeType - MIME type
+ */
+export function downloadFile(content, filename, mimeType) {
+  // Create a Blob with the content
+  const blob = new Blob([content], { type: mimeType });
+  
+  // Create a temporary download link
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  
+  // Trigger download
+  document.body.appendChild(link);
+  link.click();
+  
+  // Cleanup
+  document.body.removeChild(link);
+  URL.revokeObjectURL(link.href);
+}

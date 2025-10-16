@@ -5,7 +5,7 @@
  * sorting, search, and list-specific functionality.
  */
 
-import { formatDate, truncateText } from './utils.js';
+import { formatDate, truncateText, exportToCSV } from './utils.js';
 
 /**
  * OTIListView class for rendering OTI list
@@ -47,7 +47,7 @@ class OTIListView {
         <div class="oti-list-header">
           <h1 class="oti-list-title">OTI List</h1>
           <div class="oti-list-actions">
-            <a href="#add-oti" class="button button-outline">Export CSV</a>
+            <button id="export-csv-btn" class="button button-outline">📊 Export CSV</button>
             <a href="#add-oti" class="button button-primary">+ Add OTI</a>
           </div>
         </div>
@@ -345,6 +345,14 @@ class OTIListView {
    * Setup event listeners
    */
   setupEventListeners() {
+    // Export CSV button
+    const exportBtn = document.getElementById('export-csv-btn');
+    if (exportBtn) {
+      exportBtn.addEventListener('click', () => {
+        this.handleExportCSV();
+      });
+    }
+
     // Search input
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
@@ -602,6 +610,66 @@ class OTIListView {
         <button onclick="location.reload()" class="button button-primary">Refresh Page</button>
       </div>
     `;
+  }
+
+  /**
+   * Handle CSV export
+   */
+  handleExportCSV() {
+    try {
+      // Get current filtered/searched OTIs
+      let otis = this.otiService.getAllOTIs();
+
+      // Apply search
+      if (this.searchQuery) {
+        otis = this.otiService.searchOTIs(this.searchQuery);
+      }
+
+      // Apply filters
+      if (Object.keys(this.currentFilters).length > 0) {
+        otis = this.otiService.filterOTIs(otis, this.currentFilters);
+      }
+
+      // Apply sort
+      otis = this.otiService.sortOTIs(otis, this.currentSort.field, this.currentSort.direction);
+
+      if (otis.length === 0) {
+        alert('No OTIs to export with current filters');
+        return;
+      }
+
+      // Define columns for export
+      const columns = [
+        { key: 'id', label: 'OTI ID' },
+        { key: 'title', label: 'Title' },
+        { key: 'status', label: 'Status' },
+        { key: 'priority', label: 'Priority' },
+        { key: 'otiType', label: 'OTI Type' },
+        { key: 'leadTeam', label: 'Lead Team' },
+        { key: 'leadCoordinator', label: 'Lead Coordinator' },
+        { key: 'requestor', label: 'Requestor' },
+        { key: 'dateSubmitted', label: 'Date Submitted' },
+        { key: 'targetCompletionDate', label: 'Target Completion' },
+        { key: 'actualCompletionDate', label: 'Actual Completion' },
+        { key: 'progressPercentage', label: 'Progress %' },
+        { key: 'businessJustification', label: 'Business Justification' },
+        { key: 'supportingTeams', label: 'Supporting Teams' }
+      ];
+
+      // Generate filename with timestamp
+      const timestamp = new Date().toISOString().split('T')[0];
+      const filename = `OTI-Export-${timestamp}.csv`;
+
+      // Export to CSV
+      exportToCSV(otis, filename, columns);
+
+      // Show success message
+      alert(`✅ Exported ${otis.length} OTIs to ${filename}`);
+      
+    } catch (error) {
+      console.error('❌ Error exporting CSV:', error);
+      alert('Failed to export CSV. Please try again.');
+    }
   }
 
   /**

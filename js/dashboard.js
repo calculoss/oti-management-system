@@ -5,7 +5,7 @@
  * charts, and dashboard-specific functionality.
  */
 
-import { formatDate, formatNumber, formatPercentage } from './utils.js';
+import { formatDate, formatNumber, formatPercentage, exportToCSV } from './utils.js';
 
 /**
  * DashboardView class for rendering dashboard
@@ -50,8 +50,11 @@ class DashboardView {
     this.container.innerHTML = `
       <div class="dashboard">
         <div class="dashboard-header">
-          <h1 class="dashboard-title">OTI Pipeline Dashboard</h1>
-          <p class="dashboard-subtitle">Lake Macquarie City Council IT Department</p>
+          <div>
+            <h1 class="dashboard-title">OTI Pipeline Dashboard</h1>
+            <p class="dashboard-subtitle">Lake Macquarie City Council IT Department</p>
+          </div>
+          <button id="export-dashboard-btn" class="button button-outline">📊 Export Dashboard Data</button>
         </div>
 
         <!-- Key Metrics Cards -->
@@ -585,6 +588,14 @@ class DashboardView {
    * Setup event listeners
    */
   setupEventListeners() {
+    // Export dashboard data button
+    const exportBtn = document.getElementById('export-dashboard-btn');
+    if (exportBtn) {
+      exportBtn.addEventListener('click', () => {
+        this.handleExportDashboard();
+      });
+    }
+
     // Add any dashboard-specific event listeners here
     window.addEventListener('resize', () => {
       this.resizeCharts();
@@ -614,6 +625,53 @@ class DashboardView {
         <button onclick="location.reload()" class="button button-primary">Refresh Page</button>
       </div>
     `;
+  }
+
+  /**
+   * Handle dashboard data export
+   */
+  handleExportDashboard() {
+    try {
+      const otis = this.otiService.getAllOTIs();
+
+      if (otis.length === 0) {
+        alert('No OTI data available to export');
+        return;
+      }
+
+      // Define comprehensive columns for dashboard export
+      const columns = [
+        { key: 'id', label: 'OTI ID' },
+        { key: 'title', label: 'Title' },
+        { key: 'status', label: 'Status' },
+        { key: 'priority', label: 'Priority' },
+        { key: 'otiType', label: 'OTI Type' },
+        { key: 'leadTeam', label: 'Lead Team' },
+        { key: 'leadCoordinator', label: 'Lead Coordinator' },
+        { key: 'requestor', label: 'Requestor' },
+        { key: 'progressPercentage', label: 'Progress %' },
+        { key: 'dateSubmitted', label: 'Date Submitted' },
+        { key: 'targetCompletionDate', label: 'Target Completion' },
+        { key: 'actualCompletionDate', label: 'Actual Completion' },
+        { key: 'businessJustification', label: 'Business Justification' },
+        { key: 'supportingTeams', label: 'Supporting Teams' },
+        { key: 'serviceNowParentId', label: 'ServiceNow ID' }
+      ];
+
+      // Generate filename with timestamp
+      const timestamp = new Date().toISOString().split('T')[0];
+      const filename = `OTI-Dashboard-${timestamp}.csv`;
+
+      // Export to CSV
+      exportToCSV(otis, filename, columns);
+
+      // Show success message
+      alert(`✅ Exported ${otis.length} OTIs from dashboard to ${filename}`);
+      
+    } catch (error) {
+      console.error('❌ Error exporting dashboard data:', error);
+      alert('Failed to export dashboard data. Please try again.');
+    }
   }
 
   /**
