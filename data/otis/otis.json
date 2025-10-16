@@ -1,800 +1,1064 @@
 [
   {
-    "id": "OTI-2025-008",
-    "title": "Procurement of Asset Management Software",
-    "description": "Purchase and implement new asset management software to replace aging legacy system. Includes data migration from old system.",
-    "otiType": "software-purchase",
-    "priority": "high",
-    "status": "in-progress",
-    "requestor": {
-      "name": "Michael Torres",
-      "email": "michael.torres@lakemac.nsw.gov.au",
-      "department": "Finance"
-    },
-    "leadTeam": "Infrastructure",
-    "leadCoordinator": "Sarah Chen",
-    "supportingTeams": ["Cyber", "IT Support", "Apps & Dev"],
-    "dateSubmitted": "2025-01-20",
-    "targetCompletionDate": "2025-02-15",
-    "actualCompletionDate": null,
-    "progressPercentage": 25,
-    "businessJustification": "Legacy system is unsupported and has data integrity issues affecting asset tracking and financial reporting",
-    "escalationNotes": [],
-    "workflowType": "template",
-    "workflow": {
-      "templateId": "template-standard-procurement",
-      "blocks": [
-        {
-          "blockId": "block-cyber-review",
-          "sequence": 1,
-          "assignedTo": "Ryan Mitchell",
-          "status": "completed",
-          "startDate": "2025-01-20",
-          "completedDate": "2025-01-22",
-          "actualDays": 2,
-          "notes": "Initial security assessment before procurement",
-          "completionNotes": "Vendor approved. No significant security concerns identified.",
-          "estimatedDays": 3,
-          "checklistProgress": {
-            "completed": ["Review architecture diagram", "Assess data flows and storage", "Evaluate vendor security credentials", "Complete risk assessment", "Obtain security approval"],
-            "total": 5
-          }
-        },
-        {
-          "blockId": "block-procurement",
-          "sequence": 2,
-          "assignedTo": "Sarah Chen",
-          "status": "in-progress",
-          "startDate": "2025-01-22",
-          "completedDate": null,
-          "actualDays": null,
-          "notes": "Purchase and vendor coordination - extended timeline for contract review",
-          "completionNotes": "",
-          "estimatedDays": 10,
-          "checklistProgress": {
-            "completed": ["Identify approved vendors", "Obtain quotes", "Prepare purchase requisition"],
-            "total": 6
-          }
-        },
-        {
-          "blockId": "block-cyber-review",
-          "sequence": 3,
-          "assignedTo": null,
-          "status": "waiting",
-          "startDate": null,
-          "completedDate": null,
-          "actualDays": null,
-          "notes": "Final security check before deployment",
-          "completionNotes": "",
-          "estimatedDays": 3,
-          "checklistProgress": {
-            "completed": [],
-            "total": 5
-          }
-        },
-        {
-          "blockId": "block-implementation",
-          "sequence": 4,
-          "assignedTo": null,
-          "status": "waiting",
-          "startDate": null,
-          "completedDate": null,
-          "actualDays": null,
-          "notes": "Deploy to production environment",
-          "completionNotes": "",
-          "estimatedDays": 2,
-          "checklistProgress": {
-            "completed": [],
-            "total": 5
-          }
-        }
-      ],
-      "overallProgress": 25,
-      "currentBlock": 2,
-      "blocksCompleted": 1,
-      "blocksTotal": 4
-    },
-    "statusHistory": [
-      {
-        "status": "received",
-        "date": "2025-01-20",
-        "notes": "OTI submitted using Standard Procurement workflow template",
-        "updatedBy": "System"
-      },
-      {
-        "status": "in-progress",
-        "date": "2025-01-22",
-        "notes": "Cyber review completed. Procurement phase started.",
-        "updatedBy": "Sarah Chen"
-      }
-    ],
-    "notes": [
-      {
-        "date": "2025-01-22",
-        "author": "Ryan Mitchell",
-        "text": "Security assessment approved. Vendor meets all security requirements."
-      },
-      {
-        "date": "2025-01-23",
-        "author": "Sarah Chen",
-        "text": "Quotes received from 3 vendors. Evaluating pricing and features."
-      }
-    ]
-  },
-  {
     "id": "OTI-2025-001",
-    "title": "SharePoint Integration for HR System",
-    "description": "Integrate the new HR management system with SharePoint to enable automated document workflows and improve employee onboarding processes.",
-    "otiType": "system-enhancement",
-    "priority": "high",
-    "status": "in-progress",
+    "title": "Tree Management Solution",
+    "description": "Minimise and manage risk in managing trees in public spaces; improve record keeping of completing inspections, implement a forward works inspection program and utilise information in the review of Council Strategy and processes associated with Tree Management and Urban Greening",
+    "otiType": "software-purchase",
+    "priority": "medium",
+    "status": "received",
     "requestor": {
-      "name": "John Smith",
-      "email": "john.smith@lakemac.nsw.gov.au",
-      "department": "Human Resources"
+      "name": "Jordan Smith",
+      "email": "contact.001@council.nsw.gov.au",
+      "department": "City Works"
     },
-    "leadTeam": "Apps & Dev",
-    "leadCoordinator": "Jane Smith",
-    "supportingTeams": ["Cyber", "IT Support"],
-    "dateSubmitted": "2025-01-15",
-    "targetCompletionDate": "2025-02-14",
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Jordan Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
     "actualCompletionDate": null,
-    "progressPercentage": 45,
-    "businessJustification": "Reduces manual data entry by 20 hours per week and improves data accuracy",
+    "progressPercentage": 0,
+    "businessJustification": "1. Establishment of clear metrics Inspections completed by suburd/tree type/outcomes/ tree condition assessments  2. Improved recordkeeping and compliance 3. Mapping of trees as assets and assist with operational and financial analysis 4. Improved focus and efficiency  5. Utilisation of data in the review and development of Council policy, procedure, strategy and high level decision making associated with the tree management function",
     "escalationNotes": [],
     "statusHistory": [
       {
         "status": "received",
-        "date": "2025-01-15",
-        "notes": "Initial assessment by Business Analyst",
-        "updatedBy": "Ryan Mitchell"
-      },
-      {
-        "status": "in-progress",
-        "date": "2025-01-18",
-        "notes": "Tasks assigned to teams, development started",
-        "updatedBy": "Jane Smith"
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To improve record keeping and compliance for trees as an asset",
+        "updatedBy": "System"
       }
     ],
     "notes": [
       {
         "date": "2025-01-20",
-        "author": "Jane Smith",
-        "text": "Cyber assessment approved, proceeding with development phase"
-      },
-      {
-        "date": "2025-01-22",
-        "author": "Michael Chen",
-        "text": "API integration completed, testing phase beginning"
+        "author": "Jordan Smith",
+        "text": "Arnab to gather more information and allocate the same to the right team - Jason mentioned that it is a buying new sw/  What is the solution in mind JC -ESRI is not designed to manage assets like this..."
       }
     ]
   },
   {
     "id": "OTI-2025-002",
-    "title": "Microsoft Teams Premium License Purchase",
-    "description": "Purchase and configure Microsoft Teams Premium licenses for executive team to enable advanced meeting features and AI capabilities.",
+    "title": "Replacement of Service Now with an industry standard reporting system for Beach Lifeguard Operations",
+    "description": "Service Now Portal was developed in-house. Current system does not compare well to industry standard benchmarks. The licensing with Service Now may likely be more expensive than industry benchmarks. Reporting function is not available and design would unlikely meet industry standard. Uncertainty of the continuation of service now has business critical implications.",
     "otiType": "software-purchase",
-    "priority": "urgent",
-    "status": "stalled",
+    "priority": "medium",
+    "status": "received",
     "requestor": {
-      "name": "Sarah Johnson",
-      "email": "sarah.johnson@lakemac.nsw.gov.au",
-      "department": "Executive"
+      "name": "Taylor Smith",
+      "email": "contact.002@council.nsw.gov.au",
+      "department": "Leisure Services"
     },
-    "leadTeam": "Apps & Dev",
-    "leadCoordinator": "Sarah Wilson",
-    "supportingTeams": ["Cyber", "IT Support"],
-    "dateSubmitted": "2025-01-10",
-    "targetCompletionDate": "2025-01-17",
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Taylor Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
     "actualCompletionDate": null,
-    "progressPercentage": 25,
-    "businessJustification": "Required for upcoming board meetings and executive communications",
-    "escalationNotes": ["Waiting for budget approval from Finance Department"],
+    "progressPercentage": 0,
+    "businessJustification": "Operational Reliability Reduce system downtime risk from unsupported ServiceNow platfor Reduce system response time and functionality by 50% with purpose-built beach management functionality Safety & Compliance: Maintain 100% incident reporting capability with real-time data capture Ensure continuous compliance with beach safety regulations and audit requirements Staff Efficiency: Reduce daily administrative tasks through automated beach operations workflow Eliminate manual workarounds currently required due to ServiceNow limitations Enable mobile-first operations for beach patrol staff 2. Success Metrics/KPIs System Performance: System availability: >99.5% uptime Response time: <2 seconds for critical functions Zero security incidents from unsupported software Operational Metrics: Daily reporting completion: 100% within 30 minutes of shift end Staff training time: <4 hours (vs current complex ServiceNow workflows) End of period reporting 100% improvement  Risk Mitigation: -operational disruptions due to system failure -audit compliance maintenance - complete elimination of unsupported software liability Cost Efficiency: Total cost of ownership comparison: Watchtower example vs continued ServiceNow support Reduction in IT support tickets related to beach operations system Staff productivity gains measured in hours saved per week",
+    "escalationNotes": [],
     "statusHistory": [
       {
         "status": "received",
-        "date": "2025-01-10",
-        "notes": "Urgent request from Executive team",
-        "updatedBy": "Ryan Mitchell"
-      },
-      {
-        "status": "in-progress",
-        "date": "2025-01-11",
-        "notes": "Cyber assessment completed, awaiting budget approval",
-        "updatedBy": "Sarah Wilson"
-      },
-      {
-        "status": "stalled",
-        "date": "2025-01-16",
-        "notes": "Blocked pending Finance approval",
-        "updatedBy": "Sarah Wilson"
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To compare well with industry standard benchmarks for leisure related benchmarks in leisure related functions",
+        "updatedBy": "System"
       }
     ],
     "notes": [
       {
-        "date": "2025-01-16",
-        "author": "Sarah Wilson",
-        "text": "Finance approval required - escalated to Director"
+        "date": "2025-01-20",
+        "author": "Taylor Smith",
+        "text": "Leisure is ready to own the budget/ they already know the product/ They would need pointed support from IT in terms of cyber etc . AG to have a chat with Brad and take it forward."
       }
     ]
   },
   {
     "id": "OTI-2025-003",
-    "title": "Customer Service Portal Enhancement",
-    "description": "Enhance the existing customer service portal with new features including live chat, ticket tracking, and mobile responsiveness.",
-    "otiType": "website-digital",
+    "title": "Implementation of ticketing system for Caretaking",
+    "description": "Our current system for reporting repair and maintenance requests for buildings is facing several challenges, leading to customer dissatisfaction and operational inefficiencies. Staff have expressed frustration because they are unable to track the status of their requests, which leads to uncertainty and repeated inquiries. Additionally, there is no system in place to provide automatic updates to staff about the progress of their requests. This lack of feedback results in multiple customers often reporting the same issue, causing duplicated efforts for the Facilities Management Team.  Moreover, we do not have a mechanism to track the types of requests, which hinders our ability to gain insights for asset management and identify trends. This absence of data tracking keeps our approach reactive rather than proactive. The lack of a streamlined process leads to inefficiencies, increased costs, and the risk of requests being lost, missed, or not followed up on.",
+    "otiType": "system-enhancement",
     "priority": "medium",
-    "status": "in-progress",
+    "status": "received",
     "requestor": {
-      "name": "David Wilson",
-      "email": "david.wilson@lakemac.nsw.gov.au",
-      "department": "Customer Service"
+      "name": "Morgan Smith",
+      "email": "contact.003@council.nsw.gov.au",
+      "department": "Property and Business Development"
     },
-    "leadTeam": "Web Development",
-    "leadCoordinator": "Alex Rodriguez",
-    "supportingTeams": ["Cyber", "Apps & Dev"],
-    "dateSubmitted": "2025-01-08",
-    "targetCompletionDate": "2025-02-07",
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Morgan Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
     "actualCompletionDate": null,
-    "progressPercentage": 70,
-    "businessJustification": "Improves customer satisfaction and reduces phone call volume by 30%",
+    "progressPercentage": 0,
+    "businessJustification": "A decrease in the number of duplicate maintenance requests by at least 40%, an increase in customer satisfaction scores by 20% (measured through post-service surveys), a reduction in maintenance-related costs by 10%, establishment of a complete and accessible record of all service requests and actions taken.",
     "escalationNotes": [],
     "statusHistory": [
       {
         "status": "received",
-        "date": "2025-01-08",
-        "notes": "Requirements gathered and approved",
-        "updatedBy": "Ryan Mitchell"
-      },
-      {
-        "status": "in-progress",
-        "date": "2025-01-12",
-        "notes": "Development started, UI framework implemented",
-        "updatedBy": "Alex Rodriguez"
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To streamline request related to property services",
+        "updatedBy": "System"
       }
     ],
     "notes": [
       {
-        "date": "2025-01-25",
-        "author": "Alex Rodriguez",
-        "text": "Mobile responsiveness completed, live chat integration in progress"
+        "date": "2025-01-20",
+        "author": "Morgan Smith",
+        "text": "This would go to Joel's team"
       }
     ]
   },
   {
     "id": "OTI-2025-004",
-    "title": "Data Analytics Dashboard for Finance",
-    "description": "Create a comprehensive analytics dashboard for the Finance department to track budget performance, expenditure trends, and forecasting.",
-    "otiType": "data-reporting",
-    "priority": "high",
-    "status": "done",
+    "title": "QR codes on park bins",
+    "description": "Resolve customer complaints Reduce admin workload internally",
+    "otiType": "custom-solution",
+    "priority": "medium",
+    "status": "received",
     "requestor": {
-      "name": "Lisa Brown",
-      "email": "lisa.brown@lakemac.nsw.gov.au",
-      "department": "Finance"
+      "name": "Casey Smith",
+      "email": "contact.004@council.nsw.gov.au",
+      "department": "Waste Services"
     },
-    "leadTeam": "Data Team",
-    "leadCoordinator": "Emma Davis",
-    "supportingTeams": ["Apps & Dev"],
-    "dateSubmitted": "2024-12-15",
-    "targetCompletionDate": "2025-01-14",
-    "actualCompletionDate": "2025-01-12",
-    "progressPercentage": 100,
-    "businessJustification": "Enables real-time budget monitoring and improves financial decision making",
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Casey Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Reduce customer complaints for public place bins Reduce overflowing public place bins Reduce public bins contamination",
     "escalationNotes": [],
     "statusHistory": [
       {
         "status": "received",
-        "date": "2024-12-15",
-        "notes": "Initial requirements analysis completed",
-        "updatedBy": "Ryan Mitchell"
-      },
-      {
-        "status": "in-progress",
-        "date": "2024-12-18",
-        "notes": "Data modeling and dashboard design started",
-        "updatedBy": "Emma Davis"
-      },
-      {
-        "status": "done",
-        "date": "2025-01-12",
-        "notes": "Dashboard completed and deployed successfully",
-        "updatedBy": "Emma Davis"
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To reduce customer complaints related to park bns and resolve them more efficiently by using QR codes on park bins",
+        "updatedBy": "System"
       }
     ],
     "notes": [
       {
-        "date": "2025-01-10",
-        "author": "Emma Davis",
-        "text": "Final testing completed, ready for deployment"
-      },
-      {
-        "date": "2025-01-12",
-        "author": "Lisa Brown",
-        "text": "Dashboard deployed and user training completed"
+        "date": "2025-01-20",
+        "author": "Casey Smith",
+        "text": "AG needs to doscuss with teh stakeholders and capture reqiurements/ AG to have a chat with JOel on the ebst way to capture requirements"
       }
     ]
   },
   {
     "id": "OTI-2025-005",
-    "title": "Network Infrastructure Upgrade",
-    "description": "Upgrade core network switches and routers to support increased bandwidth requirements and improve network reliability.",
-    "otiType": "hardware-equipment",
+    "title": "Greater use of GIS tools and training",
+    "description": "End users woudl like to be aware of and be able to use the full potential of LakeMaps /ARC GIS for analysis and completing our projects. Require IP specific training",
+    "otiType": "system-enhancement",
     "priority": "medium",
-    "status": "in-progress",
+    "status": "received",
     "requestor": {
-      "name": "Robert Taylor",
-      "email": "robert.taylor@lakemac.nsw.gov.au",
-      "department": "Infrastructure"
+      "name": "Riley Smith",
+      "email": "contact.005@council.nsw.gov.au",
+      "department": "Integrated Planning"
     },
-    "leadTeam": "Infrastructure",
-    "leadCoordinator": "David Brown",
-    "supportingTeams": ["Cyber", "IT Support"],
-    "dateSubmitted": "2025-01-05",
-    "targetCompletionDate": "2025-02-04",
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Riley Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
     "actualCompletionDate": null,
-    "progressPercentage": 60,
-    "businessJustification": "Improves network performance and reduces downtime incidents by 40%",
+    "progressPercentage": 0,
+    "businessJustification": "Staff who use LakeMaps/ GIS will become more proficient and able to use more of its features. these benefits / success measures are not measurable by quantative means.",
     "escalationNotes": [],
-    "serviceNowParentId": "INC0012349",
-    "taskIds": ["TASK-011", "TASK-012"],
     "statusHistory": [
       {
         "status": "received",
-        "date": "2025-01-05",
-        "notes": "Infrastructure assessment completed",
-        "updatedBy": "David Brown"
-      },
-      {
-        "status": "in-progress",
-        "date": "2025-01-08",
-        "notes": "Equipment ordered, installation planning started",
-        "updatedBy": "David Brown"
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To improve awareness on GIS specifically on IP",
+        "updatedBy": "System"
       }
     ],
     "notes": [
       {
         "date": "2025-01-20",
-        "author": "David Brown",
-        "text": "Equipment delivered, installation scheduled for next week"
+        "author": "Riley Smith",
+        "text": "Can you please explain the context? GIS had many functionalities where you could click to get more information. The pathway application also allowed access to additional details. There was integration..."
       }
     ]
   },
   {
     "id": "OTI-2025-006",
-    "title": "AI-Powered Document Processing",
-    "description": "Implement AI solution for automated document processing and data extraction to reduce manual data entry across departments.",
-    "otiType": "ai-solutions",
-    "priority": "high",
+    "title": "AI tools",
+    "description": "greater awareness and access to existing avaliable AI tools for all staff",
+    "otiType": "system-enhancement",
+    "priority": "medium",
     "status": "received",
     "requestor": {
-      "name": "Jennifer Thompson",
-      "email": "jennifer.thompson@lakemac.nsw.gov.au",
-      "department": "Digital Solutions"
+      "name": "Jamie Smith",
+      "email": "contact.006@council.nsw.gov.au",
+      "department": "Integrated Planning"
     },
-    "leadTeam": "Apps & Dev",
-    "leadCoordinator": "Jane Smith",
-    "supportingTeams": ["Business Area", "IT Support", "Infrastructure"],
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Jamie Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
     "dateSubmitted": "2025-01-20",
-    "targetCompletionDate": "2025-02-19",
+    "targetCompletionDate": "2025-02-20",
     "actualCompletionDate": null,
     "progressPercentage": 0,
-    "businessJustification": "Automates document processing, saving 15 hours per week across multiple departments",
+    "businessJustification": "staff efficiency increase by 20% by better use of existing AI tools staff have mroe time to spend on other high value tasks and projects.",
     "escalationNotes": [],
-    "serviceNowParentId": null,
-    "taskIds": [],
     "statusHistory": [
       {
         "status": "received",
         "date": "2025-01-20",
-        "notes": "Initial assessment and requirements gathering in progress",
-        "updatedBy": "Ryan Mitchell"
-      }
-    ],
-    "notes": []
-  },
-  {
-    "id": "OTI-2025-007",
-    "title": "GIS Mapping System Enhancement",
-    "description": "Enhance the existing GIS system with new mapping layers, improved performance, and mobile access capabilities.",
-    "otiType": "spatial-gis",
-    "priority": "medium",
-    "status": "in-progress",
-    "requestor": {
-      "name": "Mark Anderson",
-      "email": "mark.anderson@lakemac.nsw.gov.au",
-      "department": "Planning"
-    },
-    "leadTeam": "GIS Team",
-    "leadCoordinator": "Mark Anderson",
-    "supportingTeams": ["Data Team"],
-    "dateSubmitted": "2025-01-12",
-    "targetCompletionDate": "2025-02-11",
-    "actualCompletionDate": null,
-    "progressPercentage": 35,
-    "businessJustification": "Improves planning efficiency and provides better public access to mapping data",
-    "escalationNotes": [],
-    "serviceNowParentId": "INC0012350",
-    "taskIds": ["TASK-013", "TASK-014"],
-    "statusHistory": [
-      {
-        "status": "received",
-        "date": "2025-01-12",
-        "notes": "Requirements analysis completed",
-        "updatedBy": "Ryan Mitchell"
-      },
-      {
-        "status": "in-progress",
-        "date": "2025-01-16",
-        "notes": "Data collection and mapping layer development started",
-        "updatedBy": "Mark Anderson"
+        "notes": "OTI submitted - Greater awareness on AI tools",
+        "updatedBy": "System"
       }
     ],
     "notes": [
       {
-        "date": "2025-01-24",
-        "author": "Nicole Clark",
-        "text": "New mapping layers created, performance optimization in progress"
+        "date": "2025-01-20",
+        "author": "Jamie Smith",
+        "text": "How do you calculate this? What does success look like? Team Considerations: • Time and effort are key metrics. • Copilot has been effective in summarising articles. • We're already using it, but curr..."
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-007",
+    "title": "Library Technology Access for Public use",
+    "description": "Decrease in memberships and engagement for teens and 20-40 year olds.",
+    "otiType": "software-purchase",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Avery Smith",
+      "email": "contact.007@council.nsw.gov.au",
+      "department": "Arts, Culture and Tourism"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Avery Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Increase in library membership, particularly for teens-40 year olds Increase in public PC usage Increase in Council & Libraries reputation Increase in public engagement",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To increase memberships and engagement for teens and 20-40 year olds.",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Avery Smith",
+        "text": "Based on transcript"
       }
     ]
   },
   {
     "id": "OTI-2025-008",
-    "title": "Workflow Automation for Procurement",
-    "description": "Automate the procurement approval workflow to reduce processing time and improve compliance tracking.",
-    "otiType": "process-automation",
-    "priority": "high",
-    "status": "done",
+    "title": "ACT Data Warehouse",
+    "description": "The consolidation and automation of statistical data reporting for all library services. At present this data is manually collected and collated from a variety of sources to manually add to Excel reports. When Management and Leadership Team would like a variation to the report, the building and analysis of data is a lengthy manual process.",
+    "otiType": "system-enhancement",
+    "priority": "medium",
+    "status": "received",
     "requestor": {
-      "name": "Michelle Roberts",
-      "email": "michelle.roberts@lakemac.nsw.gov.au",
-      "department": "Procurement"
+      "name": "Quinn Smith",
+      "email": "contact.008@council.nsw.gov.au",
+      "department": "Arts, Culture and Tourism"
     },
-    "leadTeam": "Apps & Dev",
-    "leadCoordinator": "Sarah Wilson",
-    "supportingTeams": ["Apps & Dev", "Data", "Infrastructure", "Cyber", "SME", "IT Support"],
-    "dateSubmitted": "2024-12-01",
-    "targetCompletionDate": "2024-12-31",
-    "actualCompletionDate": "2024-12-28",
-    "progressPercentage": 100,
-    "businessJustification": "Reduces procurement processing time by 50% and improves compliance",
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Quinn Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Increased staff efficiencies and reporting efficiencies. Faster reporting turnaround times. More reliable and accessible data.",
     "escalationNotes": [],
-    "serviceNowParentId": "INC0012351",
-    "taskIds": ["TASK-015", "TASK-016", "TASK-017", "TASK-018"],
     "statusHistory": [
       {
         "status": "received",
-        "date": "2024-12-01",
-        "notes": "Process analysis completed",
-        "updatedBy": "Ryan Mitchell"
-      },
-      {
-        "status": "in-progress",
-        "date": "2024-12-05",
-        "notes": "Automation design and development started",
-        "updatedBy": "Sarah Wilson"
-      },
-      {
-        "status": "done",
-        "date": "2024-12-28",
-        "notes": "Automation deployed and tested successfully",
-        "updatedBy": "Sarah Wilson"
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To consolidate reporting of all libraries",
+        "updatedBy": "System"
       }
     ],
     "notes": [
       {
-        "date": "2024-12-20",
-        "author": "Sarah Wilson",
-        "text": "Development completed, user acceptance testing in progress"
-      },
-      {
-        "date": "2024-12-28",
-        "author": "Michelle Roberts",
-        "text": "Workflow automation deployed successfully, training completed"
+        "date": "2025-01-20",
+        "author": "Quinn Smith",
+        "text": "Based on transcript: We have it with other departments/ Small initiative /Data team"
       }
     ]
   },
   {
     "id": "OTI-2025-009",
-    "title": "Security Assessment Services",
-    "description": "Engage external security consultants to perform comprehensive security assessment of IT infrastructure and applications.",
-    "otiType": "professional-services",
-    "priority": "urgent",
-    "status": "in-progress",
+    "title": "Segregated Wi-Fi systems network",
+    "description": "Non-Windows devices owned by LMCC, such as those at Fab Lab (3D printers, laser cutter etc) without Ethernet capability need permanent WiFi & Internet connection. At present these connect to LMCC-Public, however the Mist portal needs to be loaded and accepted every 24 hours, which is sometimes not possible.",
+    "otiType": "system-enhancement",
+    "priority": "medium",
+    "status": "received",
     "requestor": {
-      "name": "Amanda Johnson",
-      "email": "amanda.johnson@lakemac.nsw.gov.au",
-      "department": "Cyber Security"
+      "name": "Reese Smith",
+      "email": "contact.009@council.nsw.gov.au",
+      "department": "Arts, Culture and Tourism"
     },
     "leadTeam": "Digital Solutions",
-    "leadCoordinator": "Jennifer Thompson",
-    "supportingTeams": ["Digital Solutions (BA)", "Relevant Technical Area"],
-    "dateSubmitted": "2025-01-03",
-    "targetCompletionDate": "2025-01-10",
+    "leadCoordinator": "Reese Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
     "actualCompletionDate": null,
-    "progressPercentage": 80,
-    "businessJustification": "Required for compliance audit and cybersecurity insurance renewal",
+    "progressPercentage": 0,
+    "businessJustification": "Nil",
     "escalationNotes": [],
-    "serviceNowParentId": "INC0012352",
-    "taskIds": ["TASK-019", "TASK-020"],
     "statusHistory": [
       {
         "status": "received",
-        "date": "2025-01-03",
-        "notes": "Urgent compliance requirement",
-        "updatedBy": "Ryan Mitchell"
-      },
-      {
-        "status": "in-progress",
-        "date": "2025-01-04",
-        "notes": "Vendor selected and assessment started",
-        "updatedBy": "Jennifer Thompson"
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To provide a segregated Wi fi network for ACT(Subject to discussions)",
+        "updatedBy": "System"
       }
     ],
     "notes": [
       {
-        "date": "2025-01-25",
-        "author": "Amanda Johnson",
-        "text": "Assessment 80% complete, final report expected next week"
+        "date": "2025-01-20",
+        "author": "Reese Smith",
+        "text": "Based on transcript: Its OTI/ JC and Jacqui would need to talk abt it"
       }
     ]
   },
   {
     "id": "OTI-2025-010",
-    "title": "Mobile App for Field Services",
-    "description": "Develop a custom mobile application for field service teams to improve work order management and customer communication.",
-    "otiType": "custom-solution",
+    "title": "Risk, Integrity and Internal Audit",
+    "description": "Council currently relies on manual information systems, together with its practices and risk management culture, for managing and reporting operational and enterprise risks.  This results in fragmentation of information, which: - reduces Council’s ability to easily recognise key insights, such as emerging Council-wide issues - increases the risk of duplication of effort through staff having to access various information sources to obtain information - slows the ability of senior staff to see and respond to risks across multiple levels, leading to delayed decision-making on key issues - leads to potential ‘silo-ing’ of information, meaning information is not available across business units to inform decision-making - for example, lower level risks being reported via email and not captured in appropriate enterprise systems, and/or issues that relate to significant risks, such as legislative compliance, not being captured and properly escalated  Council has a range of other systems, which are relevant to risk management but not integrated to support risk-informed decision-making – for example: - Sycle/CAMMs contains information about actions for business planning – which should be informed by the risk management framework but has no direct link with top-level risk management reporting or department risk registers (undertaken manually in word and saved in TRIM). - Done Safe as an incident management system contains information about non-conformance hazards (for example, non-compliance with legislation), with information included inconsistently - Local Government Legal provides a delegations and legislative compliance register, containing information about key legislative requirements applicable to local government, but does not integrate with other Council systems to manage compliance risks   Governance Risk and Compliance is a concept referring to an integrated collection of capabilities that enable an organisation to reliably achieve objectives, address uncertainty and act with integrity. In Council, this could capture a range of ‘second line’ functions undertaken by Integrity and Risk, designed to provide assurance for and power an ethical, risk informed and resilient organisation, including risk and compliance management.",
+    "otiType": "software-purchase",
     "priority": "medium",
     "status": "received",
     "requestor": {
-      "name": "Chris Martinez",
-      "email": "chris.martinez@lakemac.nsw.gov.au",
-      "department": "Field Services"
+      "name": "Cameron Smith",
+      "email": "contact.010@council.nsw.gov.au",
+      "department": "Governance Risk and Compliance (GRC) technology solution"
     },
     "leadTeam": "Digital Solutions",
-    "leadCoordinator": "Jennifer Thompson",
-    "supportingTeams": ["All Team Leads", "Digital Solutions (BA)", "PMO"],
-    "dateSubmitted": "2025-01-18",
-    "targetCompletionDate": "2025-03-19",
+    "leadCoordinator": "Cameron Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
     "actualCompletionDate": null,
     "progressPercentage": 0,
-    "businessJustification": "Improves field service efficiency and customer satisfaction",
+    "businessJustification": "Risk and compliance management integrated with other relevant systems  Executive satisfaction in insights on top-level risk management  Reduced time spent on risk reporting – currently estimated staff are spending around 50 hours per quarter to prepare top-level risk reporting (including time spent by managers and other staff contributing information, Risk Lead supporting and collating information and individual Executive risk owner review). Additional time is spent on departmental risk reporting of lower-level risks.",
     "escalationNotes": [],
-    "serviceNowParentId": null,
-    "taskIds": [],
     "statusHistory": [
       {
         "status": "received",
-        "date": "2025-01-18",
-        "notes": "Initial business analysis in progress",
-        "updatedBy": "Ryan Mitchell"
-      }
-    ],
-    "notes": []
-  },
-  {
-    "id": "OTI-2025-011",
-    "title": "Backup System Upgrade",
-    "description": "Upgrade the existing backup system to improve reliability and add cloud backup capabilities.",
-    "otiType": "hardware-equipment",
-    "priority": "high",
-    "status": "in-progress",
-    "requestor": {
-      "name": "Lisa Garcia",
-      "email": "lisa.garcia@lakemac.nsw.gov.au",
-      "department": "Infrastructure"
-    },
-    "leadTeam": "Infrastructure",
-    "leadCoordinator": "David Brown",
-    "supportingTeams": ["Cyber", "IT Support"],
-    "dateSubmitted": "2025-01-14",
-    "targetCompletionDate": "2025-02-13",
-    "actualCompletionDate": null,
-    "progressPercentage": 55,
-    "businessJustification": "Improves data protection and disaster recovery capabilities",
-    "escalationNotes": [],
-    "serviceNowParentId": "INC0012353",
-    "taskIds": ["TASK-021", "TASK-022"],
-    "statusHistory": [
-      {
-        "status": "received",
-        "date": "2025-01-14",
-        "notes": "Requirements analysis completed",
-        "updatedBy": "Ryan Mitchell"
-      },
-      {
-        "status": "in-progress",
-        "date": "2025-01-17",
-        "notes": "Equipment ordered and installation planned",
-        "updatedBy": "David Brown"
+        "date": "2025-01-20",
+        "notes": "OTI submitted - ",
+        "updatedBy": "System"
       }
     ],
     "notes": [
       {
-        "date": "2025-01-23",
-        "author": "David Brown",
-        "text": "Cloud backup configuration in progress"
+        "date": "2025-01-20",
+        "author": "Cameron Smith",
+        "text": "Strategic Vision for GRC Martene Archer is advocating for a Governance, Risk, and Compliance (GRC) solution that moves beyond fragmented spreadsheets to deliver connected insights for decision-makers...."
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-011",
+    "title": "Custom Copilot for risk-based decision making during business continuity events",
+    "description": "Resourcing, capability and bench strength are all elements that can be challenging during a business continuity event and in some events, risk the quality of decisions being made. The custom Copilot aims to reduce key person dependencies and increase access to information and resources to assist with making decisions aligned to our goals.",
+    "otiType": "custom-solution",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Dakota Smith",
+      "email": "contact.011@council.nsw.gov.au",
+      "department": "Risk, Integrity and Internal Audit"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Dakota Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Improved decision support and streamlined access to business continuity resources during business continuity events as measured during post-event debriefs.",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To build a custom co pilot for risk based decision making during Business Continuity events",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Dakota Smith",
+        "text": "Additional Discussion Points Custom-based CoPilots: Proposed to support tailored workflows and decision-making. AI Assistant: Aims to shift operations toward a more systematised and intelligent approa..."
       }
     ]
   },
   {
     "id": "OTI-2025-012",
-    "title": "Website Accessibility Compliance",
-    "description": "Update the main council website to meet WCAG 2.1 AA accessibility standards for compliance requirements.",
-    "otiType": "website-digital",
-    "priority": "high",
-    "status": "stalled",
+    "title": "History Website and EMu Integration",
+    "description": "Disconnect between history collection, history website, and all other facets of history/museum collections within council",
+    "otiType": "system-enhancement",
+    "priority": "medium",
+    "status": "received",
     "requestor": {
-      "name": "Jessica White",
-      "email": "jessica.white@lakemac.nsw.gov.au",
-      "department": "Communications"
+      "name": "Skylar Smith",
+      "email": "contact.012@council.nsw.gov.au",
+      "department": "Arts, Culture and Tourism"
     },
-    "leadTeam": "Web Development",
-    "leadCoordinator": "Alex Rodriguez",
-    "supportingTeams": ["Cyber", "Apps & Dev"],
-    "dateSubmitted": "2025-01-06",
-    "targetCompletionDate": "2025-02-05",
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Skylar Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
     "actualCompletionDate": null,
-    "progressPercentage": 30,
-    "businessJustification": "Required for legal compliance and accessibility standards",
-    "escalationNotes": ["Waiting for content audit completion from Communications team"],
-    "serviceNowParentId": "INC0012354",
-    "taskIds": ["TASK-023"],
+    "progressPercentage": 0,
+    "businessJustification": "Higher visitation and click rates",
+    "escalationNotes": [],
     "statusHistory": [
       {
         "status": "received",
-        "date": "2025-01-06",
-        "notes": "Compliance requirement identified",
-        "updatedBy": "Ryan Mitchell"
-      },
-      {
-        "status": "in-progress",
-        "date": "2025-01-09",
-        "notes": "Technical audit started",
-        "updatedBy": "Alex Rodriguez"
-      },
-      {
-        "status": "stalled",
         "date": "2025-01-20",
-        "notes": "Blocked pending content audit",
-        "updatedBy": "Alex Rodriguez"
+        "notes": "OTI submitted - To improve the History website to have higher visits",
+        "updatedBy": "System"
       }
     ],
     "notes": [
       {
         "date": "2025-01-20",
-        "author": "Alex Rodriguez",
-        "text": "Technical changes ready, waiting for content team"
+        "author": "Skylar Smith",
+        "text": "Based on transcript: Henry is working on a similar project in 25/26. But ACT thinks there is an additonal scope which needs to be discussed and agreed."
       }
     ]
   },
   {
     "id": "OTI-2025-013",
-    "title": "Email System Migration",
-    "description": "Migrate from on-premises Exchange to Microsoft 365 for improved reliability and collaboration features.",
+    "title": "Asset register/PMO integration",
+    "description": "No governance around asset creation in Authority No strategic asset management system to support data driven decision-making",
     "otiType": "system-enhancement",
     "priority": "medium",
-    "status": "done",
+    "status": "received",
     "requestor": {
-      "name": "Stephanie Adams",
-      "email": "stephanie.adams@lakemac.nsw.gov.au",
-      "department": "IT Support"
+      "name": "Peyton Smith",
+      "email": "contact.013@council.nsw.gov.au",
+      "department": "Asset Management"
     },
-    "leadTeam": "Apps & Dev",
-    "leadCoordinator": "Jane Smith",
-    "supportingTeams": ["Apps & Dev", "SME", "IT Support"],
-    "dateSubmitted": "2024-11-15",
-    "targetCompletionDate": "2024-12-15",
-    "actualCompletionDate": "2024-12-12",
-    "progressPercentage": 100,
-    "businessJustification": "Improves email reliability and enables advanced collaboration features",
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Peyton Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Increase consistency of asset information in the register Reduce time to capitalise assets Improve visibility of asset information including condition",
     "escalationNotes": [],
-    "serviceNowParentId": "INC0012355",
-    "taskIds": ["TASK-024", "TASK-025", "TASK-026"],
     "statusHistory": [
       {
         "status": "received",
-        "date": "2024-11-15",
-        "notes": "Migration planning started",
-        "updatedBy": "Ryan Mitchell"
-      },
-      {
-        "status": "in-progress",
-        "date": "2024-11-20",
-        "notes": "Migration testing and preparation",
-        "updatedBy": "Jane Smith"
-      },
-      {
-        "status": "done",
-        "date": "2024-12-12",
-        "notes": "Migration completed successfully",
-        "updatedBy": "Jane Smith"
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To remove inconsistency around asset creation and streamlining the process wrt asset related project updates from PMO.",
+        "updatedBy": "System"
       }
     ],
     "notes": [
       {
-        "date": "2024-12-10",
-        "author": "Jane Smith",
-        "text": "Migration completed, user training in progress"
+        "date": "2025-01-20",
+        "author": "Peyton Smith",
+        "text": "Project Governance(Rox) is looking at building that on PMO. She is looking a requisite points to implement this . PMO cant talk to Authority. Someone in Fin needs to be notified to put things back to ..."
       }
     ]
   },
   {
     "id": "OTI-2025-014",
-    "title": "Digital Forms Platform",
-    "description": "Implement a digital forms platform to replace paper-based forms and improve data collection efficiency.",
-    "otiType": "software-purchase",
+    "title": "Develop solution to submit asset information",
+    "description": "-\tReduce manually processing time -\tReduce backlog of uncapitalised/unmapped assets",
+    "otiType": "custom-solution",
     "priority": "medium",
-    "status": "in-progress",
+    "status": "received",
     "requestor": {
-      "name": "Rachel Thompson",
-      "email": "rachel.thompson@lakemac.nsw.gov.au",
-      "department": "Data Team"
+      "name": "Parker Smith",
+      "email": "contact.014@council.nsw.gov.au",
+      "department": "Asset Management"
     },
-    "leadTeam": "Apps & Dev",
-    "leadCoordinator": "Michael Chen",
-    "supportingTeams": ["Cyber", "Apps & Dev", "IT Support"],
-    "dateSubmitted": "2025-01-09",
-    "targetCompletionDate": "2025-02-08",
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Parker Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
     "actualCompletionDate": null,
-    "progressPercentage": 40,
-    "businessJustification": "Reduces paper usage and improves data accuracy",
+    "progressPercentage": 0,
+    "businessJustification": "Time taken for assets to be capitalised Percentage of assets not mapped in GIS",
     "escalationNotes": [],
-    "serviceNowParentId": "INC0012356",
-    "taskIds": ["TASK-027", "TASK-028"],
     "statusHistory": [
       {
         "status": "received",
-        "date": "2025-01-09",
-        "notes": "Requirements gathered",
-        "updatedBy": "Ryan Mitchell"
-      },
-      {
-        "status": "in-progress",
-        "date": "2025-01-13",
-        "notes": "Platform evaluation and setup started",
-        "updatedBy": "Michael Chen"
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To standardise the format in which we collect Developer application to reduce the TAT for capitalising Assets and mapping them in GIS",
+        "updatedBy": "System"
       }
     ],
     "notes": [
       {
-        "date": "2025-01-22",
-        "author": "Michael Chen",
-        "text": "Platform selected, configuration in progress"
+        "date": "2025-01-20",
+        "author": "Parker Smith",
+        "text": "Format through Web"
       }
     ]
   },
   {
     "id": "OTI-2025-015",
-    "title": "IT Asset Management System",
-    "description": "Implement a comprehensive IT asset management system to track hardware, software licenses, and maintenance schedules.",
-    "otiType": "software-purchase",
-    "priority": "low",
+    "title": "Facilities Presentation Field Based Operational Software Solution",
+    "description": "Lack of Asset Mapping: Amenities are not currently mapped, making it difficult to track locations and manage service coverage effectively. Undefined Service Frequencies: Service intervals and schedules have not been formally established, leading to inconsistencies in delivery. Limited Monitoring Capabilities: There is insufficient visibility into: - On-time service delivery - Duration and timing of maintenance activities - Resource allocation and requirements Performance Management Constraints: The absence of structured data prevents the establishment and monitoring of team-based KPIs. Inadequate Work Documentation: There is no systematic method for recording summaries of completed tasks at each service location. Compliance Gaps: The current system does not support effective monitoring of compliance with the Council’s Public Amenities Strategy 2021.",
+    "otiType": "custom-solution",
+    "priority": "medium",
     "status": "received",
     "requestor": {
-      "name": "Daniel Kim",
-      "email": "daniel.kim@lakemac.nsw.gov.au",
-      "department": "IT Support"
+      "name": "Drew Smith",
+      "email": "contact.015@council.nsw.gov.au",
+      "department": "City Works"
     },
-    "leadTeam": "Apps & Dev",
-    "leadCoordinator": "Sarah Wilson",
-    "supportingTeams": ["Cyber", "Apps & Dev", "IT Support"],
-    "dateSubmitted": "2025-01-21",
-    "targetCompletionDate": "2025-03-22",
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Drew Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
     "actualCompletionDate": null,
     "progressPercentage": 0,
-    "businessJustification": "Improves asset tracking and reduces license compliance risks",
+    "businessJustification": "Objective: To enhance operational efficiency, transparency, and accountability in the delivery of facilities presentation services by implementing a digital platform that supports real-time recording, monitoring, and review of completed works. - Digital Work Order System Assign, track, and close work requests in real time. Include fields for service type, location, duration, and completion notes. - Mobile Field Access Enable field teams to log completed tasks via mobile devices. Capture photos, timestamps, and notes on-site. - Interactive Amenity Mapping Visualise all public amenities with service history overlays. Filter by location, service type, or frequency. - Automated Reporting & Dashboards Generate daily, weekly, and monthly reports on completed works. Monitor KPIs such as service timeliness, duration, and compliance. - Cross-Departmental Integration Share data with City Works, Customer Service Centre, and Finance. - Compliance Monitoring Align service records with the Public Amenities Strategy 2021. Flag missed or overdue services for review.",
     "escalationNotes": [],
-    "serviceNowParentId": null,
-    "taskIds": [],
     "statusHistory": [
       {
         "status": "received",
-        "date": "2025-01-21",
-        "notes": "Initial assessment in progress",
-        "updatedBy": "Ryan Mitchell"
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To enhance operational efficiency, transparency, and accountability in the delivery of facilities presentation services by implementing a digital platform that supports real-time recording, monitoring, and review of completed works.",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Drew Smith",
+        "text": "Arnab to have a discussion with the stakeholder \t• Is the scope different from \"Webform for Facilities presentation to allow in-house reporting of tasks, eg amenities cleaning​\" which is already in 25..."
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-016",
+    "title": "Family Day Care digitisation of Educator Registration",
+    "description": "Digitise manual systems which take significant staff time and open scope for error Enable educators to update their own registration details, with FDC office oversight/approvals, in a secure platform - enhanced customer experience Establish complete registration record in single location - timely and responsive modifications reflecting real-time status\"",
+    "otiType": "system-enhancement",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Blake Smith",
+      "email": "contact.016@council.nsw.gov.au",
+      "department": "Community Partnerships"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Blake Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Educator residence/venue risk assessment managed digitally enabling real-time updates and changes",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To reduce educator registration time for Family Day care centres",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Blake Smith",
+        "text": "Needs more clarity on this one from COPA. To keep this on hold till we get more clarity"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-017",
+    "title": "Refresh and Review existing Council community online resources and realign for readability and access, information and resources, advocacy and engagement",
+    "description": "Improve community use online of community services, informaiton, resources available on Councils website, in reference to accessible language, easy and clear informaiton pathways, database and educational information.",
+    "otiType": "system-enhancement",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Harper Smith",
+      "email": "contact.017@council.nsw.gov.au",
+      "department": "Community Partnerships"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Harper Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Increased engagement with the website, improved accountability and engagement with Council staff, improve online presence for the community",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To increase engagement with the website, improved accountability and engagement with Council staff, improve online presence for the community",
+        "updatedBy": "System"
       }
     ],
     "notes": []
+  },
+  {
+    "id": "OTI-2025-018",
+    "title": "Vegetation Maintenance (Precinct) Updated Software Solution",
+    "description": "The current ESRI-based solution was implemented prior to the 2019 restructure of the Horticulture and Mowing teams. While it has supported the teams in mapping individual jobs and tracking service frequency, its functionality has become increasingly limited. The system uses color-coded mapping to visually represent service delivery performance, distinguishing between on-time and overdue tasks. However, its reporting capabilities are outdated and insufficient for current operational needs. To compensate, the City Presentation team relies on a combination of the existing ESRI platform and Microsoft Excel to establish and monitor monthly and annual key performance indicators (KPIs) across precinct teams. This includes tracking metrics such as the total square meters serviced each month. Key limitations of the current system include: Inability to track the number of jobs completed or the volume of customer requests received (only those actioned are recorded). Lack of integration with rainfall data, which is instead managed through a separate sports field application. No functionality to map or incorporate new assets under development (e.g., roadside mowing sites, parks) that will be transferred to Council via developers. These constraints significantly hinder forward planning and resource allocation, particularly as the city continues to grow and new maintenance responsibilities emerge.",
+    "otiType": "system-enhancement",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Kendall Smith",
+      "email": "contact.018@council.nsw.gov.au",
+      "department": "City Works"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Kendall Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "A modernised, live solution would: Support Strategic Alignment: Ensure vegetation maintenance activities are aligned with Council’s strategic goals and service standards. Enable Cross-Departmental Collaboration: Serve as a shared platform for multiple departments—including City Works, Environmental Services (ES), Development Assessment and Compliance (DAC), Customer Service, and Asset Management—enhancing transparency and coordination. Promote a Customer-Centric Approach: Improve responsiveness to community needs by enabling real-time tracking of service delivery and customer requests. Enhance Operational Oversight: Provide live dashboards and reporting tools to monitor the status of vegetation services, identify gaps, and support evidence-based decision-making. By investing in a more capable and intelligent solution, Council can improve service efficiency, enhance community satisfaction, and better plan for future growth and asset management. Improved functionality of the solution is core to the success of the project, particularly reporting functions that align with the teams operational needs",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To enhance the existing Vegetation maintenance solution to improve",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Kendall Smith",
+        "text": "Arnab to have a discussion with the customer and take it forward/allocate"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-019",
+    "title": "DroneDeploy utilisation",
+    "description": "Significant safety improvement, reducing staff onsite in the road corridor. Reduce manual processes currently being utilised by staff Reducing costs for stockpile measure up Significant improvement in LMCC ability to conduct condition assessments Improved accuracy and data for LMCC project delivery.",
+    "otiType": "software-purchase",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Rowan Smith",
+      "email": "contact.019@council.nsw.gov.au",
+      "department": "City Works"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Rowan Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Specific outcomes this solution would deliver is; The ability to have both more accurate, and more frequent material tracking Reduced onsite strategic walks Ability to gather base line heights and survey information without establishing surveyors onsite Success for this would be measured in implementation - - Number of stockpile inspections - Improved quality of material transfer reports - Number of site based 'walkthroughs' converted to in office digital inspections",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To improve efficiency , safety and reduce cost related to condition assessments",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Rowan Smith",
+        "text": "Arnab to meet with the stakeholders and understadn teh use case before allocating them to the right tech team -Is there a specific use case - How does it integrate with Vaisala /IPWEA trial"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-020",
+    "title": "Estimating Solution/Benchmark",
+    "description": "Currently, LMCC uses the software platform Benchmark for project delivery estimates across various departments. This platform is being phased out in favour of a new cloud-based system, while the version currently used by Council is no longer being actively supported. As a result, annual licensing fees have increased significantly. Given Council’s operational dependency on this type of software, there is currently limited capacity to assess or implement alternative solutions, leaving Council in a reactive position regarding escalating costs.",
+    "otiType": "system-enhancement",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Sage Smith",
+      "email": "contact.020@council.nsw.gov.au",
+      "department": "City Works"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Sage Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "The software will be utilised, as it is currently a functional requirement. Success will be measured in 'usability'",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - to replace existing solution benchmark used for estimation / It is already in 25/26",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Sage Smith",
+        "text": "This is part of 2025-26 . Any actionable for AG?"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-021",
+    "title": "Council On Call System",
+    "description": "A number of council department have an after hours on-call process. i.e. City Works (Roads, Veg, buildings), Rangers, Waste, Safety etc. All are following their own process for transferring between on call officers and recording call details and actions resulting from calls. A single solution would enable everyone to know who is on call from each section. If there is someone out on a call that person could be called by other department to respond to a call for them saving a second person being called out. Would also enable better data that could be analysed for trends or training. Also, the transfer of the on-call number between on-call officers often creates issues. A better sloution for this process would also be usefull.",
+    "otiType": "custom-solution",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "River Smith",
+      "email": "contact.021@council.nsw.gov.au",
+      "department": "City Works"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "River Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Reduction in overtime paid for call outs. Increase in response time to call outs. Reduced time taken for On call offices to find the right contact person for a issue not related to their section.",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To streamline the after hour son call process and reduce the payout rates",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "River Smith",
+        "text": "Arnab to gather more information and allocate the same to the right team"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-022",
+    "title": "Asset Inspection Process Review",
+    "description": "The current road asset inspection process appears largely manual and resource-intensive, relying heavily on periodic visual assessments, reactive defect reporting, and limited integration with real-time data.  This approach presents several challenges: Inefficiency and Resourcing: Manual inspections consume significant staff time and limit the frequency and coverage of the network that can be assessed, particularly following natural disasters when resources are already stretched. Data Gaps for DRFA Claims: Post-disaster damage assessments are time-sensitive and currently lack consistent, geo-tagged photographic records of road defects, making it harder to substantiate claims under the Disaster Recovery Funding Arrangements (DRFA). Lack of Real-Time Visibility: Without continuous data collection, defects can go undetected until they worsen or are reported by the public, which delays intervention and increases repair costs. Missed Opportunities for Proactive Maintenance: The current process limits our ability to identify early signs of deterioration and program works proactively, increasing long-term asset risks and reactive maintenance demands. These limitations are impacting our ability to maintain optimal service levels across the road network, particularly in the context of climate-related weather events and increasing community expectations.",
+    "otiType": "software-purchase",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Phoenix Smith",
+      "email": "contact.022@council.nsw.gov.au",
+      "department": "City Works"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Phoenix Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Automated Road Defect Detection AI system successfully detects and classifies road defects (e.g. potholes, cracking, faded lines) across 80–100% of targeted road network within pilot area. Integration with Asset Management System (AMS) Defect data is automatically integrated into Council’s AMS, reducing manual data entry and improving work order generation. Reduction in Manual Inspection Hours Staff inspection hours reduced by at around 30% in areas where automated collection is active. Disaster Recovery Support Accurate, time-stamped defect data used to support at least one DRFA funding application or acquittal process. Success will also be evaluated through: Positive feedback from field staff and asset managers Reduction in reactive customer complaints for known defects Demonstrated ability to triage and prioritise defects faster and more effectively",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To improve the defect related process using AI and Vaisala",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Phoenix Smith",
+        "text": "Arnab to have a discussion with the customer and take it forward. Need to understand whether it is same as IPWEA trial / What help is needed From IT"
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-023",
+    "title": "Emissions and sustainability dashboard",
+    "description": "Automating emissions reporting, monitoring of water, gas, electricity utility costs/billing, identifying utility overconsumption/leaks/maintenance requirements. Meeting IP&R reporting requirements and establishing a reporting process for upcoming legislative financial disclosure requirements.",
+    "otiType": "system-enhancement",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Charlie Smith",
+      "email": "contact.023@council.nsw.gov.au",
+      "department": "Environmental Systems"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Charlie Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "xx percentage reduction in Council emissions Increase in number of water leaks detected at Council facilities (or$$ savings in water consumption avoided by leak identification) $$$ decrese in gas/electricity costs at Council facilities",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To automate reporting on environmental parameters",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Charlie Smith",
+        "text": "🔍 Project Context • The dashboard is built on the Open Data Soft (ODS) platform, already in use by the Asset Optimisation team. • It supports internal reporting and has potential for corporate-wide ad..."
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-024",
+    "title": "Guardian ( this is a test project to see the amount of info required)",
+    "description": "Safety, inspection preparation, back to base information",
+    "otiType": "software-purchase",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Finley Smith",
+      "email": "contact.024@council.nsw.gov.au",
+      "department": "Environmental Regulation and Compliance"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Finley Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "notify staff of safety matters prior to attending. mitigating injury",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To ensure safety of field staff by sending them alerts while they are inspecting certain properties which might pose serious risks",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Finley Smith",
+        "text": "// Discussions with Shane Sykes Problem Statement • Certain properties pose serious risks for on field staff, including death threats and aggressive behaviour from residents. • These are tracked in TR..."
+      }
+    ]
+  },
+  {
+    "id": "OTI-2025-025",
+    "title": "Upgrade to field data recording and customer notification (Quality and Surveillance Team) (potential to include Project Delivery Team)",
+    "description": "Fo Q and S team the teams ability to issue site instructions to contrctors working for developers in producing assets that will be dedicated to Council will improve. This is currnetly administered manually. Requests to exec / Councillor will liley reduce if email notificaiton is also provided to developers simultaneously with contract constuctors. This process also has the potential to improve verificaitons of work and site insructions issued to contractors for Council as part of contact adminstation process",
+    "otiType": "software-purchase",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Hayden Smith",
+      "email": "contact.025@council.nsw.gov.au",
+      "department": "City Projects"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Hayden Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "Measurement of compliance and inspection trending",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To improve process around Q&S inspection",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": []
+  },
+  {
+    "id": "OTI-2025-026",
+    "title": "Legal",
+    "description": "Opportunity or problem: The Legal Team's core IT systems require updating to meet expectations of internal customers and Council’s ongoing business improvement efforts.The legal team’s main systems are: \t• Practice Evolve (2016): Practice Evolve (2016): File and document management/PE does some reporting + order company and property searches which is 3rd party plug in \"Infotrack\"<it is nice to have>/For external lawyer- file in PE as well / via email / Usually someone is helping from legal and updating the PE as it cant be accessed by external parties. In many cases the departments themselves interract with the external lawyers. They will put that in TRIM cant update PE / Law firms cant also update the file PE \t• Authority CRM (2017): Matter intake/ online form also but not much takers/ emails or calls > if it is received. .sent to group inbox daily standups >then open a file in PE and get a number.. Use that id for tracking and any comms.. \t• MS Forms (2021): Customer satisfaction \t• MS Excel (2020): Time tracking and reporting \t• MS Planner (2020): Task management-don’t use it planner any more. Manages task as they are allocated -non standard approach \t• DocuSign (2022): Digital signatures Challenges : Heavy reliance on email for task tracking: File management using Practice Evolve is heavily dependent on emails being appropriately filed. Ensuring filing is up to date can be time consuming, especially when it is not attended to consistently. The focus on email as the primary means of information exchange can lead to staff viewing their inbox as a de facto task list, which can impede use of the task management system, leading to it being out of date and hence less useful. Also, in large matters the sheer volume of emails can make it time consuming to find key documents and hard to obtain a quick overview of what the matter is about. Manual monthly reporting:Data from these systems is used to generate monthly reports that are the primary mechanism for sharing details of aggregate activity to individual departments, OLT and the Executive. The production of these reports is a manual process that requires a significant input from the Legal Team Administrator and individual team members. Individual matter level reporting is provided as needed to customers, primarily through email and/or direct conversations. This is a manual process that can be time consuming and is critically dependant on the input of the individual team members who are working on the matter concerned. The task management system is not granular enough to enable customers or management to obtain real time status updates without engaging directly with the person working on the matter. The use of a patchwork of multiple systems feels overly complex for a small team (8 people). This appears to be contributing to team frustrations with processes that are showing up in pulse surveys. Additionally, current systems are unable to support improvement initiatives that are being pursued by internal customers without significant and complex background development (eg: streamlining property transactions, improved contract management). How is the business need being met: There is currently no process in place to meet the business need • External contractors cant view /access PE<Nice to have>",
+    "otiType": "system-enhancement",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Elliot Smith",
+      "email": "contact.026@council.nsw.gov.au",
+      "department": "Legal-IT Sytems Transformation"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Elliot Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "• Reduced system complexity • Improved reporting and analytics • Enhanced internal customer experience • Reduced reliance on email • Improved compliance and legal privilege protection",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - Update Legal team’s core IT systems to meet expectations of internal customers and align with ongoing business improvement efforts.",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": []
+  },
+  {
+    "id": "OTI-2025-027",
+    "title": "Contractor safety",
+    "description": "",
+    "otiType": "system-enhancement",
+    "priority": "medium",
+    "status": "received",
+    "requestor": {
+      "name": "Adrian Smith",
+      "email": "contact.027@council.nsw.gov.au",
+      "department": "City Works"
+    },
+    "leadTeam": "Digital Solutions",
+    "leadCoordinator": "Adrian Smith",
+    "supportingTeams": [
+      "Cyber",
+      "IT Support"
+    ],
+    "dateSubmitted": "2025-01-20",
+    "targetCompletionDate": "2025-02-20",
+    "actualCompletionDate": null,
+    "progressPercentage": 0,
+    "businessJustification": "",
+    "escalationNotes": [],
+    "statusHistory": [
+      {
+        "status": "received",
+        "date": "2025-01-20",
+        "notes": "OTI submitted - To maintain compliance on contractors' licenses etc (to be done using Done safe)",
+        "updatedBy": "System"
+      }
+    ],
+    "notes": [
+      {
+        "date": "2025-01-20",
+        "author": "Adrian Smith",
+        "text": "It was in baclklog buJC: Not strategic. Will be managed by P&C through Dunsafe solve. Do we need to pursue with staekholder? AG to confirm"
+      }
+    ]
   }
 ]
