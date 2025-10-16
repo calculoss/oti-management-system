@@ -62,7 +62,11 @@ class DashboardView {
             <h1 class="dashboard-title">OTI Pipeline Dashboard</h1>
             <p class="dashboard-subtitle">Lake Macquarie City Council IT Department</p>
           </div>
-          <button id="export-dashboard-btn" class="button button-outline">📊 Export Dashboard Data</button>
+          <div class="header-actions">
+            <button id="data-status-btn" class="button button-outline" title="View data storage status">💾 Data Status</button>
+            <button id="reset-data-btn" class="button button-outline" title="Reset to original data">🔄 Reset Data</button>
+            <button id="export-dashboard-btn" class="button button-outline">📊 Export Data</button>
+          </div>
         </div>
 
         <!-- Key Metrics Cards -->
@@ -636,6 +640,22 @@ class DashboardView {
    * Setup event listeners
    */
   setupEventListeners() {
+    // Data status button
+    const dataStatusBtn = document.getElementById('data-status-btn');
+    if (dataStatusBtn) {
+      dataStatusBtn.addEventListener('click', () => {
+        this.showDataStatus();
+      });
+    }
+
+    // Reset data button
+    const resetDataBtn = document.getElementById('reset-data-btn');
+    if (resetDataBtn) {
+      resetDataBtn.addEventListener('click', () => {
+        this.handleResetData();
+      });
+    }
+
     // Export dashboard data button
     const exportBtn = document.getElementById('export-dashboard-btn');
     if (exportBtn) {
@@ -690,6 +710,104 @@ class DashboardView {
         <button onclick="location.reload()" class="button button-primary">Refresh Page</button>
       </div>
     `;
+  }
+
+  /**
+   * Show data storage status
+   */
+  showDataStatus() {
+    const localStorageKeys = Object.keys(localStorage).filter(key => key.startsWith('oti-'));
+    const hasModifiedData = localStorageKeys.some(key => key.startsWith('oti-data-'));
+    const backupCount = localStorageKeys.filter(key => key.startsWith('oti-backup-')).length;
+
+    const statusMessage = hasModifiedData
+      ? `✅ <strong>Data is being saved!</strong><br><br>
+         Your changes are stored in browser LocalStorage and will persist across page refreshes.<br><br>
+         📝 Modified datasets: ${localStorageKeys.filter(k => k.startsWith('oti-data-')).length}<br>
+         📋 Backups created: ${backupCount}<br><br>
+         <strong>What this means:</strong><br>
+         • You can create, edit, and delete OTIs<br>
+         • Changes survive page refreshes<br>
+         • Data is stored locally in your browser<br>
+         • Use "Reset Data" to restore original sample data`
+      : `ℹ️ <strong>Using original sample data</strong><br><br>
+         No changes have been made yet.<br><br>
+         When you create or edit OTIs, your changes will be automatically saved to browser LocalStorage.<br><br>
+         <strong>Try it out:</strong><br>
+         • Create a new OTI<br>
+         • Edit an existing OTI's workflow<br>
+         • Update progress on checklist items<br>
+         • Refresh the page - your changes will still be there!`;
+
+    this.showModal('Data Storage Status', statusMessage);
+  }
+
+  /**
+   * Reset data to original
+   */
+  async handleResetData() {
+    const confirmed = confirm(
+      '⚠️ Reset All Data?\n\n' +
+      'This will:\n' +
+      '• Clear all your changes\n' +
+      '• Restore original sample data\n' +
+      '• Delete all backups\n\n' +
+      'Are you sure you want to continue?'
+    );
+
+    if (!confirmed) return;
+
+    try {
+      // Clear all OTI-related localStorage
+      const keys = Object.keys(localStorage).filter(key => key.startsWith('oti-'));
+      keys.forEach(key => localStorage.removeItem(key));
+
+      // Clear cache in data manager
+      this.otiService.dataManager.clearCache();
+
+      // Show success message
+      alert('✅ Data reset successfully!\n\nThe page will now reload to fetch original data.');
+
+      // Reload page to fetch original data
+      window.location.reload();
+
+    } catch (error) {
+      console.error('❌ Error resetting data:', error);
+      alert('❌ Failed to reset data. Please try again.');
+    }
+  }
+
+  /**
+   * Show modal dialog
+   */
+  showModal(title, content) {
+    // Create modal overlay
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <h3>${title}</h3>
+          <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
+        </div>
+        <div class="modal-body">
+          ${content}
+        </div>
+        <div class="modal-footer">
+          <button class="button button-primary" onclick="this.closest('.modal-overlay').remove()">Close</button>
+        </div>
+      </div>
+    `;
+
+    // Add to page
+    document.body.appendChild(modal);
+
+    // Close on overlay click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.remove();
+      }
+    });
   }
 
   /**
