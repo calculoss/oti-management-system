@@ -625,13 +625,34 @@ class OTIFormView {
     }
     
     const targetDate = targetDays > 0 ? this.calculateTargetDate(targetDays) : '-';
-    document.getElementById('targetDateSummary').textContent = targetDate;
+    const targetDateEl = document.getElementById('targetDateSummary');
+    if (targetDateEl) targetDateEl.textContent = targetDate;
     
     // Update duration
-    document.getElementById('durationSummary').textContent = targetDays > 0 ? `${targetDays} days` : '-';
+    const durationEl = document.getElementById('durationSummary');
+    if (durationEl) durationEl.textContent = targetDays > 0 ? `${targetDays} days` : '-';
     
     // Update lead team
-    document.getElementById('leadTeamSummary').textContent = leadTeam || '-';
+    const leadTeamEl = document.getElementById('leadTeamSummary');
+    if (leadTeamEl) leadTeamEl.textContent = leadTeam || '-';
+    
+    // Update workflow summary
+    const workflowEl = document.getElementById('workflowSummary');
+    if (workflowEl) {
+      if (this.selectedWorkflowType === 'none') {
+        workflowEl.textContent = 'No workflow';
+      } else if (this.selectedWorkflowType === 'template' && this.selectedTemplateId) {
+        const template = this.workflowTemplates.find(t => t.id === this.selectedTemplateId);
+        if (template) {
+          workflowEl.textContent = `${template.name} (${template.blocks.length} blocks)`;
+        }
+      } else if (this.selectedWorkflowType === 'custom') {
+        const blockCount = this.customWorkflowBlocks.length;
+        workflowEl.textContent = `Custom workflow (${blockCount} block${blockCount !== 1 ? 's' : ''})`;
+      } else {
+        workflowEl.textContent = '-';
+      }
+    }
   }
 
   /**
@@ -653,6 +674,11 @@ class OTIFormView {
       this.render();
       this.setupEventListeners();
       this.populateForm();
+      
+      // Update summary when reaching the review step
+      if (this.currentStep === 5) {
+        this.updateSummary();
+      }
     }
   }
 
@@ -675,10 +701,29 @@ class OTIFormView {
     let isValid = true;
     
     requiredFields.forEach(field => {
+      // Skip validation for fields in hidden sections
+      const parent = field.closest('.hidden');
+      if (parent) return;
+      
+      // Skip validation for hidden fields themselves
+      if (field.offsetParent === null) return;
+      
       if (!this.validateField(field)) {
         isValid = false;
       }
     });
+    
+    // Special validation for workflow step (step 4)
+    if (this.currentStep === 4) {
+      if (this.selectedWorkflowType === 'template' && !this.selectedTemplateId) {
+        alert('Please select a workflow template');
+        return false;
+      }
+      if (this.selectedWorkflowType === 'custom' && this.customWorkflowBlocks.length === 0) {
+        alert('Please add at least one building block to your custom workflow');
+        return false;
+      }
+    }
     
     return isValid;
   }
