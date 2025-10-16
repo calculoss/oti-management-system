@@ -426,6 +426,36 @@ class OTIDetailView {
             </div>
           ` : ''}
 
+          ${(isInProgress || isNotStarted) && buildingBlock.checklistItems && buildingBlock.checklistItems.length > 0 ? `
+            <div class="workflow-checklist" style="margin-top: 0.75rem; padding: 0.75rem; background: #f9fafb; border-radius: 0.375rem; border: 1px solid #e5e7eb;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <strong style="font-size: 0.875rem; color: #374151;">Task Checklist</strong>
+                <span style="font-size: 0.75rem; color: #6b7280; font-weight: 600;">
+                  ${block.checklistProgress ? block.checklistProgress.completed.length : 0} / ${buildingBlock.checklistItems.length} complete
+                </span>
+              </div>
+              <div class="checklist-items">
+                ${buildingBlock.checklistItems.map((item, idx) => {
+                  const isChecked = block.checklistProgress && block.checklistProgress.completed.includes(item);
+                  return `
+                    <label class="checklist-item" style="display: flex; align-items: center; padding: 0.5rem; margin-bottom: 0.25rem; cursor: pointer; border-radius: 0.25rem; transition: background 0.15s;">
+                      <input 
+                        type="checkbox" 
+                        class="checklist-checkbox" 
+                        data-sequence="${block.sequence}" 
+                        data-item="${item}"
+                        ${isChecked ? 'checked' : ''}
+                        ${!isInProgress ? 'disabled' : ''}
+                        style="width: 18px; height: 18px; margin-right: 0.75rem; cursor: pointer; accent-color: #10b981;"
+                      />
+                      <span style="font-size: 0.875rem; color: #374151; ${isChecked ? 'text-decoration: line-through; opacity: 0.6;' : ''}">${item}</span>
+                    </label>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          ` : ''}
+
           ${isCompleted ? `
             <div class="workflow-block-completion" style="margin-top: 0.75rem; padding: 0.75rem; background: #f0fdf4; border-radius: 0.375rem;">
               <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
@@ -667,6 +697,16 @@ class OTIDetailView {
       btn.addEventListener('click', (e) => {
         const sequence = parseInt(e.target.dataset.sequence);
         this.handleReassignBlock(sequence);
+      });
+    });
+
+    // Checklist checkboxes
+    document.querySelectorAll('.checklist-checkbox').forEach(checkbox => {
+      checkbox.addEventListener('change', (e) => {
+        const sequence = parseInt(e.target.dataset.sequence);
+        const item = e.target.dataset.item;
+        const isChecked = e.target.checked;
+        this.handleChecklistToggle(sequence, item, isChecked);
       });
     });
   }
@@ -1058,6 +1098,52 @@ class OTIDetailView {
     } catch (error) {
       console.error('❌ Error reassigning block:', error);
       alert('Failed to reassign block. Please try again.');
+    }
+  }
+
+  /**
+   * Handle checklist item toggle
+   */
+  async handleChecklistToggle(sequence, item, isChecked) {
+    try {
+      const block = this.oti.workflow.blocks.find(b => b.sequence === sequence);
+      if (!block) return;
+
+      // Get building block for total checklist items
+      const buildingBlock = this.otiService.getBuildingBlockById(block.blockId);
+      if (!buildingBlock) return;
+
+      // Initialize checklist progress if it doesn't exist
+      if (!block.checklistProgress) {
+        block.checklistProgress = {
+          completed: [],
+          total: buildingBlock.checklistItems.length
+        };
+      }
+
+      // Update completed items
+      if (isChecked) {
+        if (!block.checklistProgress.completed.includes(item)) {
+          block.checklistProgress.completed.push(item);
+        }
+      } else {
+        block.checklistProgress.completed = block.checklistProgress.completed.filter(i => i !== item);
+      }
+
+      // Update the workflow block
+      await this.otiService.updateWorkflowBlock(
+        this.otiId,
+        sequence,
+        block.status,
+        { checklistProgress: block.checklistProgress }
+      );
+
+      // Reload to show updated progress
+      await this.init();
+
+    } catch (error) {
+      console.error('❌ Error updating checklist:', error);
+      alert('Failed to update checklist. Please try again.');
     }
   }
 

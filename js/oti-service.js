@@ -871,7 +871,11 @@ class OTIService {
         notes: templateBlock.notes || '',
         completionNotes: '',
         customDuration: templateBlock.customDuration,
-        estimatedDays: templateBlock.customDuration || buildingBlock?.estimatedDays || 0
+        estimatedDays: templateBlock.customDuration || buildingBlock?.estimatedDays || 0,
+        checklistProgress: {
+          completed: [],
+          total: buildingBlock?.checklistItems?.length || 0
+        }
       };
     });
 

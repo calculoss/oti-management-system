@@ -663,3 +663,41 @@
     width: 100%;
   }
 }
+
+/* Checklist Styles */
+.workflow-checklist {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.checklist-item {
+  transition: background 0.15s;
+}
+
+.checklist-item:hover {
+  background: #f3f4f6;
+}
+
+.checklist-checkbox {
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.checklist-checkbox:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.checklist-checkbox:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

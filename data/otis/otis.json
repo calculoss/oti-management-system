@@ -34,7 +34,11 @@
           "actualDays": 2,
           "notes": "Initial security assessment before procurement",
           "completionNotes": "Vendor approved. No significant security concerns identified.",
-          "estimatedDays": 3
+          "estimatedDays": 3,
+          "checklistProgress": {
+            "completed": ["Review architecture diagram", "Assess data flows and storage", "Evaluate vendor security credentials", "Complete risk assessment", "Obtain security approval"],
+            "total": 5
+          }
         },
         {
           "blockId": "block-procurement",
@@ -46,7 +50,11 @@
           "actualDays": null,
           "notes": "Purchase and vendor coordination - extended timeline for contract review",
           "completionNotes": "",
-          "estimatedDays": 10
+          "estimatedDays": 10,
+          "checklistProgress": {
+            "completed": ["Identify approved vendors", "Obtain quotes", "Prepare purchase requisition"],
+            "total": 6
+          }
         },
         {
           "blockId": "block-cyber-review",
@@ -58,7 +66,11 @@
           "actualDays": null,
           "notes": "Final security check before deployment",
           "completionNotes": "",
-          "estimatedDays": 3
+          "estimatedDays": 3,
+          "checklistProgress": {
+            "completed": [],
+            "total": 5
+          }
         },
         {
           "blockId": "block-implementation",
@@ -70,7 +82,11 @@
           "actualDays": null,
           "notes": "Deploy to production environment",
           "completionNotes": "",
-          "estimatedDays": 2
+          "estimatedDays": 2,
+          "checklistProgress": {
+            "completed": [],
+            "total": 5
+          }
         }
       ],
       "overallProgress": 25,
