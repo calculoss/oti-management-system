@@ -274,7 +274,6 @@ class DashboardView {
       }));
 
       this.chartService.createDonutChart('status-chart', statusData, {
-        width: 400,
         height: 400,
         colors: ['#9CA3AF', '#00C7FF', '#DC2626', '#00E39D'],
         showLabels: true,
@@ -336,7 +335,6 @@ class DashboardView {
       }));
 
       this.chartService.createDonutChart('priority-chart', priorityData, {
-        width: 400,
         height: 400,
         colors: ['#DC2626', '#F59E0B', '#FCD34D', '#10B981'],
         tooltip: this.chartService.createTooltip('priority-chart')
