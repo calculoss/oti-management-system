@@ -545,7 +545,7 @@ class ChartService {
     if (options.showLegend) {
       const legend = g.append('g')
         .attr('class', 'chart-legend')
-        .attr('transform', `translate(${width - 150}, -10)`);
+        .attr('transform', `translate(${width - 150}, 0)`);
       
       datasets.forEach((dataset, idx) => {
         const legendRow = legend.append('g')

@@ -108,17 +108,6 @@ class DashboardView {
               <!-- Priority donut chart -->
             </div>
           </div>
-
-          <!-- OTI Type Analysis -->
-          <div class="chart-container">
-            <div class="chart-header">
-              <h3 class="chart-title">OTI Type Analysis</h3>
-              <p class="chart-subtitle">Distribution by OTI type</p>
-            </div>
-            <div class="chart-content" id="type-chart">
-              <!-- Type bar chart -->
-            </div>
-          </div>
         </div>
 
         <!-- Performance Trends Section -->
@@ -279,7 +268,6 @@ class DashboardView {
         this.renderStatusChart(),
         this.renderTeamChart(),
         this.renderPriorityChart(),
-        this.renderTypeChart(),
         this.renderTrendsChart(),
         this.renderKPICards()
       ]);
