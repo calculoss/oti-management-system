@@ -666,14 +666,94 @@ class OTIFormView {
   }
 
   /**
+   * Save form state before re-rendering
+   */
+  saveFormState() {
+    const formData = {};
+    
+    // Save all form inputs
+    document.querySelectorAll('#oti-form input, #oti-form select, #oti-form textarea').forEach(field => {
+      if (field.type === 'checkbox') {
+        if (!formData[field.name]) {
+          formData[field.name] = [];
+        }
+        if (field.checked) {
+          formData[field.name].push(field.value);
+        }
+      } else if (field.type === 'radio') {
+        if (field.checked) {
+          formData[field.name] = field.value;
+        }
+      } else {
+        formData[field.name] = field.value;
+      }
+    });
+    
+    this.savedFormData = formData;
+    console.log('💾 Saved form state:', formData);
+  }
+
+  /**
+   * Restore form state after re-rendering
+   */
+  restoreFormState() {
+    if (!this.savedFormData) return;
+    
+    console.log('♻️ Restoring form state:', this.savedFormData);
+    
+    // Restore all form inputs
+    Object.entries(this.savedFormData).forEach(([name, value]) => {
+      const fields = document.querySelectorAll(`[name="${name}"]`);
+      
+      fields.forEach(field => {
+        if (field.type === 'checkbox') {
+          field.checked = Array.isArray(value) && value.includes(field.value);
+        } else if (field.type === 'radio') {
+          field.checked = field.value === value;
+        } else {
+          field.value = value;
+        }
+      });
+    });
+    
+    // Trigger change events to update dependent fields
+    const otiType = document.getElementById('otiType');
+    if (otiType && otiType.value) {
+      this.handleTypeChange();
+    }
+    
+    const priority = document.getElementById('priority');
+    if (priority && priority.value) {
+      this.handlePriorityChange();
+    }
+    
+    const leadTeam = document.getElementById('leadTeam');
+    if (leadTeam && leadTeam.value) {
+      this.handleLeadTeamChange();
+    }
+    
+    // Restore workflow state
+    if (this.savedFormData.workflowType) {
+      this.handleWorkflowTypeChange(this.savedFormData.workflowType);
+    }
+    
+    // Restore template selection
+    if (this.savedFormData.templateSelect) {
+      this.handleTemplateSelect(this.savedFormData.templateSelect);
+    }
+  }
+
+  /**
    * Navigate to next step
    */
   nextStep() {
     if (this.validateCurrentStep()) {
+      this.saveFormState(); // Save before re-render
       this.currentStep++;
       this.render();
       this.setupEventListeners();
       this.populateForm();
+      this.restoreFormState(); // Restore after re-render
       
       // Update summary when reaching the review step
       if (this.currentStep === 5) {
@@ -686,10 +766,12 @@ class OTIFormView {
    * Navigate to previous step
    */
   prevStep() {
+    this.saveFormState(); // Save before re-render
     this.currentStep--;
     this.render();
     this.setupEventListeners();
     this.populateForm();
+    this.restoreFormState(); // Restore after re-render
   }
 
   /**
